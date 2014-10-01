@@ -1,0 +1,32 @@
+--- /dev/null
++++ b/tools/aapt/Makefile
+@@ -0,0 +1,29 @@
++#!/usr/bin/make
++
++CXX = g++
++
++HOST_OS=linux
++include Android.mk
++
++OBJECTS = $(LOCAL_SRC_FILES:.cpp=.o)
++
++ALL_CXXFLAGS = -O2 -fPIC $(LOCAL_CFLAGS) \
++	-I../../include -I/usr/include/android \
++	-include /usr/include/android/arch/linux-x86/AndroidConfig.h
++ALL_LDFLAGS = -fPIC -Wl,-rpath=/usr/lib/android
++ALL_LIBS = $(LOCAL_LDLIBS) -lexpat -lpng \
++	-L/usr/lib/android  -lcutils -lhost -llog -lutils \
++	-L../../libs/androidfw  -landroidfw
++
++CXXFLAGS := $(ALL_CXXFLAGS) $(CXXFLAGS)
++LDFLAGS := $(ALL_LDFLAGS) $(LDFLAGS)
++LIBS := $(ALL_LIBS) $(LIBS)
++
++all: aapt
++
++aapt: $(OBJECTS)
++	$(CXX) $(LDFLAGS) -o aapt $(OBJECTS) $(LIBS)
++
++clean:
++	rm -f $(OBJECTS)
++	rm -f aapt

@@ -1,2 +1,4 @@
 main_makefile.patch
 libs_androidfw_makefile.patch
+tools_aapt_makefile.patch
+fix_expat_header_path.patch

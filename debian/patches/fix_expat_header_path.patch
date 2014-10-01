@@ -1,0 +1,11 @@
+--- a/tools/aapt/StringPool.h
++++ b/tools/aapt/StringPool.h
+@@ -21,7 +21,7 @@
+ #include <ctype.h>
+ #include <errno.h>
+ 
+-#include <libexpat/expat.h>
++#include <expat.h>
+ 
+ using namespace android;
+ 
