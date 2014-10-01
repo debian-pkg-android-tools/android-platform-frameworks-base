@@ -1,0 +1,5 @@
+android-platform-frameworks-base (21-1) unstable; urgency=low
+
+  * Initial release (Closes: #763571)
+
+ -- Hans-Christoph Steiner <hans@eds.org>  Tue, 30 Sep 2014 20:55:30 -0400

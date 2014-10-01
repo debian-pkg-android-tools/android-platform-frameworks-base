@@ -1,0 +1,18 @@
+Source: android-platform-frameworks-base
+Section: devel
+Priority: extra
+Maintainer: Hans-Christoph Steiner <hans@eds.org>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.5
+Homepage: https://android.googlesource.com/platform/frameworks/base
+Vcs-Git: https://alioth.debian.org/anonscm/git/android-tools/android-platform-frameworks-base.git
+Vcs-Browser: http://anonscm.debian.org/gitweb/?p=android-tools/android-platform-frameworks-base.git
+
+Package: android-platform-frameworks-base
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: <insert up to 60 chars description>
+ This section of the Android source provides a number of things, including the
+ aapt tool for inspecting APK files, the aidl tool used in building apps, some
+ SDK components, and SDK documentation.
+
