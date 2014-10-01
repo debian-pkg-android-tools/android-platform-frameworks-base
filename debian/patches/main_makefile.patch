@@ -1,0 +1,10 @@
+--- /dev/null
++++ b/Makefile
+@@ -0,0 +1,7 @@
++#!/bin/make
++
++all:
++	make -C libs/androidfw
++
++clean:
++	make -C libs/androidfw clean

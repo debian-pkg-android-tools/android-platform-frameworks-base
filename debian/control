@@ -2,7 +2,9 @@ Source: android-platform-frameworks-base
 Section: devel
 Priority: extra
 Maintainer: Hans-Christoph Steiner <hans@eds.org>
-Build-Depends: debhelper (>= 8.0.0)
+Build-Depends: debhelper (>= 8.0.0),
+               android-system-dev,
+               zlib1g-dev
 Standards-Version: 3.9.5
 Homepage: https://android.googlesource.com/platform/frameworks/base
 Vcs-Git: https://alioth.debian.org/anonscm/git/android-tools/android-platform-frameworks-base.git
