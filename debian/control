@@ -16,11 +16,37 @@ Homepage: https://android.googlesource.com/platform/frameworks/base
 Vcs-Git: https://alioth.debian.org/anonscm/git/android-tools/android-platform-frameworks-base.git
 Vcs-Browser: http://anonscm.debian.org/gitweb/?p=android-tools/android-platform-frameworks-base.git
 
-Package: android-platform-frameworks-base
-Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: <insert up to 60 chars description>
- This section of the Android source provides a number of things, including the
- aapt tool for inspecting APK files, the aidl tool used in building apps, some
- SDK components, and SDK documentation.
+Package: android-libandroidfw
+Section: libs
+Architecture: amd64 i386
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: Android utility library
+ Library providing utility functions to Android related tools. This is needed
+ purely to get various Android utilities working.  In the Google builds of the
+ Android SDK, this library is statically linked, but in the Debian packaging,
+ it is a private shared library.
 
+Package: android-libandroidfw-dev
+Section: libdevel
+Architecture: amd64 i386
+Depends: android-libandroidfw (= ${binary:Version}),
+         ${misc:Depends},
+         android-libcutils-dev
+Description: Android utility library - Development files
+ Library providing utility functions to Android related tools. This is needed
+ purely to get various Android utilities working.  In the Google builds of the
+ Android SDK, this library is statically linked, but in the Debian packaging,
+ it is a private shared library.
+ .
+ This package contains the development files.
+
+Package: aapt
+Architecture: amd64 i386
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Android Asset Packaging Tool
+ The Android Asset Packaging Tool (aapt) takes your application resource
+ files, such as the AndroidManifest.xml file and the XML files for your
+ Activities, and compiles them. An R.java is also produced so you can
+ reference your resources from your Java code. This tool allows you to view,
+ create, and update Zip-compatible archives (zip, jar, apk). It can also
+ compile resources into binary assets.
