@@ -1,0 +1,39 @@
+#!/bin/bash
+# bash is needed for the timestamp feature in printf
+
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 [branch-name]"
+    exit 1
+fi
+
+set -e
+set -x
+
+version=`echo $1 | sed 's,^tools_r\([0-9][0-9.]*\),\1,'`
+tardir=android-platform-frameworks-base_${version}
+rsyncdir=../../android-platform-frameworks-base.upstream
+
+cd $rsyncdir
+git checkout $1
+# standardize timezone to reduce build differences
+export TZ=UTC
+# get the timestamp from the current git commit
+TIMESTAMP=`printf '%(%Y-%m-%d %H:%M:%S)T' $(git log -n1 --format=format:%at)`
+
+cd ../android-platform-frameworks-base/debian
+test -d $tardir || mkdir $tardir
+rsync -axv --delete --delete-excluded \
+    --cvs-exclude --exclude 'tools/preload/[0-9]*.compiled' \
+    $rsyncdir/include \
+    $rsyncdir/libs \
+    $rsyncdir/tools \
+    $tardir/
+
+# do some tricks to make the process deterministic and reproducible
+rm -f $tardir.orig.tar.gz
+find $tardir -type f -print0 -o -type l -print0 \
+	| sort --zero-terminated \
+	| faketime -f "$TIMESTAMP" tar -z --no-recursion --null --files-from - \
+	--owner=1000 --group=1000 --numeric-owner --format=gnu \
+	--create --file ../../$tardir.orig.tar.gz
+touch --date="$TIMESTAMP" ../../$tardir.orig.tar.gz
