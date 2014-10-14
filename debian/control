@@ -42,7 +42,7 @@ Description: Android utility library - Development files
 
 Package: aapt
 Architecture: amd64 i386
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}, android-libandroidfw
 Description: Android Asset Packaging Tool
  The Android Asset Packaging Tool (aapt) takes your application resource
  files, such as the AndroidManifest.xml file and the XML files for your
