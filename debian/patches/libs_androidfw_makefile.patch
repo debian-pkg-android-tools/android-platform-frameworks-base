@@ -1,6 +1,6 @@
 --- /dev/null
 +++ b/libs/androidfw/Makefile
-@@ -0,0 +1,53 @@
+@@ -0,0 +1,55 @@
 +#!/bin/make
 +
 +CXX = g++
@@ -41,16 +41,18 @@
 +LIBS := $(ALL_LIBS) $(LIBS)
 +
 +LIBNAME = libandroidfw
++SONAME = $(LIBNAME).so.0
++SOLIBNAME = $(SONAME).21.0
 +
-+all: $(LIBNAME).a $(LIBNAME).so
++all: $(LIBNAME).a $(SOLIBNAME)
 +
-+$(LIBNAME).so: $(OBJECTS)
-+	$(CXX) $(LDFLAGS) -Wl,-soname,$(LIBNAME).so -o $(LIBNAME).so $(OBJECTS) $(LIBS)
++$(SOLIBNAME): $(OBJECTS)
++	$(CXX) $(LDFLAGS) -Wl,-soname,$(SONAME) -o $(SOLIBNAME) $(OBJECTS) $(LIBS)
 +
 +$(LIBNAME).a: $(OBJECTS)
 +	ar rs $(LIBNAME).a $(OBJECTS)
 +
 +clean:
 +	rm -f $(OBJECTS)
-+	rm -f $(LIBNAME).so $(LIBNAME).a
++	rm -f $(LIBNAME).so* $(LIBNAME).a
 +
