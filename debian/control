@@ -5,7 +5,7 @@ Maintainer: Android tools Maintainer <android-tools-devel@lists.alioth.debian.or
 Uploaders: Hans-Christoph Steiner <hans@eds.org>
 Build-Depends: debhelper (>= 9.0.0~),
                android-system-dev,
-               android-libcutils-dev,
+               android-libcutils-dev (>= 21-5~),
                android-libhost-dev,
                android-liblog-dev,
                android-libutils-dev,
@@ -33,6 +33,8 @@ Architecture: amd64 i386
 Depends: android-libandroidfw (= ${binary:Version}),
          ${misc:Depends},
          android-libcutils-dev
+Breaks: android-libandroidfw (<< 21-2~)
+Replaces: android-libandroidfw (<< 21-2~)
 Description: Android utility library - Development files
  Library providing utility functions to Android related tools. This is needed
  purely to get various Android utilities working.  In the Google builds of the
