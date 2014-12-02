@@ -1,3 +1,12 @@
+android-platform-frameworks-base (21-2) unstable; urgency=low
+
+  * add versions to shlibs so dh can do dep detection
+    (Closes: #768821) (Closes: #769236)
+  * set Android Tools team as Maintainer
+  * fix installation of aapt bash completion rules
+
+ -- Hans-Christoph Steiner <hans@eds.org>  Tue, 02 Dec 2014 14:36:42 +0100
+
 android-platform-frameworks-base (21-1) unstable; urgency=low
 
   * Initial release (Closes: #763571)
