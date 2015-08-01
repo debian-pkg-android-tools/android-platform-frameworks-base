@@ -1,8 +1,9 @@
 Source: android-platform-frameworks-base
 Section: devel
-Priority: extra
+Priority: optional
 Maintainer: Android tools Maintainer <android-tools-devel@lists.alioth.debian.org>
-Uploaders: Hans-Christoph Steiner <hans@eds.org>
+Uploaders: Hans-Christoph Steiner <hans@eds.org>,
+           Kai-Chung Yan <seamlikok@gmail.com>
 Build-Depends: debhelper (>= 9.0.0~),
                android-system-dev,
                android-libcutils-dev (>= 21-5~),
@@ -19,7 +20,7 @@ Vcs-Browser: http://anonscm.debian.org/gitweb/?p=android-tools/android-platform-
 
 Package: android-libandroidfw
 Section: libs
-Architecture: amd64 i386
+Architecture: any
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Description: Android utility library
  Library providing utility functions to Android related tools. This is needed
@@ -29,7 +30,7 @@ Description: Android utility library
 
 Package: android-libandroidfw-dev
 Section: libdevel
-Architecture: amd64 i386
+Architecture: any
 Depends: android-libandroidfw (= ${binary:Version}),
          ${misc:Depends},
          android-libcutils-dev
@@ -44,7 +45,7 @@ Description: Android utility library - Development files
  This package contains the development files.
 
 Package: aapt
-Architecture: amd64 i386
+Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, android-libandroidfw
 Description: Android Asset Packaging Tool
  The Android Asset Packaging Tool (aapt) takes your application resource
