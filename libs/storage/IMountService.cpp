@@ -295,6 +295,8 @@ public:
         data.writeString16(id);
         data.writeString16(key);
         data.writeInt32(ownerUid);
+        // Assume read-only
+        data.writeInt32(1);
         if (remote()->transact(TRANSACTION_mountSecureContainer, data, &reply) != NO_ERROR) {
             ALOGD("mountSecureContainer couldn't call remote");
             return -1;
@@ -433,12 +435,13 @@ public:
         reply.readExceptionCode();
     }
 
-    void mountObb(const String16& filename, const String16& key,
+    void mountObb(const String16& rawPath, const String16& canonicalPath, const String16& key,
             const sp<IObbActionListener>& token, int32_t nonce)
     {
         Parcel data, reply;
         data.writeInterfaceToken(IMountService::getInterfaceDescriptor());
-        data.writeString16(filename);
+        data.writeString16(rawPath);
+        data.writeString16(canonicalPath);
         data.writeString16(key);
         data.writeStrongBinder(token->asBinder());
         data.writeInt32(nonce);

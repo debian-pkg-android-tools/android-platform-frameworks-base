@@ -225,8 +225,6 @@ write_update_file(BackupDataWriter* dataStream, int fd, int mode, const String8&
     file_metadata_v1 metadata;
 
     char* buf = (char*)malloc(bufsize);
-    int crc = crc32(0L, Z_NULL, 0);
-
 
     fileSize = lseek(fd, 0, SEEK_END);
     lseek(fd, 0, SEEK_SET);
@@ -310,8 +308,12 @@ write_update_file(BackupDataWriter* dataStream, const String8& key, char const* 
 }
 
 static int
-compute_crc32(int fd)
-{
+compute_crc32(const char* file, FileRec* out) {
+    int fd = open(file, O_RDONLY);
+    if (fd < 0) {
+        return -1;
+    }
+
     const int bufsize = 4*1024;
     int amt;
 
@@ -324,8 +326,11 @@ compute_crc32(int fd)
         crc = crc32(crc, (Bytef*)buf, amt);
     }
 
+    close(fd);
     free(buf);
-    return crc;
+
+    out->s.crc32 = crc;
+    return NO_ERROR;
 }
 
 int
@@ -353,7 +358,8 @@ back_up_files(int oldSnapshotFD, BackupDataWriter* dataStream, int newSnapshotFD
 
         err = stat(file, &st);
         if (err != 0) {
-            r.deleted = true;
+            // not found => treat as deleted
+            continue;
         } else {
             r.deleted = false;
             r.s.modTime_sec = st.st_mtime;
@@ -361,11 +367,16 @@ back_up_files(int oldSnapshotFD, BackupDataWriter* dataStream, int newSnapshotFD
             //r.s.modTime_nsec = st.st_mtime_nsec;
             r.s.mode = st.st_mode;
             r.s.size = st.st_size;
-            // we compute the crc32 later down below, when we already have the file open.
 
             if (newSnapshot.indexOfKey(key) >= 0) {
                 LOGP("back_up_files key already in use '%s'", key.string());
                 return -1;
+            }
+
+            // compute the CRC
+            if (compute_crc32(file, &r) != NO_ERROR) {
+                ALOGW("Unable to open file %s", file);
+                continue;
             }
         }
         newSnapshot.add(key, r);
@@ -374,49 +385,41 @@ back_up_files(int oldSnapshotFD, BackupDataWriter* dataStream, int newSnapshotFD
     int n = 0;
     int N = oldSnapshot.size();
     int m = 0;
+    int M = newSnapshot.size();
 
-    while (n<N && m<fileCount) {
+    while (n<N && m<M) {
         const String8& p = oldSnapshot.keyAt(n);
         const String8& q = newSnapshot.keyAt(m);
         FileRec& g = newSnapshot.editValueAt(m);
         int cmp = p.compare(q);
-        if (g.deleted || cmp < 0) {
-            // file removed
+        if (cmp < 0) {
+            // file present in oldSnapshot, but not present in newSnapshot
             LOGP("file removed: %s", p.string());
-            g.deleted = true; // They didn't mention the file, but we noticed that it's gone.
-            dataStream->WriteEntityHeader(p, -1);
+            write_delete_file(dataStream, p);
             n++;
-        }
-        else if (cmp > 0) {
+        } else if (cmp > 0) {
             // file added
-            LOGP("file added: %s", g.file.string());
+            LOGP("file added: %s crc=0x%08x", g.file.string(), g.s.crc32);
             write_update_file(dataStream, q, g.file.string());
             m++;
-        }
-        else {
-            // both files exist, check them
+        } else {
+            // same file exists in both old and new; check whether to update
             const FileState& f = oldSnapshot.valueAt(n);
 
-            int fd = open(g.file.string(), O_RDONLY);
-            if (fd < 0) {
-                // We can't open the file.  Don't report it as a delete either.  Let the
-                // server keep the old version.  Maybe they'll be able to deal with it
-                // on restore.
-                LOGP("Unable to open file %s - skipping", g.file.string());
-            } else {
-                g.s.crc32 = compute_crc32(fd);
-
-                LOGP("%s", q.string());
-                LOGP("  new: modTime=%d,%d mode=%04o size=%-3d crc32=0x%08x",
-                        f.modTime_sec, f.modTime_nsec, f.mode, f.size, f.crc32);
-                LOGP("  old: modTime=%d,%d mode=%04o size=%-3d crc32=0x%08x",
-                        g.s.modTime_sec, g.s.modTime_nsec, g.s.mode, g.s.size, g.s.crc32);
-                if (f.modTime_sec != g.s.modTime_sec || f.modTime_nsec != g.s.modTime_nsec
-                        || f.mode != g.s.mode || f.size != g.s.size || f.crc32 != g.s.crc32) {
+            LOGP("%s", q.string());
+            LOGP("  old: modTime=%d,%d mode=%04o size=%-3d crc32=0x%08x",
+                    f.modTime_sec, f.modTime_nsec, f.mode, f.size, f.crc32);
+            LOGP("  new: modTime=%d,%d mode=%04o size=%-3d crc32=0x%08x",
+                    g.s.modTime_sec, g.s.modTime_nsec, g.s.mode, g.s.size, g.s.crc32);
+            if (f.modTime_sec != g.s.modTime_sec || f.modTime_nsec != g.s.modTime_nsec
+                    || f.mode != g.s.mode || f.size != g.s.size || f.crc32 != g.s.crc32) {
+                int fd = open(g.file.string(), O_RDONLY);
+                if (fd < 0) {
+                    ALOGE("Unable to read file for backup: %s", g.file.string());
+                } else {
                     write_update_file(dataStream, fd, g.s.mode, p, g.file.string());
+                    close(fd);
                 }
-
-                close(fd);
             }
             n++;
             m++;
@@ -425,12 +428,12 @@ back_up_files(int oldSnapshotFD, BackupDataWriter* dataStream, int newSnapshotFD
 
     // these were deleted
     while (n<N) {
-        dataStream->WriteEntityHeader(oldSnapshot.keyAt(n), -1);
+        write_delete_file(dataStream, oldSnapshot.keyAt(n));
         n++;
     }
 
     // these were added
-    while (m<fileCount) {
+    while (m<M) {
         const String8& q = newSnapshot.keyAt(m);
         FileRec& g = newSnapshot.editValueAt(m);
         write_update_file(dataStream, q, g.file.string());
@@ -553,7 +556,7 @@ int write_tarfile(const String8& packageName, const String8& domain,
     if (buf == NULL) {
         ALOGE("Out of mem allocating transfer buffer");
         err = ENOMEM;
-        goto cleanup;
+        goto done;
     }
 
     // Magic fields for the ustar file format
@@ -568,8 +571,8 @@ int write_tarfile(const String8& packageName, const String8& domain,
 
     // [ 108 :   8 ] uid -- ignored in Android format; uids are remapped at restore time
     // [ 116 :   8 ] gid -- ignored in Android format
-    snprintf(buf + 108, 8, "0%lo", s.st_uid);
-    snprintf(buf + 116, 8, "0%lo", s.st_gid);
+    snprintf(buf + 108, 8, "0%lo", (unsigned long)s.st_uid);
+    snprintf(buf + 116, 8, "0%lo", (unsigned long)s.st_gid);
 
     // [ 124 :  12 ] file size in bytes
     if (s.st_size > 077777777777LL) {
@@ -639,7 +642,7 @@ int write_tarfile(const String8& packageName, const String8& domain,
 
         // size header -- calc len in digits by actually rendering the number
         // to a string - brute force but simple
-        snprintf(sizeStr, sizeof(sizeStr), "%lld", s.st_size);
+        snprintf(sizeStr, sizeof(sizeStr), "%lld", (long long)s.st_size);
         p += write_pax_header_entry(p, "size", sizeStr);
 
         // fullname was generated above with the ustar paths
@@ -661,7 +664,7 @@ int write_tarfile(const String8& packageName, const String8& domain,
 
         // [ 124 :  12 ] size of pax extended header data
         memset(paxHeader + 124, 0, 12);
-        snprintf(paxHeader + 124, 12, "%011o", p - paxData);
+        snprintf(paxHeader + 124, 12, "%011o", (unsigned int)(p - paxData));
 
         // Checksum and write the pax block header
         calc_tar_checksum(paxHeader);
@@ -681,7 +684,10 @@ int write_tarfile(const String8& packageName, const String8& domain,
     if (!isdir) {
         off64_t toWrite = s.st_size;
         while (toWrite > 0) {
-            size_t toRead = (toWrite < BUFSIZE) ? toWrite : BUFSIZE;
+            size_t toRead = toWrite;
+            if (toRead > BUFSIZE) {
+                toRead = BUFSIZE;
+            }
             ssize_t nRead = read(fd, buf, toRead);
             if (nRead < 0) {
                 err = errno;
@@ -710,7 +716,7 @@ int write_tarfile(const String8& packageName, const String8& domain,
     }
 
 cleanup:
-    delete [] buf;
+    free(buf);
 done:
     close(fd);
     return err;
@@ -778,7 +784,7 @@ RestoreHelperBase::WriteFile(const String8& filename, BackupDataReader* in)
         ALOGW("Could not open file %s -- %s", filename.string(), strerror(errno));
         return errno;
     }
-    
+
     while ((amt = in->ReadEntityData(buf, RESTORE_BUF_SIZE)) > 0) {
         err = write(fd, buf, amt);
         if (err != amt) {
@@ -1083,7 +1089,7 @@ backup_helper_test_four()
     }
 
     if (readSnapshot.size() != 4) {
-        fprintf(stderr, "readSnapshot should be length 4 is %d\n", readSnapshot.size());
+        fprintf(stderr, "readSnapshot should be length 4 is %zu\n", readSnapshot.size());
         return 1;
     }
 
@@ -1095,8 +1101,8 @@ backup_helper_test_four()
         if (name != filenames[i] || states[i].modTime_sec != state.modTime_sec
                 || states[i].modTime_nsec != state.modTime_nsec || states[i].mode != state.mode
                 || states[i].size != state.size || states[i].crc32 != states[i].crc32) {
-            fprintf(stderr, "state %d expected={%d/%d, 0x%08x, %04o, 0x%08x, %3d} '%s'\n"
-                            "          actual={%d/%d, 0x%08x, %04o, 0x%08x, %3d} '%s'\n", i,
+            fprintf(stderr, "state %zu expected={%d/%d, %04o, 0x%08x, 0x%08x, %3zu} '%s'\n"
+                            "          actual={%d/%d, %04o, 0x%08x, 0x%08x, %3d} '%s'\n", i,
                     states[i].modTime_sec, states[i].modTime_nsec, states[i].mode, states[i].size,
                     states[i].crc32, name.length(), filenames[i].string(),
                     state.modTime_sec, state.modTime_nsec, state.mode, state.size, state.crc32,
@@ -1194,7 +1200,7 @@ int
 test_read_header_and_entity(BackupDataReader& reader, const char* str)
 {
     int err;
-    int bufSize = strlen(str)+1;
+    size_t bufSize = strlen(str)+1;
     char* buf = (char*)malloc(bufSize);
     String8 string;
     int cookie = 0x11111111;
@@ -1229,9 +1235,9 @@ test_read_header_and_entity(BackupDataReader& reader, const char* str)
         err = EINVAL;
         goto finished;
     }
-    if ((int)actualSize != bufSize) {
-        fprintf(stderr, "ReadEntityHeader expected dataSize 0x%08x got 0x%08x\n", bufSize,
-                actualSize);
+    if (actualSize != bufSize) {
+        fprintf(stderr, "ReadEntityHeader expected dataSize %zu got %zu\n",
+                bufSize, actualSize);
         err = EINVAL;
         goto finished;
     }

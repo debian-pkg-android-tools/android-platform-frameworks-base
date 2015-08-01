@@ -9,7 +9,7 @@
 
 #include <utils/ByteOrder.h>
 #include <utils/SortedVector.h>
-#include <cutils/qsort_r_compat.h>
+#include "qsort_r_compat.h"
 
 #if HAVE_PRINTF_ZD
 #  define ZD "%zd"
@@ -21,7 +21,8 @@
 
 #define NOISY(x) //x
 
-void strcpy16_htod(uint16_t* dst, const uint16_t* src)
+#if __cplusplus >= 201103L
+void strcpy16_htod(char16_t* dst, const char16_t* src)
 {
     while (*src) {
         char16_t s = htods(*src);
@@ -30,9 +31,28 @@ void strcpy16_htod(uint16_t* dst, const uint16_t* src)
     }
     *dst = 0;
 }
+#endif
+
+void strcpy16_htod(uint16_t* dst, const char16_t* src)
+{
+    while (*src) {
+        uint16_t s = htods(static_cast<uint16_t>(*src));
+        *dst++ = s;
+        src++;
+    }
+    *dst = 0;
+}
 
 void printStringPool(const ResStringPool* pool)
 {
+    if (pool->getError() == NO_INIT) {
+        printf("String pool is unitialized.\n");
+        return;
+    } else if (pool->getError() != NO_ERROR) {
+        printf("String pool is corrupt/invalid.\n");
+        return;
+    }
+
     SortedVector<const void*> uniqueStrings;
     const size_t N = pool->size();
     for (size_t i=0; i<N; i++) {
@@ -408,7 +428,7 @@ status_t StringPool::writeStringBlock(const sp<AaptFile>& pool)
         return NO_MEMORY;
     }
 
-    const size_t charSize = mUTF8 ? sizeof(uint8_t) : sizeof(char16_t);
+    const size_t charSize = mUTF8 ? sizeof(uint8_t) : sizeof(uint16_t);
 
     size_t strPos = 0;
     for (i=0; i<STRINGS; i++) {
