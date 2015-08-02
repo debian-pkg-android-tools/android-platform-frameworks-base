@@ -1,4 +1,5 @@
 # Debian aapt(1) completion                             -*- shell-script -*-
+# Copyright: 2014 Hans-Christoph Steiner <hans@eds.org>
 
 _aapt()
 {
