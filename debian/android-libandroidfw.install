@@ -1,1 +1,3 @@
-libs/androidfw/libandroidfw.so.0.21.0 usr/lib/android/
+#!/usr/bin/dh-exec
+
+libs/androidfw/libandroidfw.so => usr/lib/android/libandrodfw.so.${UPSTREAM_UNIFIED_VERSION}
