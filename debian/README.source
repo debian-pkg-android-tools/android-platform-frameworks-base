@@ -40,21 +40,16 @@ the upstream git repo is so massive, it is basically unmanageable.  It can peg
 your CPU for minutes while checking out a branch or tag.
 
 Instead, the source tarballs are generated from the upstream git repo based on
-the tools_r* branches.  Here is how they are generated:
-
-  git clone https://android.googlesource.com/platform/frameworks/base \
-      android-platform-frameworks-base.upstream
-  git clone https://anonscm.debian.org/git/android-tools/android-platform-frameworks-base.git
-  cd android-platform-frameworks-base/debian
-  ./make-source-tarball tools_r21
-
+the android-* tags.  Use get-orig-source rule in debian/rules to generate
+upstream tarballs.
 
 Omitted files
 -------------
 
 All of the files in the upstream make for a ~700MB tarball.  So only the
 section that are currently used are included in the tarball.  Check the
-./make-source-tarball script for details.
+debian/orig.excludes for details.
 
 
- -- Hans-Christoph Steiner <hans@eds.org>, Tue, 30 Sep 2014 20:15:12 -0400
+ -- Hans-Christoph Steiner <hans@eds.org>  Tue, 30 Sep 2014 20:15:12 -0400
+ -- Kai-Chung Yan <seamlikok@gmail.com>  Mon, 03 Aug 2015 07:58:56 +0800
