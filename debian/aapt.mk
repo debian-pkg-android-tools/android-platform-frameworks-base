@@ -24,15 +24,14 @@ SOURCES = AaptAssets.cpp \
           ZipEntry.cpp \
           ZipFile.cpp \
           Main.cpp
-CXXFLAGS += -fPIC -c -Wno-format-y2k -DSTATIC_ANDROIDFW_FOR_TOOLS
-CPPFLAGS += $(ANDROID_INCLUDES) -I/usr/include/android
-LDFLAGS += -fPIC -Wl,-rpath=/usr/lib/android \
-           -lrt -ldl -lpthread -lpng -lz -lexpat \
+CXXFLAGS += -fPIC -Wno-format-y2k -DSTATIC_ANDROIDFW_FOR_TOOLS
+CPPFLAGS += $(ANDROID_INCLUDES) -I/usr/include/android -I../../include
+LDFLAGS += -Wl,-rpath=/usr/lib/android -lrt -ldl -lpthread -lpng -lz -lexpat \
            -L../../libs/androidfw -landroidfw \
-           -L/usr/lib/android -llog -lutils -lcutils -lziparchive
+           -L/usr/lib/android -llog -lutils -lcutils
 
 build: $(SOURCES)
-	cc $^ -o $(NAME) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LOCAL_LDFLAGS)
+	c++ $^ -o $(NAME) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS)
 
 clean:
 	rm -f $(NAME)

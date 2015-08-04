@@ -4,12 +4,16 @@ Priority: optional
 Maintainer: Android tools Maintainer <android-tools-devel@lists.alioth.debian.org>
 Uploaders: Hans-Christoph Steiner <hans@eds.org>,
            Kai-Chung Yan <seamlikok@gmail.com>
-Build-Depends: debhelper (>= 9.0.0~),
-               android-system-dev,
+Build-Depends: android-archconfig-dev,
+               android-frameworks-native-dev,
                android-libcutils-dev (>= 21-5~),
-               android-libhost-dev,
                android-liblog-dev,
                android-libutils-dev,
+               android-libziparchive-dev,
+               bison,
+               debhelper (>= 9),
+               dh-exec,
+               flex,
                libexpat1-dev,
                libpng12-dev,
                zlib1g-dev
@@ -21,7 +25,7 @@ Vcs-Browser: http://anonscm.debian.org/gitweb/?p=android-tools/android-platform-
 Package: android-libandroidfw
 Section: libs
 Architecture: any
-Depends: ${misc:Depends}, ${shlibs:Depends}
+Depends: android-liblog, ${shlibs:Depends}, ${misc:Depends}
 Description: Android utility library
  Library providing utility functions to Android related tools. This is needed
  purely to get various Android utilities working.  In the Google builds of the
@@ -31,9 +35,10 @@ Description: Android utility library
 Package: android-libandroidfw-dev
 Section: libdevel
 Architecture: any
-Depends: android-libandroidfw (= ${binary:Version}),
+Depends: android-frameworks-native-dev,
+         android-libandroidfw (= ${binary:Version}),
+         android-libutils-dev,
          ${misc:Depends},
-         android-libcutils-dev
 Breaks: android-libandroidfw (<< 21-2~)
 Replaces: android-libandroidfw (<< 21-2~)
 Description: Android utility library - Development files
@@ -46,7 +51,10 @@ Description: Android utility library - Development files
 
 Package: aapt
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, android-libandroidfw
+Depends: android-libandroidfw (>= ${binary:Version}),
+         android-liblog,
+         ${shlibs:Depends},
+         ${misc:Depends}
 Description: Android Asset Packaging Tool
  The Android Asset Packaging Tool (aapt) takes your application resource
  files, such as the AndroidManifest.xml file and the XML files for your
@@ -54,3 +62,14 @@ Description: Android Asset Packaging Tool
  reference your resources from your Java code. This tool allows you to view,
  create, and update Zip-compatible archives (zip, jar, apk). It can also
  compile resources into binary assets.
+
+Package: aidl
+Architecture: any
+Depends: android-libandroidfw (>= ${binary:Version}),
+         ${shlibs:Depends},
+         ${misc:Depends}
+Description: Android Interface Defenition Language processor
+ AIDL (Android Interface Definition Language) is similar to other IDLs you might
+ have worked with. It allows you to define the programming interface that both
+ the client and service agree upon in order to communicate with each other using
+ interprocess communication (IPC).
