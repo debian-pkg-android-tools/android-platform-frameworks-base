@@ -1,0 +1,28 @@
+--- a/tools/aapt/Images.cpp
++++ b/tools/aapt/Images.cpp
+@@ -831,13 +831,13 @@
+     assert(outPatch->paddingTop == inPatch->paddingTop);
+     assert(outPatch->paddingBottom == inPatch->paddingBottom);
+     for (int i = 0; i < outPatch->numXDivs; i++) {
+-        assert(outPatch->xDivs[i] == inPatch->xDivs[i]);
++        assert(outPatch->getXDivs()[i] == inPatch->getXDivs()[i]);
+     }
+     for (int i = 0; i < outPatch->numYDivs; i++) {
+-        assert(outPatch->yDivs[i] == inPatch->yDivs[i]);
++        assert(outPatch->getYDivs()[i] == inPatch->getYDivs()[i]);
+     }
+     for (int i = 0; i < outPatch->numColors; i++) {
+-        assert(outPatch->colors[i] == inPatch->colors[i]);
++        assert(outPatch->getColors()[i] == inPatch->getColors()[i]);
+     }
+     free(newData);
+ }
+@@ -1049,7 +1049,7 @@
+                 gg = *row++;
+                 bb = *row++;
+                 aa = *row++;
+-                
++
+                 if (isGrayscale) {
+                     *out++ = rr;
+                 } else {
