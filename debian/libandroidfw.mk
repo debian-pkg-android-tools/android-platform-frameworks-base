@@ -1,4 +1,4 @@
-include ../../debian/android_includes.mk
+include /usr/include/android/arch/android_includes.mk
 
 NAME = libandroidfw
 SOURCES = Asset.cpp \
@@ -13,15 +13,16 @@ SOURCES = Asset.cpp \
           ZipUtils.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
 CXXFLAGS += -fPIC -c -DSTATIC_ANDROIDFW_FOR_TOOLS
-CPPFLAGS += $(ANDROID_INCLUDES) -I../../include
-LDFLAGS += -fPIC -shared -Wl,-soname,$(NAME).so.5
+CPPFLAGS += $(ANDROID_INCLUDES) -I../../include -I/usr/include/android
+LDFLAGS += -fPIC -shared -Wl,-soname,$(NAME).so.5 -lz \
+           -L/usr/lib/android -lziparchive -lutils -lcutils -llog
 
 build: $(OBJECTS)
-	cc $^ -o $(NAME).so $(LDFLAGS)
+	c++ $^ -o $(NAME).so $(LDFLAGS)
 	ar rs $(NAME).a $^
 
 clean:
 	rm -f *.so *.a *.o
 
 $(OBJECTS): %.o: %.cpp
-	cc $< -o $@ $(CXXFLAGS) $(CPPFLAGS)
+	c++ $< -o $@ $(CXXFLAGS) $(CPPFLAGS)
