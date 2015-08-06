@@ -1,0 +1,3 @@
+#!/usr/bin/dh-exec
+
+usr/bin/aidl   usr/share/android-sdk/build-tools/${BUILD_TOOLS_VERSION}

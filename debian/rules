@@ -4,6 +4,8 @@ export UPSTREAM_UNIFIED_VERSION = 5.1.1.8
 export UPSTREAM_TAG = android-5.1.1_r8
 export UPSTREAM_VERSION = 5.1.1+r8
 export PACKAGE_NAME = android-platform-frameworks-base
+# See sdk/build_tools_source.prop_template in platform/development
+export BUILD_TOOLS_VERSION = 22.1.3
 
 %:
 	dh $@
