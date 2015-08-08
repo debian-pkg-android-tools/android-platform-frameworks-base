@@ -1,3 +1,5 @@
+Author: Kai-Chung Yan <seamlikok@gmail.com>
+Last-Update: 2015-08-08
 --- a/tools/aapt/Images.cpp
 +++ b/tools/aapt/Images.cpp
 @@ -831,13 +831,13 @@

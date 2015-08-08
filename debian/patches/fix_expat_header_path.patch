@@ -1,6 +1,8 @@
+Author: Kai-Chung Yan <seamlikok@gmail.com>
+Last-Update: 2015-08-08
 --- a/tools/aapt/StringPool.h
 +++ b/tools/aapt/StringPool.h
-@@ -21,7 +21,7 @@
+@@ -20,7 +20,7 @@
  #include <ctype.h>
  #include <errno.h>
  
