@@ -1,2 +1,3 @@
-include/androidfw  usr/include/android
-libs/androidfw/*.a usr/lib/android
+include/androidfw   usr/include/android
+libs/androidfw/*.a  usr/lib/android
+libs/androidfw/*.so usr/lib/android
