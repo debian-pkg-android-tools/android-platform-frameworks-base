@@ -1,0 +1,2 @@
+tools/split-select/split-select        usr/bin
+tools/split-select/libsplit-select.so* usr/lib/android

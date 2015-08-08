@@ -1,6 +1,5 @@
 include /usr/include/android/arch/android_includes.mk
 
-NAME = aapt
 SOURCES = AaptAssets.cpp \
           AaptConfig.cpp \
           AaptUtil.cpp \
@@ -22,16 +21,26 @@ SOURCES = AaptAssets.cpp \
           WorkQueue.cpp \
           XMLNode.cpp \
           ZipEntry.cpp \
-          ZipFile.cpp \
-          Main.cpp
-CXXFLAGS += -fPIC -Wno-format-y2k -DSTATIC_ANDROIDFW_FOR_TOOLS
+          ZipFile.cpp
 CPPFLAGS += $(ANDROID_INCLUDES) -I/usr/include/android -I../../include
-LDFLAGS += -Wl,-rpath=/usr/lib/android -lrt -ldl -lpthread -lpng -lz -lexpat \
-           -L../../libs/androidfw -landroidfw \
-           -L/usr/lib/android -llog -lutils -lcutils
+LDFLAGS += -fPIC -Wl,-rpath=/usr/lib/android
 
-build: $(SOURCES)
-	c++ $^ -o $(NAME) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS)
+build: aapt
 
 clean:
-	rm -f $(NAME)
+	rm -f aapt *.so*
+
+aapt: Main.cpp libaapt.so
+	c++ $< -o $@ $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) \
+	    -lrt -ldl -lpthread -L. -laapt -L/usr/lib/android -lutils \
+	    -L../../libs/androidfw -landroidfw
+
+libaapt.so: $(SOURCES)
+	c++ $^ -o libaapt.so.${UPSTREAM_LIBVERSION} $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) \
+	    -shared -Wl,-soname,libaapt.so.5 \
+	    -lpng -lz -lexpat \
+	    -L/usr/lib/android -llog -lcutils -lutils -lziparchive \
+	    -L../../libs/androidfw -landroidfw \
+	    -DSTATIC_ANDROIDFW_FOR_TOOLS
+	ln -s libaapt.so.${UPSTREAM_LIBVERSION} libaapt.so
+	ln -s libaapt.so.${UPSTREAM_LIBVERSION} libaapt.so.5

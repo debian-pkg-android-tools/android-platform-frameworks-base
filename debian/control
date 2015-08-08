@@ -19,8 +19,8 @@ Build-Depends: android-archconfig-dev,
                zlib1g-dev
 Standards-Version: 3.9.6
 Homepage: https://android.googlesource.com/platform/frameworks/base
-Vcs-Git: https://alioth.debian.org/anonscm/git/android-tools/android-platform-frameworks-base.git
-Vcs-Browser: http://anonscm.debian.org/gitweb/?p=android-tools/android-platform-frameworks-base.git
+Vcs-Git: http://anonscm.debian.org/android-tools/android-platform-frameworks-base.git
+Vcs-Browser: http://anonscm.debian.org/cgit/android-tools/android-platform-frameworks-base.git
 
 Package: android-libandroidfw
 Section: libs
@@ -53,6 +53,7 @@ Package: aapt
 Architecture: any
 Depends: android-libandroidfw (>= ${binary:Version}),
          android-liblog,
+         zlib1g,
          ${shlibs:Depends},
          ${misc:Depends}
 Description: Android Asset Packaging Tool
@@ -73,3 +74,18 @@ Description: Android Interface Defenition Language processor
  have worked with. It allows you to define the programming interface that both
  the client and service agree upon in order to communicate with each other using
  interprocess communication (IPC).
+
+Package: split-select
+Architecture: any-amd64 any-i386 any-arm any-arm64 any-armeb any-mips any-mipsel any-mips64 any-mips64el
+Depends: android-liblog,
+         zlib1g,
+         ${shlibs:Depends},
+         ${misc:Depends}
+Description: APK split and selection
+ Generates the logic for selecting a Split APK given some target Android device
+ configuration.
+ .
+ Using the flag --generate will emit a JSON encoded tree of rules that must be
+ satisfied in order to install the given Split APK. Using the flag --target
+ along with the device configuration will emit the set of Split APKs to install,
+ following the same logic that would have been emitted

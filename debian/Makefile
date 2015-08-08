@@ -4,8 +4,10 @@ build:
 	make -C libs/androidfw -f ../../debian/libandroidfw.mk
 	make -C tools/aapt -f ../../debian/aapt.mk
 	make -C tools/aidl -f ../../debian/aidl.mk
+	make -C tools/split-select -f ../../debian/split-select.mk
 
 clean:
-	make clean -C libs/androidfw -f ../../debian/libandroidfw.mk
-	make clean -C tools/aapt -f ../../debian/aapt.mk
-	make clean -C tools/aidl -f ../../debian/aidl.mk
+	make -C libs/androidfw -f ../../debian/libandroidfw.mk clean
+	make -C tools/aapt -f ../../debian/aapt.mk clean
+	make -C tools/aidl -f ../../debian/aidl.mk clean
+	make -C tools/split-select -f ../../debian/split-select.mk clean
