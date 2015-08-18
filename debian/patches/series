@@ -1,2 +1,3 @@
 fix_expat_header_path.patch
 aapt_Images_cpp_Res_png_9patch.diff
+fix_aidl_typo.diff

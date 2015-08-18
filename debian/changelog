@@ -9,6 +9,7 @@ android-platform-frameworks-base (1:5.1.1+r8-1) UNRELEASED; urgency=low
   * Makefiles independent from Quilt
   * New package: aidl, split-select
   * New aapt_Images_cpp_Res_png_9patch.diff: Fix API mistake
+  * New fix_aidl_typo.diff: Fix typo
   * Install symlinks to faked SDK home
   * Use makefiles to generate symlinks
 

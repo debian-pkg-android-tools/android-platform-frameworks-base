@@ -1,0 +1,66 @@
+Author: Kai-Chung Yan <seamlikok@gmail.com>
+Last-Update: 2015-08-18
+--- a/tools/aidl/aidl.cpp
++++ b/tools/aidl/aidl.cpp
+@@ -208,7 +208,7 @@
+     p = strchr(name->data, '.');
+     len = p ? p-name->data : strlen(name->data);
+     expected.append(name->data, len);
+-    
++
+     expected += ".aidl";
+ 
+     len = fn.length();
+@@ -260,7 +260,7 @@
+             err |= check_filename(filename, c->package, &c->name);
+         }
+         else {
+-            fprintf(stderr, "aidl: internal error unkown document type %d.\n",
++            fprintf(stderr, "aidl: internal error unknown document type %d.\n",
+                         items->item_type);
+             return 1;
+         }
+@@ -474,7 +474,7 @@
+             err = 1;
+             goto next;
+         }
+-        
++
+         if (!(kind == INTERFACE_TYPE_BINDER ? t->CanWriteToParcel() : t->CanWriteToRpcData())) {
+             fprintf(stderr, "%s:%d parameter %d: '%s %s' can't be marshalled.\n",
+                         filename, m->type.type.lineno, index,
+@@ -537,7 +537,7 @@
+                     filename, m->name.lineno, index, arg->name.data);
+             err = 1;
+         }
+-        
++
+ next:
+         index++;
+         arg = arg->next;
+@@ -798,7 +798,7 @@
+         //printf("%s:%d:...%s...%s...%s...\n", filename.c_str(), lineno,
+         //        type, packagename, classname);
+         document_item_type* doc;
+-        
++
+         if (0 == strcmp("parcelable", type)) {
+             user_data_type* parcl = (user_data_type*)malloc(
+                     sizeof(user_data_type));
+@@ -1105,13 +1105,13 @@
+     }
+ 
+     // write preprocessed file
+-    int fd = open( options.outputFileName.c_str(), 
++    int fd = open( options.outputFileName.c_str(),
+                    O_RDWR|O_CREAT|O_TRUNC|O_BINARY,
+ #ifdef HAVE_MS_C_RUNTIME
+                    _S_IREAD|_S_IWRITE);
+-#else    
++#else
+                    S_IRUSR|S_IWUSR|S_IRGRP);
+-#endif            
++#endif
+     if (fd == -1) {
+         fprintf(stderr, "aidl: could not open file for write: %s\n",
+                 options.outputFileName.c_str());
