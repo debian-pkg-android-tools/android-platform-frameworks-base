@@ -81,7 +81,7 @@ Depends: android-liblog,
          zlib1g,
          ${shlibs:Depends},
          ${misc:Depends}
-Description: APK split and selection
+Description: APK split and selection tool
  Generates the logic for selecting a Split APK given some target Android device
  configuration.
  .
