@@ -1,5 +1,5 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0
-Upstream-Name: platform/frameworks/base
+Upstream-Name: Android framework classes and services
 Source: https://android.googlesource.com/platform/frameworks/base
 Files-Excluded: api
                 cmds
@@ -16,7 +16,6 @@ Files-Excluded: api
                 obex
                 opengl
                 packages
-                policy
                 rs
                 samples
                 sax
