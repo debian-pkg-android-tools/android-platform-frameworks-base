@@ -24,6 +24,7 @@ Files-Excluded: api
                 telephony
                 test-runner
                 tests
+                tools/aapt2/data
                 tools/preload
                 wifi
 
