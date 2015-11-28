@@ -1,11 +1,11 @@
 #!/usr/bin/make -f
 
-export UPSTREAM_LIBVERSION = 5.1.1.8
-export UPSTREAM_TAG = android-5.1.1_r8
-export UPSTREAM_VERSION = 5.1.1+r8
-export PACKAGE_NAME = android-platform-frameworks-base
+include /usr/share/dpkg/pkg-info.mk
+
+UPSTREAM_TAG = android-$(subst +,_,$(DEB_VERSION_UPSTREAM))
+export ANDROID_LIBVERSION = 0.$(subst +r,.,$(DEB_VERSION_UPSTREAM))
 # See sdk/build_tools_source.prop_template in platform/development
-export BUILD_TOOLS_VERSION = 22.1.3
+export BUILD_TOOLS_VERSION = 23.0.1
 
 %:
 	dh $@
@@ -20,8 +20,8 @@ override_dh_auto_clean:
 override_dh_shlibdeps:
 	dh_shlibdeps -l/usr/lib/android
 
-get-orig-source:
-	mkdir orig-source-tmp
-	make -C orig-source-tmp -f ../debian/get-orig.mk
-	mv orig-source-tmp/$(PACKAGE_NAME)_$(DEBIAN_VERSION).orig.tar.xz ..
-	rm -r -f orig-source-tmp
+get-orig-source: $(UPSTREAM_TAG).tar.gz
+	mk-origtargz --repack --compression xz $<
+
+$(UPSTREAM_TAG).tar.gz:
+	wget https://android.googlesource.com/platform/frameworks/base/+archive/$(UPSTREAM_TAG).tar.gz

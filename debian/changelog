@@ -1,19 +1,19 @@
-android-platform-frameworks-base (1:5.1.1+r8-1) UNRELEASED; urgency=low
+android-platform-frameworks-base (1:6.0.0+r26-1) UNRELEASED; urgency=low
 
   * Change version scheme to follow Android release tags
   * get-orig-source rule in d/rules for generating upstream tarballs
-  * Add myself to Uploaders
-  * d/control:
-    - Change priority to optional
-    - Change architecture to x86, ARM and MIPS (Linux only)
+  * Install symlinks to faked SDK home
   * Makefiles independent from Quilt
-  * New package: aidl, split-select
   * New aapt_Images_cpp_Res_png_9patch.diff: Fix API mistake
   * New fix_aidl_typo.diff: Fix typo
-  * Install symlinks to faked SDK home
+  * New package: aidl, split-select
   * Use makefiles to generate symlinks
+  * d/control:
+    - Add myself to Uploaders
+    - Change architecture to x86, ARM and MIPS (Linux only)
+    - Change priority to optional
 
- -- Kai-Chung Yan <seamlikok@gmail.com>  Mon, 27 Jul 2015 23:06:02 +0800
+ -- Kai-Chung Yan <seamlikok@gmail.com>  Sat, 28 Nov 2015 16:39:54 +0800
 
 android-platform-frameworks-base (21-2) unstable; urgency=low
 

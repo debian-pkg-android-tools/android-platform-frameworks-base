@@ -1,6 +1,32 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0
 Upstream-Name: platform/frameworks/base
 Source: https://android.googlesource.com/platform/frameworks/base
+Files-Excluded: api
+                cmds
+                core
+                data
+                docs
+                drm
+                graphics
+                keystore
+                location
+                media
+                native
+                nfc-extras
+                obex
+                opengl
+                packages
+                policy
+                rs
+                samples
+                sax
+                services
+                telecomm
+                telephony
+                test-runner
+                tests
+                tools/preload
+                wifi
 
 Files: *
 Copyright: 2005-2012 The Android Open Source Project

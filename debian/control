@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Android tools Maintainer <android-tools-devel@lists.alioth.debian.org>
 Uploaders: Hans-Christoph Steiner <hans@eds.org>,
            Kai-Chung Yan <seamlikok@gmail.com>
-Build-Depends: android-archconfig-dev,
+Build-Depends: android-androidconfig-dev,
                android-frameworks-native-dev,
                android-libcutils-dev (>= 21-5~),
                android-liblog-dev,

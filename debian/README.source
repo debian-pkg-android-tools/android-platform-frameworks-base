@@ -46,10 +46,10 @@ upstream tarballs.
 Omitted files
 -------------
 
-All of the files in the upstream make for a ~700MB tarball.  So only the
+All of the files in the upstream make for an almost 1 GiB tarball.  So only the
 section that are currently used are included in the tarball.  Check the
-debian/orig.excludes for details.
+debian/copyright for details.
 
 
  -- Hans-Christoph Steiner <hans@eds.org>  Tue, 30 Sep 2014 20:15:12 -0400
- -- Kai-Chung Yan <seamlikok@gmail.com>  Mon, 03 Aug 2015 07:58:56 +0800
+ -- Kai-Chung Yan <seamlikok@gmail.com>  Sat, 28 Nov 2015 16:39:54 +0800
