@@ -1,1 +1,3 @@
-tools/aidl/aidl   usr/bin
+#!/usr/bin/dh-exec
+
+aidl   usr/lib/android-sdk/build-tools/${BUILD_TOOLS_VERSION}

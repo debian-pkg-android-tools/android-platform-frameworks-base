@@ -6,16 +6,16 @@ Uploaders: Hans-Christoph Steiner <hans@eds.org>,
            Kai-Chung Yan <seamlikok@gmail.com>
 Build-Depends: android-androidconfig-dev,
                android-frameworks-native-dev,
-               android-libcutils-dev (>= 21-5~),
-               android-liblog-dev,
-               android-libutils-dev,
-               android-libziparchive-dev,
+               android-libbase-dev,
+               android-liblog-dev (>= 1:6.0.0),
+               android-libutils-dev (>= 1:6.0.0),
+               android-libziparchive-dev (>= 1:6.0.0),
                bison,
                debhelper (>= 9),
                dh-exec,
                flex,
-               libexpat1-dev,
-               libpng12-dev,
+               libexpat-dev,
+               libpng-dev,
                zlib1g-dev
 Standards-Version: 3.9.6
 Homepage: https://android.googlesource.com/platform/frameworks/base
@@ -25,7 +25,7 @@ Vcs-Browser: http://anonscm.debian.org/cgit/android-tools/android-platform-frame
 Package: android-libandroidfw
 Section: libs
 Architecture: amd64 i386 arm arm64 armeb mips mipsel mips64 mips64el
-Depends: android-liblog, ${shlibs:Depends}, ${misc:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Android utility library
  Library providing utility functions to Android related tools. This is needed
  purely to get various Android utilities working.  In the Google builds of the
@@ -51,11 +51,7 @@ Description: Android utility library - Development files
 
 Package: aapt
 Architecture: amd64 i386 arm arm64 armeb mips mipsel mips64 mips64el
-Depends: android-libandroidfw (>= ${binary:Version}),
-         android-liblog,
-         zlib1g,
-         ${shlibs:Depends},
-         ${misc:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Android Asset Packaging Tool
  The Android Asset Packaging Tool (aapt) takes your application resource
  files, such as the AndroidManifest.xml file and the XML files for your
@@ -63,6 +59,19 @@ Description: Android Asset Packaging Tool
  reference your resources from your Java code. This tool allows you to view,
  create, and update Zip-compatible archives (zip, jar, apk). It can also
  compile resources into binary assets.
+
+Package: android-libaapt
+Architecture: amd64 i386 arm arm64 armeb mips mipsel mips64 mips64el
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Android Asset Packaging Tool
+ The Android Asset Packaging Tool (aapt) takes your application resource
+ files, such as the AndroidManifest.xml file and the XML files for your
+ Activities, and compiles them. An R.java is also produced so you can
+ reference your resources from your Java code. This tool allows you to view,
+ create, and update Zip-compatible archives (zip, jar, apk). It can also
+ compile resources into binary assets.
+ .
+ This package contains the shared library.
 
 Package: aidl
 Architecture: amd64 i386 arm arm64 armeb mips mipsel mips64 mips64el

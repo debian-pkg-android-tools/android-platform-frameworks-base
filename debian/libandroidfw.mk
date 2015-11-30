@@ -1,5 +1,3 @@
-include /usr/include/android/arch/android_includes.mk
-
 NAME = libandroidfw
 SOURCES = Asset.cpp \
           AssetDir.cpp \
@@ -11,20 +9,16 @@ SOURCES = Asset.cpp \
           TypeWrappers.cpp \
           ZipFileRO.cpp \
           ZipUtils.cpp
-OBJECTS = $(SOURCES:.cpp=.o)
-CXXFLAGS += -fPIC -c -DSTATIC_ANDROIDFW_FOR_TOOLS
-CPPFLAGS += $(ANDROID_INCLUDES) -I../../include -I/usr/include/android
-LDFLAGS += -fPIC -shared -Wl,-soname,$(NAME).so.5 -lz \
+SOURCES := $(foreach source, $(SOURCES), libs/androidfw/$(source))
+CXXFLAGS += -fPIC -std=gnu++11 -DSTATIC_ANDROIDFW_FOR_TOOLS
+CPPFLAGS += -include android/arch/AndroidConfig.h -Iinclude -I/usr/include/android
+LDFLAGS += -shared -Wl,-soname,$(NAME).so.0 -lz \
            -L/usr/lib/android -lziparchive -lutils -lcutils -llog
 
-build: $(OBJECTS)
-	c++ $^ -o $(NAME).so.${UPSTREAM_LIBVERSION} $(LDFLAGS)
-	ar rs $(NAME).a $^
-	ln -s $(NAME).so.${UPSTREAM_LIBVERSION} $(NAME).so
-	ln -s $(NAME).so.${UPSTREAM_LIBVERSION} $(NAME).so.5
+build: $(SOURCES)
+	$(CXX) $^ -o $(NAME).so.$(ANDROID_LIBVERSION) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS)
+	ln -s $(NAME).so.$(ANDROID_LIBVERSION) $(NAME).so
+	ln -s $(NAME).so.$(ANDROID_LIBVERSION) $(NAME).so.0
 
 clean:
-	rm -f *.so* *.a *.o
-
-$(OBJECTS): %.o: %.cpp
-	c++ $< -o $@ $(CXXFLAGS) $(CPPFLAGS)
+	$(RM) $(NAME).so*

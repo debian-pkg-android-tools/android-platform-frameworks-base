@@ -1,3 +1,4 @@
-tools/aapt/aapt               usr/bin
+#!/usr/bin/dh-exec
+
+aapt                          usr/lib/android-sdk/build-tools/${BUILD_TOOLS_VERSION}
 debian/bash_completion.d/aapt etc/bash_completion.d
-tools/aapt/libaapt.so*        usr/lib/android

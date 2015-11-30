@@ -11,10 +11,18 @@ export BUILD_TOOLS_VERSION = 23.0.1
 	dh $@
 
 override_dh_auto_build:
-	make -f debian/Makefile
+	make -f debian/libandroidfw.mk
+	make -f debian/libaapt.mk
+	make -f debian/aapt.mk
+	make -f debian/aidl.mk
+	make -f debian/split-select.mk
 
 override_dh_auto_clean:
-	make clean -f debian/Makefile
+	make clean -f debian/libandroidfw.mk
+	make clean -f debian/libaapt.mk
+	make clean -f debian/aapt.mk
+	make clean -f debian/aidl.mk
+	make clean -f debian/split-select.mk
 	dh_auto_clean
 
 override_dh_shlibdeps:

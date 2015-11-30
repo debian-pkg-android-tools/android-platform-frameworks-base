@@ -1,5 +1,3 @@
-include /usr/include/android/arch/android_includes.mk
-
 NAME = aidl
 SOURCES = aidl_language_l.cpp \
           aidl_language_y.cpp \
@@ -12,17 +10,18 @@ SOURCES = aidl_language_l.cpp \
           generate_java.cpp \
           generate_java_binder.cpp \
           generate_java_rpc.cpp
+SOURCES := $(foreach source, $(SOURCES), tools/aidl/$(source))
 CXXFLAGS += -fPIC
-CPPFLAGS += $(ANDROID_INCLUDES) -I/usr/include/android
+CPPFLAGS += -include android/arch/AndroidConfig.h
 
-build: $(SOURCES) aidl_language_y.cpp aidl_language_l.cpp
-	c++ $^ -o $(NAME) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LOCAL_LDFLAGS)
+build: $(SOURCES) tools/aidl/aidl_language_y.cpp tools/aidl/aidl_language_l.cpp
+	$(CXX) $^ -o $(NAME) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS)
 
 clean:
-	rm -f $(NAME) aidl_language_y.cpp aidl_language_y.h aidl_language_l.cpp
+	$(RM) $(NAME) tools/aidl/aidl_language_y.cpp tools/aidl/aidl_language_y.h tools/aidl/aidl_language_l.cpp
 
-aidl_language_l.cpp: aidl_language_l.l aidl_language_y.cpp
+tools/aidl/aidl_language_l.cpp: tools/aidl/aidl_language_l.l tools/aidl/aidl_language_y.cpp
 	flex -o $@ $<
 
-aidl_language_y.cpp: aidl_language_y.y
-	bison --defines=aidl_language_y.h -o $@ $^
+tools/aidl/aidl_language_y.cpp: tools/aidl/aidl_language_y.y
+	bison --defines=tools/aidl/aidl_language_y.h -o $@ $^
