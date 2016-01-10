@@ -2,7 +2,7 @@ Author: Kai-Chung Yan <seamlikok@gmail.com>
 Last-Update: 2015-08-08
 --- a/tools/aapt/Images.cpp
 +++ b/tools/aapt/Images.cpp
-@@ -831,13 +831,13 @@
+@@ -808,13 +808,13 @@
      assert(outPatch->paddingTop == inPatch->paddingTop);
      assert(outPatch->paddingBottom == inPatch->paddingBottom);
      for (int i = 0; i < outPatch->numXDivs; i++) {
@@ -19,12 +19,3 @@ Last-Update: 2015-08-08
      }
      free(newData);
  }
-@@ -1049,7 +1049,7 @@
-                 gg = *row++;
-                 bb = *row++;
-                 aa = *row++;
--                
-+
-                 if (isGrayscale) {
-                     *out++ = rr;
-                 } else {
