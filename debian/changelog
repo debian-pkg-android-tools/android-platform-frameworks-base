@@ -5,8 +5,6 @@ android-platform-frameworks-base (1:6.0.0+r26-1) UNRELEASED; urgency=low
   * get-orig-source rule in d/rules for generating upstream tarballs
   * Install executables to faked SDK home
   * Makefiles independent from Quilt
-  * New aapt_Images_cpp_Res_png_9patch.diff: Fix API mistake
-  * New fix_aidl_typo.diff: Fix typo
   * New package: aidl, split-select
   * Use makefiles for generating library symlinks
   * Add lintian-overrides for binary-or-shlib-defines-rpath
@@ -19,8 +17,12 @@ android-platform-frameworks-base (1:6.0.0+r26-1) UNRELEASED; urgency=low
       - libexpat1-dev => libexpat-dev
       - Add android-platform-build-headers
     - All Build-Depends on AOSP packages >= 1:6.0.0
+  * New patches:
+    - aapt_Images_cpp_Res_png_9patch.diff: Fix API usage mistake
+    - fix_aidl_typo.diff
+    - aapt_typo.diff
 
- -- Kai-Chung Yan <seamlikok@gmail.com>  Mon, 30 Nov 2015 23:51:48 +0800
+ -- Kai-Chung Yan <seamlikok@gmail.com>  Sun, 10 Jan 2016 22:03:11 +0800
 
 android-platform-frameworks-base (21-2) unstable; urgency=low
 
