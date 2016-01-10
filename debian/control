@@ -35,9 +35,9 @@ Description: Android utility library
 Package: android-libandroidfw-dev
 Section: libdevel
 Architecture: amd64 i386 arm arm64 armeb mips mipsel mips64 mips64el
-Depends: android-frameworks-native-dev,
-         android-libandroidfw (= ${binary:Version}),
+Depends: android-libandroidfw (= ${binary:Version}),
          android-libutils-dev,
+         android-platform-frameworks-native-headers
          ${misc:Depends},
 Breaks: android-libandroidfw (<< 21-2~)
 Replaces: android-libandroidfw (<< 21-2~)
