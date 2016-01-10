@@ -1,0 +1,9 @@
+.debhelper/
+*.log
+*.substvars
+aapt/
+aidl/
+android-*/
+files
+split-select/
+tmp/
