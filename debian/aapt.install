@@ -1,4 +1,4 @@
 #!/usr/bin/dh-exec
 
 aapt                          usr/lib/android-sdk/build-tools/${BUILD_TOOLS_VERSION}
-debian/bash_completion.d/aapt etc/bash_completion.d
+debian/bash-completion/aapt usr/share/bash-completion/completions
