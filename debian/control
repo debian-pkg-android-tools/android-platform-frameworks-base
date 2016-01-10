@@ -63,7 +63,7 @@ Description: Android Asset Packaging Tool
 Package: android-libaapt
 Architecture: amd64 i386 arm arm64 armeb mips mipsel mips64 mips64el
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: Android Asset Packaging Tool
+Description: Android Asset Packaging Tool - Shared library
  The Android Asset Packaging Tool (aapt) takes your application resource
  files, such as the AndroidManifest.xml file and the XML files for your
  Activities, and compiles them. An R.java is also produced so you can
