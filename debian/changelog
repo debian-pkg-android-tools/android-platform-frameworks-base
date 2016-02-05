@@ -12,7 +12,7 @@ android-platform-frameworks-base (1:6.0.0+r26-1) UNRELEASED; urgency=medium
   * Update d/copyright
   * d/control:
     - Add myself to Uploaders
-    - Change architecture to x86, ARM and MIPS (Linux only)
+    - Change architecture to amd64 & i386
     - Change priority to optional
     - Change Build-Depends:
       - libpng12-dev => libpng-dev

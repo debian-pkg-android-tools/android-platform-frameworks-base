@@ -25,7 +25,7 @@ Vcs-Browser: https://anonscm.debian.org/cgit/android-tools/android-platform-fram
 
 Package: android-libandroidfw
 Section: libs
-Architecture: amd64 i386 arm arm64 armeb mips mipsel mips64 mips64el
+Architecture: amd64 i386
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Android utility library
  Library providing utility functions to Android related tools. This is needed
@@ -35,7 +35,7 @@ Description: Android utility library
 
 Package: android-libandroidfw-dev
 Section: libdevel
-Architecture: amd64 i386 arm arm64 armeb mips mipsel mips64 mips64el
+Architecture: amd64 i386
 Depends: android-libandroidfw (= ${binary:Version}),
          android-libutils-dev,
          android-platform-frameworks-native-headers,
@@ -51,7 +51,7 @@ Description: Android utility library - Development files
  This package contains the development files.
 
 Package: aapt
-Architecture: amd64 i386 arm arm64 armeb mips mipsel mips64 mips64el
+Architecture: amd64 i386
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Android Asset Packaging Tool
  The Android Asset Packaging Tool (aapt) takes your application resource
@@ -62,7 +62,7 @@ Description: Android Asset Packaging Tool
  compile resources into binary assets.
 
 Package: android-libaapt
-Architecture: amd64 i386 arm arm64 armeb mips mipsel mips64 mips64el
+Architecture: amd64 i386
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Android Asset Packaging Tool - Shared library
  The Android Asset Packaging Tool (aapt) takes your application resource
@@ -75,7 +75,7 @@ Description: Android Asset Packaging Tool - Shared library
  This package contains the shared library.
 
 Package: aidl
-Architecture: amd64 i386 arm arm64 armeb mips mipsel mips64 mips64el
+Architecture: amd64 i386
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Android Interface Defenition Language processor
  AIDL (Android Interface Definition Language) is similar to other IDLs you might
@@ -84,7 +84,7 @@ Description: Android Interface Defenition Language processor
  interprocess communication (IPC).
 
 Package: split-select
-Architecture: amd64 i386 arm arm64 armeb mips mipsel mips64 mips64el
+Architecture: amd64 i386
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: APK split and selection tool
  Generates the logic for selecting a Split APK given some target Android device
