@@ -45,9 +45,14 @@ Files: libs/hwui/utils/LinearAllocator.*
 Copyright: 2012, The Android Open Source Project
 License: BSD-2-clause
 
-Files: tools/layoutlib/create/tests/mock_data/*
-Copyright: 2008, The Android Open Source Project
+Files: tools/layoutlib/create/tests/com/android/tools/layoutlib/create/dataclass/JavaClass.java
+       tools/layoutlib/create/tests/mock_data/*
+Copyright: 2008-2013, The Android Open Source Project
 License: EPL
+
+Files: libs/usb/tests/accessorytest/f_accessory.h
+Copyright: 2011, Google
+License: GPL-2
 
 License: Apache-2.0
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -97,3 +102,13 @@ License: EPL
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
+
+License: GPL-2
+ This software is licensed under the terms of the GNU General Public
+ License version 2, as published by the Free Software Foundation, and
+ may be copied, distributed, and modified under those terms.
+ .
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
