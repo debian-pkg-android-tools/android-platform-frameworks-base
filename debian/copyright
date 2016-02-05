@@ -1,7 +1,8 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0
 Upstream-Name: Android framework classes and services
 Source: https://android.googlesource.com/platform/frameworks/base
-Files-Excluded: api
+Files-Excluded: *.jar
+                api
                 cmds
                 core
                 data
@@ -29,16 +30,24 @@ Files-Excluded: api
                 wifi
 
 Files: *
-Copyright: 2005-2012 The Android Open Source Project
-           1999-2006 The Apache Software Foundation
+Copyright: 2005-2012, The Android Open Source Project
+           1999-2006, The Apache Software Foundation
 License: Apache-2.0
 
 Files: debian/*
-Copyright: 2014 Hans-Christoph Steiner <hans@eds.org>
-           2005-2012 The Android Open Source Project
-           1999-2006 The Apache Software Foundation
-           2015 Kai-Chung Yan <seamlikok@gmail.com>
+Copyright: 2014, Hans-Christoph Steiner <hans@eds.org>
+           2005-2012, The Android Open Source Project
+           1999-2006, The Apache Software Foundation
+           2015-2016, Kai-Chung Yan <seamlikok@gmail.com>
 License: Apache-2.0
+
+Files: libs/hwui/utils/LinearAllocator.*
+Copyright: 2012, The Android Open Source Project
+License: BSD-2-clause
+
+Files: tools/layoutlib/create/tests/mock_data/*
+Copyright: 2008, The Android Open Source Project
+License: EPL
 
 License: Apache-2.0
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -52,3 +61,39 @@ License: Apache-2.0
  .
  On Debian systems, the full text of the Apache License, Version 2.0
  can be found in the file `/usr/share/common-licenses/Apache-2.0'.
+
+License: BSD-2-clause
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions
+ are met:
+ .
+   * Redistributions of source code must retain the above copyright
+     notice, this list of conditions and the following disclaimer.
+   * Redistributions in binary form must reproduce the above copyright
+     notice, this list of conditions and the following disclaimer in the
+     documentation and/or other materials provided with the distribution.
+ .
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS ``AS IS'' AND ANY
+ EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY
+ OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+License: EPL
+ Licensed under the Eclipse Public License, Version 1.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ .
+      http://www.eclipse.org/org/documents/epl-v10.php
+ .
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
