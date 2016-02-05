@@ -4,7 +4,7 @@
 
 # NAME
 
-split-select - APK split tool
+split-select - APK split and selection tool
 
 # SYNOPSIS
 

@@ -4,7 +4,7 @@
 
 # NAME
 
-aidl - Android Interface Definition Language
+aidl - Android Interface Defenition Language processor
 
 # SYNOPSIS
 

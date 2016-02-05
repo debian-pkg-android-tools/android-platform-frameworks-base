@@ -2,9 +2,11 @@
 *.log
 *.substvars
 aapt/
+aidl.1
 aidl/
 android-*/
 debhelper-build-stamp
 files
+split-select.1
 split-select/
 tmp/
