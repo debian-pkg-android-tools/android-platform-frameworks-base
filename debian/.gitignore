@@ -4,6 +4,7 @@
 aapt/
 aidl/
 android-*/
+debhelper-build-stamp
 files
 split-select/
 tmp/

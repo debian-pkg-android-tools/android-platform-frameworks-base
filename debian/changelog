@@ -17,6 +17,8 @@ android-platform-frameworks-base (1:6.0.0+r26-1) UNRELEASED; urgency=low
       - libexpat1-dev => libexpat-dev
       - Add android-platform-build-headers
     - All Build-Depends on AOSP packages >= 1:6.0.0
+    - Fix Vcs-Git
+    - Use HTTPS for Vcs URLs
   * New patches:
     - aapt_Images_cpp_Res_png_9patch.diff: Fix API usage mistake
     - fix_aidl_typo.diff
