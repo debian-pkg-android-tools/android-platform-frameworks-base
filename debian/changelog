@@ -8,6 +8,7 @@ android-platform-frameworks-base (1:6.0.0+r26-1) UNRELEASED; urgency=low
   * New package: aidl, split-select, android-libaapt
   * Use makefiles for generating library symlinks
   * Add lintian-overrides for binary-or-shlib-defines-rpath
+  * New manpages for aidl, split-select
   * d/control:
     - Add myself to Uploaders
     - Change architecture to x86, ARM and MIPS (Linux only)

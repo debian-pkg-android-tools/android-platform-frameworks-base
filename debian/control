@@ -16,6 +16,7 @@ Build-Depends: android-libbase-dev,
                flex,
                libexpat-dev,
                libpng-dev,
+               pandoc,
                zlib1g-dev
 Standards-Version: 3.9.7
 Homepage: https://android.googlesource.com/platform/frameworks/base

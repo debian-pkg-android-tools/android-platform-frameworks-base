@@ -15,14 +15,18 @@ override_dh_auto_build:
 	make -f debian/libaapt.mk
 	make -f debian/aapt.mk
 	make -f debian/aidl.mk
+	pandoc -s -o debian/aidl.1 debian/aidl.1.md
 	make -f debian/split-select.mk
+	pandoc -s -o debian/split-select.1 debian/split-select.1.md
 
 override_dh_auto_clean:
 	make clean -f debian/libandroidfw.mk
 	make clean -f debian/libaapt.mk
 	make clean -f debian/aapt.mk
 	make clean -f debian/aidl.mk
+	$(RM) debian/aidl.1
 	make clean -f debian/split-select.mk
+	$(RM) debian/split-select.1
 	dh_auto_clean
 
 override_dh_shlibdeps:
