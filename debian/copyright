@@ -31,7 +31,14 @@ Files-Excluded: *.jar
 
 Files: *
 Copyright: 2005-2012, The Android Open Source Project
+           2004-2010, NXP Software
+           2003-2010, VisualOn
+           1998-2009, PacketVideo
+           2002-2008, John Cowan
+           1991-2008, Unicode, Inc.
+           2007, Nuance Communications
            1999-2006, The Apache Software Foundation
+           2004, Apple Computer, Inc.
 License: Apache-2.0
 
 Files: debian/*
@@ -51,7 +58,7 @@ Copyright: 2008-2013, The Android Open Source Project
 License: EPL
 
 Files: libs/usb/tests/accessorytest/f_accessory.h
-Copyright: 2011, Google
+Copyright: 2011, Google, Inc.
 License: GPL-2
 
 License: Apache-2.0
