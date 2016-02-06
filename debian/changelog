@@ -1,4 +1,4 @@
-android-platform-frameworks-base (1:6.0.0+r26-1) UNRELEASED; urgency=medium
+android-platform-frameworks-base (1:6.0.0+r26-1) experimental; urgency=medium
 
   * New upstream release
   * Change version scheme to follow Android release tags
@@ -27,7 +27,7 @@ android-platform-frameworks-base (1:6.0.0+r26-1) UNRELEASED; urgency=medium
     - fix_aidl_typo.diff
     - aapt_typo.diff
 
- -- Kai-Chung Yan <seamlikok@gmail.com>  Sun, 10 Jan 2016 22:03:11 +0800
+ -- Kai-Chung Yan <seamlikok@gmail.com>  Fri, 5 Feb 2016 22:03:11 +0800
 
 android-platform-frameworks-base (21-2) unstable; urgency=low
 
