@@ -12,7 +12,7 @@ SOURCES = Asset.cpp \
 SOURCES := $(foreach source, $(SOURCES), libs/androidfw/$(source))
 CXXFLAGS += -fPIC -std=gnu++11 -DSTATIC_ANDROIDFW_FOR_TOOLS
 CPPFLAGS += -include android/arch/AndroidConfig.h -Iinclude -I/usr/include/android
-LDFLAGS += -shared -Wl,-soname,$(NAME).so.0 -lz \
+LDFLAGS += -shared -Wl,-soname,$(NAME).so.0 -Wl,-rpath=/usr/lib/android -lz \
            -L/usr/lib/android -lziparchive -lutils -lcutils -llog
 
 build: $(SOURCES)
