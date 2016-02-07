@@ -2,32 +2,14 @@ Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0
 Upstream-Name: Android framework classes and services
 Source: https://android.googlesource.com/platform/frameworks/base
 Files-Excluded: *.jar
-                api
-                cmds
-                core
+                *.zip
                 data
                 docs
-                drm
-                graphics
-                keystore
-                location
-                media
-                native
-                nfc-extras
-                obex
-                opengl
                 packages
-                rs
-                samples
-                sax
                 services
-                telecomm
-                telephony
-                test-runner
                 tests
                 tools/aapt2/data
                 tools/preload
-                wifi
 
 Files: *
 Copyright: 2005-2012, The Android Open Source Project
