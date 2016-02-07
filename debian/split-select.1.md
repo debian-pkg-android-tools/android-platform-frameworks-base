@@ -20,7 +20,7 @@ split-select - APK split and selection tool
 --help
 : Displays more information about this program.
 
---target <config>
+--target _config_
 : Performs the Split APK selection on the given configuration.
 
 --generate
