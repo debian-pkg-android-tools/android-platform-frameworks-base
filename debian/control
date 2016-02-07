@@ -77,7 +77,7 @@ Description: Android Asset Packaging Tool - Shared library
 Package: aidl
 Architecture: amd64 i386
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: Android Interface Defenition Language processor
+Description: Android Interface Definition Language processor
  AIDL (Android Interface Definition Language) is similar to other IDLs you might
  have worked with. It allows you to define the programming interface that both
  the client and service agree upon in order to communicate with each other using
