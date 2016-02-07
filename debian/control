@@ -6,6 +6,7 @@ Uploaders: Hans-Christoph Steiner <hans@eds.org>,
            Kai-Chung Yan <seamlikok@gmail.com>
 Build-Depends: android-libbase-dev,
                android-liblog-dev (>= 1:6.0.0),
+               android-libunwind-dev (>= 6),
                android-libutils-dev (>= 1:6.0.0),
                android-libziparchive-dev (>= 1:6.0.0),
                android-platform-build-headers,
