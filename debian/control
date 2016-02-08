@@ -6,7 +6,6 @@ Uploaders: Hans-Christoph Steiner <hans@eds.org>,
            Kai-Chung Yan <seamlikok@gmail.com>
 Build-Depends: android-libbase-dev (>= 1:6.0.0+r26~),
                android-liblog-dev (>= 1:6.0.0+r26~),
-               android-libunwind-dev (>= 6.0.0+r26~),
                android-libutils-dev (>= 1:6.0.0+r26~),
                android-libziparchive-dev (>= 1:6.0.0+r26~),
                android-platform-build-headers (>= 1:6.0.0+r26~),
@@ -38,8 +37,8 @@ Package: android-libandroidfw-dev
 Section: libdevel
 Architecture: amd64 i386
 Depends: android-libandroidfw (= ${binary:Version}),
-         android-libutils-dev (>= ${source:Version}),
-         android-platform-frameworks-native-headers (>= ${source:Version}),
+         android-libutils-dev (>= 1:6.0.0+r26~),
+         android-platform-frameworks-native-headers (>= 6.0.0+r26~),
          ${misc:Depends},
 Breaks: android-libandroidfw (<< 21-2~)
 Replaces: android-libandroidfw (<< 21-2~)
