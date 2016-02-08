@@ -37,7 +37,7 @@ Package: android-libandroidfw-dev
 Section: libdevel
 Architecture: amd64 i386
 Depends: android-libandroidfw (= ${binary:Version}),
-         android-libutils-dev (>= 1:6.0.0+r26~),
+         android-libutils-dev (>= ${source:Upstream-Version}),
          android-platform-frameworks-native-headers (>= 6.0.0+r26~),
          ${misc:Depends},
 Breaks: android-libandroidfw (<< 21-2~)
