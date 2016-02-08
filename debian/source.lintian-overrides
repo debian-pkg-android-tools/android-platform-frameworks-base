@@ -1,0 +1,11 @@
+# Since Google only ever builds the Android SDK as one giant thing, it
+# is essential that the Debian packages also only ever build against
+# the exact same version of the Android SDK.
+#
+# Additionally, all of the libraries used in the Android SDK are
+# unversioned, making this approach even more essential.
+#
+# https://wiki.debian.org/AndroidTools#Updating_the_source_packages
+#
+android-platform-frameworks-base: version-substvar-for-external-package android-libandroidfw-dev -> android-libutils-dev
+android-platform-frameworks-base: version-substvar-for-external-package android-libandroidfw-dev -> android-platform-frameworks-native-headers

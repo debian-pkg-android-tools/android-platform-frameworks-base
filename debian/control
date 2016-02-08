@@ -4,13 +4,13 @@ Priority: optional
 Maintainer: Android tools Maintainer <android-tools-devel@lists.alioth.debian.org>
 Uploaders: Hans-Christoph Steiner <hans@eds.org>,
            Kai-Chung Yan <seamlikok@gmail.com>
-Build-Depends: android-libbase-dev,
-               android-liblog-dev (>= 1:6.0.0),
-               android-libunwind-dev (>= 6),
-               android-libutils-dev (>= 1:6.0.0),
-               android-libziparchive-dev (>= 1:6.0.0),
-               android-platform-build-headers,
-               android-platform-frameworks-native-headers,
+Build-Depends: android-libbase-dev (>= 1:6.0.0+r26~),
+               android-liblog-dev (>= 1:6.0.0+r26~),
+               android-libunwind-dev (>= 6.0.0+r26~),
+               android-libutils-dev (>= 1:6.0.0+r26~),
+               android-libziparchive-dev (>= 1:6.0.0+r26~),
+               android-platform-build-headers (>= 1:6.0.0+r26~),
+               android-platform-frameworks-native-headers (>= 1:6.0.0+r26~),
                bison,
                debhelper (>= 9),
                dh-exec,
@@ -38,8 +38,8 @@ Package: android-libandroidfw-dev
 Section: libdevel
 Architecture: amd64 i386
 Depends: android-libandroidfw (= ${binary:Version}),
-         android-libutils-dev,
-         android-platform-frameworks-native-headers,
+         android-libutils-dev (>= ${source:Version}),
+         android-platform-frameworks-native-headers (>= ${source:Version}),
          ${misc:Depends},
 Breaks: android-libandroidfw (<< 21-2~)
 Replaces: android-libandroidfw (<< 21-2~)
