@@ -1,10 +1,15 @@
+android-platform-frameworks-base (1:6.0.0+r26-4) UNRELEASED; urgency=medium
+
+  * d/copyright: Exclude more useless files to reduce tarball size
+  * Use aapt.bash-completion for installing bash-completion
+
+ -- Kai-Chung Yan <seamlikok@gmail.com>  Fri, 12 Feb 2016 01:41:05 +0800
+
 android-platform-frameworks-base (1:6.0.0+r26-3) unstable; urgency=medium
 
   * d/control:
     - Do not use ${binary:Version} on external packages
     - Remove libunwind from B-D as unnecessary
-  * d/copyright: Exclude more useless files to reduce tarball size
-  * Use aapt.bash-completion for installing bash-completion
 
  -- Kai-Chung Yan <seamlikok@gmail.com>  Tue, 09 Feb 2016 02:06:39 +0800
 
