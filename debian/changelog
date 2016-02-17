@@ -1,5 +1,7 @@
 android-platform-frameworks-base (1:6.0.1+r16-1) UNRELEASED; urgency=medium
 
+  * New upstream release
+    - d/rules: Update BUILD_TOOLS_VERSION to 23.0.2
   * d/copyright: Exclude more useless files to reduce tarball size
   * Use aapt.bash-completion for installing bash-completion
 
