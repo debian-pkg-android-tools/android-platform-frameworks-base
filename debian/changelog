@@ -1,9 +1,9 @@
-android-platform-frameworks-base (1:6.0.0+r26-4) UNRELEASED; urgency=medium
+android-platform-frameworks-base (1:6.0.1+r16-1) UNRELEASED; urgency=medium
 
   * d/copyright: Exclude more useless files to reduce tarball size
   * Use aapt.bash-completion for installing bash-completion
 
- -- Kai-Chung Yan <seamlikok@gmail.com>  Fri, 12 Feb 2016 01:41:05 +0800
+ -- Kai-Chung Yan <seamlikok@gmail.com>  Wed, 17 Feb 2016 18:59:36 +0800
 
 android-platform-frameworks-base (1:6.0.0+r26-3) unstable; urgency=medium
 
