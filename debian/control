@@ -18,6 +18,11 @@ Build-Depends: android-libbase-dev (>= 1:6.0.0+r26~),
                libpng-dev,
                pandoc,
                zlib1g-dev
+Build-Depends-Indep: default-jdk,
+                     gradle-debian-helper,
+                     javahelper,
+                     libxpp3-java,
+                     maven-repo-helper
 Standards-Version: 3.9.7
 Homepage: https://android.googlesource.com/platform/frameworks/base
 Vcs-Git: https://anonscm.debian.org/git/android-tools/android-platform-frameworks-base.git
@@ -94,3 +99,17 @@ Description: APK split and selection tool
  satisfied in order to install the given Split APK. Using the flag --target
  along with the device configuration will emit the set of Split APKs to install,
  following the same logic that would have been emitted
+
+Package: libandroid-23-java
+Architecture: all
+Depends: ${java:Depends}, ${misc:Depends}
+Description: Android Frameworks library for API Level 23 (Marshmallow)
+ This package provides android.jar that is used to build an Android application.
+
+Package: libandroid-23-java-doc
+Architecture: all
+Section: docs
+Depends: ${misc:Depends}
+Recommends: default-jdk-doc, ${java:Recommends}
+Description: Android Frameworks library for API Level 23 (Marshmallow) - Javadoc
+ This package provides Javadoc for libandroid23-java.

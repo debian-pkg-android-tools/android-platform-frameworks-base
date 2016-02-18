@@ -1,0 +1,62 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+
+/* See the API Level defined in version_defaults.mk provided by
+ * src:android-platform-build.
+ */
+version = '23'
+group = 'com.android'
+
+repositories {
+  maven { url 'file:///usr/share/maven-repo' }
+}
+
+dependencies {
+  compile "com.android:luni:${project.version}"
+}
+
+sourceSets.main {
+  java {
+    srcDir '../core/java'
+    srcDir '../drm/java'
+    srcDir '../graphics/java'
+    srcDir '../keystore/java'
+    srcDir '../location/java'
+    srcDir '../media/java'
+    srcDir '../media/mca/effect/java'
+    srcDir '../media/mca/filterfw/java'
+    srcDir '../media/mca/filterpacks/java'
+    srcDir '../opengl/java'
+    srcDir '../rs/java'
+    srcDir '../sax/java'
+    srcDir '../telecomm/java'
+    srcDir '../telephony/java'
+    srcDir '../wifi/java'
+  }
+  resources {
+    srcDir '../core/res'
+  }
+}
+
+jar.manifest {
+  attributes 'Class-Path': configurations.compile.collect { it.getPath() }.toSorted().join(' ')
+}
+
+javadoc {
+  options {
+    links 'file:///usr/share/doc/default-jdk-doc/api'
+  }
+}
+
+task poms {
+  pom {
+    project {
+      artifactId project.name
+      version project.version
+    }
+  }.writeTo("${buildDir}/${project.name}.pom")
+}
+
+clean.doLast {
+  delete("${buildDir}/*.pom")
+}

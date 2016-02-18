@@ -1,0 +1,1 @@
+debian/build/android.pom --artifact=debian/build/libs/android-*.jar --java-lib

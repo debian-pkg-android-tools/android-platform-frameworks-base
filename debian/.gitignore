@@ -1,10 +1,13 @@
 .debhelper/
+.gradle/
+.gradlehome/
 *.log
 *.substvars
 aapt/
 aidl.1
 aidl/
 android-*/
+build/
 debhelper-build-stamp
 files
 split-select.1
