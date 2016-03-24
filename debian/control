@@ -4,23 +4,23 @@ Priority: optional
 Maintainer: Android tools Maintainer <android-tools-devel@lists.alioth.debian.org>
 Uploaders: Hans-Christoph Steiner <hans@eds.org>,
            Kai-Chung Yan <seamlikok@gmail.com>
-Build-Depends: android-libbase-dev (>= 1:6.0.0+r26~),
-               android-liblog-dev (>= 1:6.0.0+r26~),
-               android-libutils-dev (>= 1:6.0.0+r26~),
-               android-libziparchive-dev (>= 1:6.0.0+r26~),
-               android-platform-build-headers (>= 1:6.0.0+r26~),
-               android-platform-frameworks-native-headers (>= 1:6.0.1+r16~),
-               bison,
+Build-Depends: android-libbase-dev (>= 1:6.0.0+r26~) [amd64 i386],
+               android-liblog-dev (>= 1:6.0.0+r26~) [amd64 i386],
+               android-libutils-dev (>= 1:6.0.0+r26~) [amd64 i386],
+               android-libziparchive-dev (>= 1:6.0.0+r26~) [amd64 i386],
+               android-platform-build-headers (>= 1:6.0.0+r26~) [amd64 i386],
+               android-platform-frameworks-native-headers (>= 1:6.0.1+r16~) [amd64 i386],
+               bison [amd64 i386],
                debhelper (>= 9),
                dh-exec,
-               flex,
+               flex [amd64 i386],
                gradle-debian-helper,
                javahelper,
-               libexpat-dev,
-               libpng-dev,
+               libexpat-dev [amd64 i386],
+               libpng-dev [amd64 i386],
                maven-repo-helper,
                pandoc,
-               zlib1g-dev
+               zlib1g-dev [amd64 i386]
 Build-Depends-Indep: default-jdk,
                      libxpp3-java
 Standards-Version: 3.9.7
