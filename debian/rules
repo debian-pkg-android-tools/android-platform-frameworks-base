@@ -25,23 +25,8 @@ endif
 override_dh_auto_build-arch:
 	$(BUILD_COMMANDS_ARCH)
 
-override_dh_auto_clean-arch:
-	make clean -f debian/libandroidfw.mk
-	make clean -f debian/libaapt.mk
-	make clean -f debian/aapt.mk
-	make clean -f debian/aidl.mk
-	$(RM) debian/aidl.1
-	make clean -f debian/split-select.mk
-	$(RM) debian/split-select.1
-	dh_auto_clean --arch
-
 override_dh_auto_build-indep:
 	dh_auto_build --buildsystem=gradle -- $(GRADLE_OPTIONS) assemble poms
-
-override_dh_auto_clean-indep:
-	dh_auto_clean --indep
-	mh_clean
-	$(RM) -r debian/.gradle debian/build debian/.gradlehome
 
 override_dh_install-indep:
 	dh_install --indep
@@ -50,6 +35,18 @@ override_dh_install-indep:
 
 override_dh_shlibdeps:
 	dh_shlibdeps -l/usr/lib/android
+
+override_dh_auto_clean:
+	dh_auto_clean
+	mh_clean
+	$(RM) -r debian/.gradle debian/build debian/.gradlehome
+	make clean -f debian/libandroidfw.mk
+	make clean -f debian/libaapt.mk
+	make clean -f debian/aapt.mk
+	make clean -f debian/aidl.mk
+	$(RM) debian/aidl.1
+	make clean -f debian/split-select.mk
+	$(RM) debian/split-select.1
 
 get-orig-source: $(UPSTREAM_TAG).tar.gz
 	mk-origtargz --repack --compression xz $<
