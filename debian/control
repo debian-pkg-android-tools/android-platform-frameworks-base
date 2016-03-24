@@ -14,15 +14,15 @@ Build-Depends: android-libbase-dev (>= 1:6.0.0+r26~),
                debhelper (>= 9),
                dh-exec,
                flex,
+               gradle-debian-helper,
+               javahelper,
                libexpat-dev,
                libpng-dev,
+               maven-repo-helper,
                pandoc,
                zlib1g-dev
 Build-Depends-Indep: default-jdk,
-                     gradle-debian-helper,
-                     javahelper,
-                     libxpp3-java,
-                     maven-repo-helper
+                     libxpp3-java
 Standards-Version: 3.9.7
 Homepage: https://android.googlesource.com/platform/frameworks/base
 Vcs-Git: https://anonscm.debian.org/git/android-tools/android-platform-frameworks-base.git
