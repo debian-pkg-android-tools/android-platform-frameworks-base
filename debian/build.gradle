@@ -12,7 +12,7 @@ repositories {
 }
 
 dependencies {
-  compile "com.android:luni:${project.version}"
+  compile 'com.ibm.icu:icu4j:debian'
 }
 
 sourceSets.main {
@@ -32,6 +32,11 @@ sourceSets.main {
     srcDir '../telecomm/java'
     srcDir '../telephony/java'
     srcDir '../wifi/java'
+    srcDir 'file:///usr/src/android-platform-libcore-6.0.1/dalvik/main/java'
+    srcDir 'file:///usr/src/android-platform-libcore-6.0.1/dex/main/java'
+    srcDir 'file:///usr/src/android-platform-libcore-6.0.1/libart/main/java'
+    srcDir 'file:///usr/src/android-platform-libcore-6.0.1/luni/main/java'
+    srcDir 'file:///usr/src/android-platform-libcore-6.0.1/xml/main/java'
   }
   resources {
     srcDir '../core/res'
@@ -39,7 +44,7 @@ sourceSets.main {
 }
 
 jar.manifest {
-  attributes 'Class-Path': configurations.compile.collect { it.getPath() }.toSorted().join(' ')
+  attributes 'Class-Path': '/usr/share/java/icu4j.jar'
 }
 
 javadoc {

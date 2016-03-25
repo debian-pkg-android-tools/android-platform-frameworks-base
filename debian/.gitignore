@@ -10,6 +10,7 @@ android-*/
 build/
 debhelper-build-stamp
 files
+libcore
 split-select.1
 split-select/
 tmp/
