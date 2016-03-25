@@ -10,8 +10,10 @@ SOURCES := $(foreach source, $(SOURCES), tools/split-select/$(source))
 CXXFLAGS += -fPIC -std=gnu++11
 CPPFLAGS += -include android/arch/AndroidConfig.h -I/usr/include/android \
             -Itools -Iinclude -D_DARWIN_UNLIMITED_STREAMS
-LDFLAGS += -Wl,-rpath=/usr/lib/android \
-           -L/usr/lib/android -llog -lutils -L. -landroidfw -laapt
+LDFLAGS += -Wl,-rpath=/usr/lib/$(DEB_HOST_MULTIARCH)/android:/usr/lib/android \
+           -L/usr/lib/android -L/usr/lib/$(DEB_HOST_MULTIARCH)/android \
+           -llog -lutils \
+           -L. -landroidfw -laapt
 
 build: $(SOURCES)
 	$(CXX) $^ -o $(NAME) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS)
