@@ -27,7 +27,7 @@ CPPFLAGS += -DSTATIC_ANDROIDFW_FOR_TOOLS \
             -include android/arch/AndroidConfig.h \
             -I/usr/include/android -Iinclude
 LDFLAGS += -shared -Wl,-soname,$(NAME).so.0 \
-           -Wl,-rpath=/usr/lib/$(DEB_HOST_MULTIARCH)/android:/usr/lib/android \
+           -Wl,-rpath=/usr/lib/$(DEB_HOST_MULTIARCH)/android:/usr/lib/android:. \
            -lpng -lexpat -lz \
            -L/usr/lib/android -L/usr/lib/$(DEB_HOST_MULTIARCH)/android \
            -llog -lutils \

@@ -44,9 +44,12 @@ sourceSets.main {
     srcDir 'file:///usr/src/android-platform-libcore-6.0.1/luni/main/java'
     srcDir 'file:///usr/src/android-platform-libcore-6.0.1/xml/main/java'
     srcDir "${buildDir}/aidl"
+    srcDir "${rootDir}/tmp/aapt"
   }
   resources {
-    srcDir '../core/res'
+    srcDir '../core/res/assets'
+    srcDir '../core/res/res'
+    exclude '**/values*/**'
   }
 }
 

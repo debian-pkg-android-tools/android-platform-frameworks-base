@@ -6,7 +6,7 @@ include /usr/share/dpkg/pkg-info.mk
 UPSTREAM_TAG = android-$(subst +,_,$(DEB_VERSION_UPSTREAM))
 # See sdk/build_tools_source.prop_template in platform/development
 export BUILD_TOOLS_VERSION = 23.0.2
-GRADLE_OPTIONS = --settings-file debian/settings.gradle
+GRADLE_FLAGS = --settings-file debian/settings.gradle
 export DEB_HOST_MULTIARCH
 
 %:
@@ -15,16 +15,22 @@ export DEB_HOST_MULTIARCH
 aidl:
 	make -f debian/aidl.mk
 
-override_dh_auto_build-arch: aidl
+aapt:
 	make -f debian/libandroidfw.mk
 	make -f debian/libaapt.mk
 	make -f debian/aapt.mk
+
+override_dh_auto_build-arch: aidl aapt
 	pandoc -s -o debian/aidl.1 debian/aidl.1.md
 	make -f debian/split-select.mk
 	pandoc -s -o debian/split-select.1 debian/split-select.1.md
 
-override_dh_auto_build-indep: aidl
-	dh_auto_build --buildsystem=gradle -- $(GRADLE_OPTIONS) aidl assemble poms
+override_dh_auto_build-indep: aidl aapt
+	mkdir --parents debian/tmp/aapt
+	./aapt package --skip-symbols-without-default-localization -m \
+	       -J debian/tmp/aapt -M core/res/AndroidManifest.xml \
+	       -S core/res/res -A core/res/assets
+	dh_auto_build --buildsystem=gradle -- $(GRADLE_FLAGS) aidl assemble poms
 
 override_dh_install-indep:
 	dh_install --indep
@@ -45,6 +51,7 @@ override_dh_auto_clean:
 	$(RM) debian/aidl.1
 	make clean -f debian/split-select.mk
 	$(RM) debian/split-select.1
+	$(RM) -r debian/tmp
 
 get-orig-source: $(UPSTREAM_TAG).tar.gz
 	mk-origtargz --repack --compression xz $<
