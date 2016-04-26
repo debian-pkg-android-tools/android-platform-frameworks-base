@@ -7,6 +7,26 @@ apply plugin: 'maven'
 version = '23'
 group = 'com.android'
 
+ext {
+  srcLocations = [
+    '../core/java',
+    '../drm/java',
+    '../graphics/java',
+    '../keystore/java',
+    '../location/java',
+    '../media/java',
+    '../media/mca/effect/java',
+    '../media/mca/filterfw/java',
+    '../media/mca/filterpacks/java',
+    '../opengl/java',
+    '../rs/java',
+    '../sax/java',
+    '../telecomm/java',
+    '../telephony/java',
+    '../wifi/java'
+  ]
+}
+
 repositories {
   maven { url 'file:///usr/share/maven-repo' }
 }
@@ -17,26 +37,13 @@ dependencies {
 
 sourceSets.main {
   java {
-    srcDir '../core/java'
-    srcDir '../drm/java'
-    srcDir '../graphics/java'
-    srcDir '../keystore/java'
-    srcDir '../location/java'
-    srcDir '../media/java'
-    srcDir '../media/mca/effect/java'
-    srcDir '../media/mca/filterfw/java'
-    srcDir '../media/mca/filterpacks/java'
-    srcDir '../opengl/java'
-    srcDir '../rs/java'
-    srcDir '../sax/java'
-    srcDir '../telecomm/java'
-    srcDir '../telephony/java'
-    srcDir '../wifi/java'
+    for (def dir in srcLocations) { srcDir(dir) }
     srcDir 'file:///usr/src/android-platform-libcore-6.0.1/dalvik/main/java'
     srcDir 'file:///usr/src/android-platform-libcore-6.0.1/dex/main/java'
     srcDir 'file:///usr/src/android-platform-libcore-6.0.1/libart/main/java'
     srcDir 'file:///usr/src/android-platform-libcore-6.0.1/luni/main/java'
     srcDir 'file:///usr/src/android-platform-libcore-6.0.1/xml/main/java'
+    srcDir "${buildDir}/aidl"
   }
   resources {
     srcDir '../core/res'
@@ -62,6 +69,26 @@ task poms {
   }.writeTo("${buildDir}/${project.name}.pom")
 }
 
+task aidl {
+  def aidlFiles = files(srcLocations).getAsFileTree().filter {
+    it.getPath().endsWith('.aidl')
+  }.getFiles()
+  
+  inputs.files aidlFiles
+  outputs.dir "${buildDir}/aidl"
+  
+  doFirst {
+    mkdir "${buildDir}/aidl"
+    def importPaths = ''
+    srcLocations.each { importPaths += "-I${file(it).getPath()} " }
+    aidlFiles.each {
+      def command = "./aidl $importPaths -o${buildDir}/aidl ${it.getPath()}"
+      command.execute().waitFor()
+    }
+  }
+}
+
 clean.doLast {
-  delete("${buildDir}/*.pom")
+  delete "${buildDir}/*.pom"
+  delete "${buildDir}/aidl"
 }
