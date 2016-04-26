@@ -33,7 +33,7 @@ override_dh_shlibdeps:
 	dh_shlibdeps -l/usr/lib/android
 
 override_dh_auto_clean:
-	dh_auto_clean
+	dh_auto_clean --buildsystem=gradle
 	mh_clean
 	$(RM) -r debian/.gradle debian/build .gradle
 	make clean -f debian/libandroidfw.mk
