@@ -33,6 +33,7 @@ repositories {
 
 dependencies {
   compile 'com.ibm.icu:icu4j:debian'
+  compile 'com.googlecode.libphonenumber:libphonenumber:debian'
 }
 
 sourceSets.main {
@@ -54,7 +55,9 @@ sourceSets.main {
 }
 
 jar.manifest {
-  attributes 'Class-Path': '/usr/share/java/icu4j.jar'
+  attributes 'Class-Path': configurations.compile.collect {
+    "/usr/share/java/${it.getName()}.jar"
+  }.join(' ')
 }
 
 javadoc {

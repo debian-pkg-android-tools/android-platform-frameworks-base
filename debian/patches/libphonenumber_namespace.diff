@@ -1,0 +1,78 @@
+Description:
+ The package name of libphonenumber used by Android is
+ "com.android.i18n.phonenumber", we need to use the upstream name instead.
+Author: Kai-Chung Yan <seamlikok@gmail.com>
+Last-Update: 2016-04-27
+--- a/telephony/java/com/android/internal/telephony/CallerInfo.java
++++ b/telephony/java/com/android/internal/telephony/CallerInfo.java
+@@ -35,10 +35,10 @@
+ import android.telephony.Rlog;
+ import android.util.Log;
+ 
+-import com.android.i18n.phonenumbers.geocoding.PhoneNumberOfflineGeocoder;
+-import com.android.i18n.phonenumbers.NumberParseException;
+-import com.android.i18n.phonenumbers.PhoneNumberUtil;
+-import com.android.i18n.phonenumbers.Phonenumber.PhoneNumber;
++import com.google.i18n.phonenumbers.geocoding.PhoneNumberOfflineGeocoder;
++import com.google.i18n.phonenumbers.NumberParseException;
++import com.google.i18n.phonenumbers.PhoneNumberUtil;
++import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
+ import android.telephony.SubscriptionManager;
+ 
+ import java.util.Locale;
+@@ -556,7 +556,7 @@
+ 
+     /**
+      * @return a geographical description string for the specified number.
+-     * @see com.android.i18n.phonenumbers.PhoneNumberOfflineGeocoder
++     * @see com.google.i18n.phonenumbers.PhoneNumberOfflineGeocoder
+      */
+     private static String getGeoDescription(Context context, String number) {
+         if (VDBG) Rlog.v(TAG, "getGeoDescription('" + number + "')...");
+--- a/core/java/android/text/util/Linkify.java
++++ b/core/java/android/text/util/Linkify.java
+@@ -37,9 +37,9 @@
+ import java.util.regex.Matcher;
+ import java.util.regex.Pattern;
+ 
+-import com.android.i18n.phonenumbers.PhoneNumberMatch;
+-import com.android.i18n.phonenumbers.PhoneNumberUtil;
+-import com.android.i18n.phonenumbers.PhoneNumberUtil.Leniency;
++import com.google.i18n.phonenumbers.PhoneNumberMatch;
++import com.google.i18n.phonenumbers.PhoneNumberUtil;
++import com.google.i18n.phonenumbers.PhoneNumberUtil.Leniency;
+ 
+ /**
+  *  Linkify take a piece of text and a regular expression and turns all of the
+--- a/telephony/java/android/telephony/PhoneNumberFormattingTextWatcher.java
++++ b/telephony/java/android/telephony/PhoneNumberFormattingTextWatcher.java
+@@ -16,8 +16,8 @@
+ 
+ package android.telephony;
+ 
+-import com.android.i18n.phonenumbers.AsYouTypeFormatter;
+-import com.android.i18n.phonenumbers.PhoneNumberUtil;
++import com.google.i18n.phonenumbers.AsYouTypeFormatter;
++import com.google.i18n.phonenumbers.PhoneNumberUtil;
+ 
+ import android.telephony.PhoneNumberUtils;
+ import android.text.Editable;
+--- a/telephony/java/android/telephony/PhoneNumberUtils.java
++++ b/telephony/java/android/telephony/PhoneNumberUtils.java
+@@ -16,11 +16,11 @@
+ 
+ package android.telephony;
+ 
+-import com.android.i18n.phonenumbers.NumberParseException;
+-import com.android.i18n.phonenumbers.PhoneNumberUtil;
+-import com.android.i18n.phonenumbers.PhoneNumberUtil.PhoneNumberFormat;
+-import com.android.i18n.phonenumbers.Phonenumber.PhoneNumber;
+-import com.android.i18n.phonenumbers.ShortNumberUtil;
++import com.google.i18n.phonenumbers.NumberParseException;
++import com.google.i18n.phonenumbers.PhoneNumberUtil;
++import com.google.i18n.phonenumbers.PhoneNumberUtil.PhoneNumberFormat;
++import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
++import com.google.i18n.phonenumbers.ShortNumberUtil;
+ 
+ import android.content.Context;
+ import android.content.Intent;
