@@ -5,7 +5,7 @@ apply plugin: 'maven'
  * src:android-platform-build.
  */
 version = '23'
-group = 'com.android'
+group = 'com.google.android'
 
 ext {
   srcLocations = [
