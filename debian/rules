@@ -10,7 +10,7 @@ GRADLE_FLAGS = --settings-file debian/settings.gradle
 export DEB_HOST_MULTIARCH
 
 %:
-	dh $@
+	dh $@ --with=javahelper
 
 aidl:
 	make -f debian/aidl.mk
@@ -35,7 +35,6 @@ override_dh_auto_build-indep: aidl aapt
 override_dh_install-indep:
 	dh_install --indep
 	mh_install
-	jh_depends
 
 override_dh_shlibdeps:
 	dh_shlibdeps -l/usr/lib/android
