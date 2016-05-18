@@ -23,6 +23,7 @@ Build-Depends: android-libbase-dev (>= 1:6.0.0+r26~) [amd64 i386],
                zlib1g-dev [amd64 i386]
 Build-Depends-Indep: android-platform-libcore-source-6.0.1,
                      default-jdk,
+                     junit4,
                      libbcprov-java,
                      libphonenumber7-java,
                      libxpp3-java

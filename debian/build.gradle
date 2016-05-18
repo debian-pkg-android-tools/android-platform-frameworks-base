@@ -35,6 +35,7 @@ dependencies {
   compile 'com.ibm.icu:icu4j:debian'
   compile 'com.googlecode.libphonenumber:geocoder:debian'
   compile 'com.googlecode.libphonenumber:libphonenumber:debian'
+  compile 'junit:junit:4.x'
   compile 'org.bouncycastle:bcprov:debian'
 }
 

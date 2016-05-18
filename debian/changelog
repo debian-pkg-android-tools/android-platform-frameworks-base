@@ -3,9 +3,13 @@ android-platform-frameworks-base (1:6.0.1+r16-2) UNRELEASED; urgency=medium
   * New package: libandroid-23-java for Android Frameworks android.jar
   * d/control:
     - Move build helper pacakges to Build-Depends
-    - Limit some BDs to [amd64 i386]
+    - Limit some arch BDs to [amd64 i386]
     - Built-Using & Build-Depends-Indep: android-platform-libcore-source-6.0.1
     - Change Maintainer to "Android Tools Maintainers"
+    - Add to Build-Depends:
+      - junit4
+      - libbcprov
+      - libphonenumber7-java
   * Add support for multi-arch
   * Build against libphonenumber7-java
     - New libphonenumber_namespace.diff: Android uses different package name of
