@@ -45,6 +45,7 @@ sourceSets.main {
     for (def dir in srcLocations) { srcDir(dir) }
     srcDir 'file:///usr/src/android-platform-libcore-6.0.1/dalvik/main/java'
     srcDir 'file:///usr/src/android-platform-libcore-6.0.1/dex/main/java'
+    srcDir 'file:///usr/src/android-platform-libcore-6.0.1/json/main/java'
     srcDir 'file:///usr/src/android-platform-libcore-6.0.1/libart/main/java'
     srcDir 'file:///usr/src/android-platform-libcore-6.0.1/luni/main/java'
     srcDir 'file:///usr/src/android-platform-libcore-6.0.1/xml/main/java'
