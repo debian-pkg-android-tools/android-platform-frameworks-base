@@ -34,6 +34,7 @@ repositories {
 dependencies {
   compile 'com.ibm.icu:icu4j:debian'
   compile 'com.googlecode.libphonenumber:libphonenumber:debian'
+  compile 'org.bouncycastle:bcprov:debian'
 }
 
 sourceSets.main {

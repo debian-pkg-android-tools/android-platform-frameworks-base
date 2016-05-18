@@ -3,3 +3,4 @@ aapt_Images_cpp_Res_png_9patch.diff
 fix_aidl_typo.diff
 aapt_typo.diff
 libphonenumber_namespace.diff
+bouncycastle_namespace.diff
