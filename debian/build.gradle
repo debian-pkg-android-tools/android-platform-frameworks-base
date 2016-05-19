@@ -32,6 +32,7 @@ repositories {
 }
 
 dependencies {
+  compile 'com.android:conscrypt-jarjared:debian'
   compile 'com.ibm.icu:icu4j:debian'
   compile 'com.googlecode.libphonenumber:geocoder:2.x'
   compile 'com.googlecode.libphonenumber:libphonenumber:debian'
@@ -60,8 +61,12 @@ sourceSets.main {
 }
 
 jar.manifest {
-  attributes 'Class-Path': configurations.compile.collect {
-    "/usr/share/java/${it.getName()}.jar"
+  attributes 'Class-Path': configurations.compile.getDependencies().collect {
+    if (it.getGroup() == 'com.android') {
+      "/usr/share/java/com.android.${it.getName()}.jar"
+    } else {
+      "/usr/share/java/${it.getName()}.jar"
+    }
   }.join(' ')
 }
 
