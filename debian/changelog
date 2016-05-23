@@ -1,8 +1,14 @@
-android-platform-frameworks-base (1:6.0.1+r55) UNRELEASED; urgency=medium
+android-platform-frameworks-base (1:6.0.1+r55-1) UNRELEASED; urgency=medium
 
+  [ Chirayu Desai ]
   * New upstream release.
   * debian: Add watch file for usage with uscan
   * debian/watch: recompress using xz
+
+  [ Kai-Chung Yan ]
+  * d/copyright: No longer exclude
+    - *.zip: Not neccesary
+    - packages: Contains codes required for building android.jar
 
  -- Chirayu Desai <chirayudesai1@gmail.com>  Fri, 22 Jul 2016 00:35:24 +0530
 
