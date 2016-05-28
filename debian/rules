@@ -9,6 +9,7 @@ export BUILD_TOOLS_VERSION = 23.0.2
 GRADLE_FLAGS = --settings-file debian/settings.gradle
 export DEB_HOST_MULTIARCH
 LOGTAGS = $(shell find core -name *.logtags)
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
 %/EventLogTags.java: %/EventLogTags.logtags
 	java-event-log-tags -o $@ $< $<

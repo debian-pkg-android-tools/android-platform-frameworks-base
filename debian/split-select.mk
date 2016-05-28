@@ -7,10 +7,10 @@ SOURCES = Abi.cpp \
           SplitSelector.cpp \
           Main.cpp
 SOURCES := $(foreach source, $(SOURCES), tools/split-select/$(source))
-CXXFLAGS += -fPIC -std=gnu++11
+CXXFLAGS += -std=gnu++11
 CPPFLAGS += -include android/arch/AndroidConfig.h -I/usr/include/android \
             -Itools -Iinclude -D_DARWIN_UNLIMITED_STREAMS
-LDFLAGS += -Wl,-rpath=/usr/lib/$(DEB_HOST_MULTIARCH)/android:/usr/lib/android \
+LDFLAGS += -fPIC -Wl,-rpath=/usr/lib/$(DEB_HOST_MULTIARCH)/android:/usr/lib/android \
            -L/usr/lib/android -L/usr/lib/$(DEB_HOST_MULTIARCH)/android \
            -llog -lutils \
            -L. -landroidfw -laapt

@@ -24,6 +24,7 @@ android-platform-frameworks-base (1:6.0.1+r43-1) UNRELEASED; urgency=medium
   * Build against libconscrypt-java
   * Build against libandroid-okhttp-java
     - New okhttp_namespace.diff: Android uses different package name of okhttp
+  * d/rules: export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
  -- Kai-Chung Yan <seamlikok@gmail.com>  Sat, 28 May 2016 14:11:46 +0800
 

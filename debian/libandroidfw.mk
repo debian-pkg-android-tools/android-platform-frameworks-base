@@ -10,9 +10,9 @@ SOURCES = Asset.cpp \
           ZipFileRO.cpp \
           ZipUtils.cpp
 SOURCES := $(foreach source, $(SOURCES), libs/androidfw/$(source))
-CXXFLAGS += -fPIC -std=gnu++11 -DSTATIC_ANDROIDFW_FOR_TOOLS
+CXXFLAGS += -std=gnu++11 -DSTATIC_ANDROIDFW_FOR_TOOLS
 CPPFLAGS += -include android/arch/AndroidConfig.h -Iinclude -I/usr/include/android
-LDFLAGS += -shared -Wl,-soname,$(NAME).so.0 \
+LDFLAGS += -fPIC -shared -Wl,-soname,$(NAME).so.0 \
            -Wl,-rpath=/usr/lib/$(DEB_HOST_MULTIARCH)/android:/usr/lib/android \
            -lz \
            -L/usr/lib/android -L/usr/lib/$(DEB_HOST_MULTIARCH)/android \
