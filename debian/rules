@@ -34,6 +34,7 @@ override_dh_auto_build-arch: aidl aapt split-select
 	pandoc -s -o debian/out/split-select.1 debian/split-select.1.md
 
 override_dh_auto_build-indep: aapt
+	ln -s values-mcc310-mnc150 core/res/res/values-mcc310-mnc170
 	mkdir --parents debian/out/aapt
 	./aapt package -u -x -z \
 	               -M core/res/AndroidManifest.xml \
