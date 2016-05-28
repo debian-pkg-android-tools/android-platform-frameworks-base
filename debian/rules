@@ -13,20 +13,26 @@ LOGTAGS = $(shell find core -name *.logtags)
 %/EventLogTags.java: %/EventLogTags.logtags
 	java-event-log-tags -o $@ $< $<
 
+aapt: libaapt.so
+	make -f debian/aapt.mk
+
 aidl:
 	make -f debian/aidl.mk
 
-aapt:
-	make -f debian/libandroidfw.mk
+libaapt.so: libandroidfw.so
 	make -f debian/libaapt.mk
-	make -f debian/aapt.mk
+
+libandroidfw.so:
+	make -f debian/libandroidfw.mk
+
+split-select:
+	make -f debian/split-select.mk
 
 %:
 	dh $@ --with=javahelper
 
-override_dh_auto_build-arch: aidl aapt
+override_dh_auto_build-arch: aidl aapt split-select
 	pandoc -s -o debian/aidl.1 debian/aidl.1.md
-	make -f debian/split-select.mk
 	pandoc -s -o debian/split-select.1 debian/split-select.1.md
 
 override_dh_auto_build-indep: aidl aapt $(LOGTAGS:.logtags=.java)
@@ -36,13 +42,6 @@ override_dh_auto_build-indep: aidl aapt $(LOGTAGS:.logtags=.java)
 	       -J debian/tmp/aapt -M core/res/AndroidManifest.xml \
 	       -S core/res/res -A core/res/assets
 	dh_auto_build --buildsystem=gradle -- $(GRADLE_FLAGS) aidl assemble poms
-
-override_dh_install-indep:
-	dh_install --indep
-	mh_install
-
-override_dh_shlibdeps:
-	dh_shlibdeps -l/usr/lib/android
 
 override_dh_auto_clean:
 	dh_auto_clean --buildsystem=gradle
@@ -57,6 +56,13 @@ override_dh_auto_clean:
 	$(RM) -r debian/tmp
 	$(RM) $(LOGTAGS:.logtags=.java)
 	$(RM) core/res/res/values-mcc310-mnc170
+
+override_dh_install-indep:
+	dh_install --indep
+	mh_install
+
+override_dh_shlibdeps:
+	dh_shlibdeps -l/usr/lib/android
 
 get-orig-source: $(UPSTREAM_TAG).tar.gz
 	mk-origtargz --repack --compression xz $<
