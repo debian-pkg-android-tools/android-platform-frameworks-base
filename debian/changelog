@@ -7,7 +7,7 @@ android-platform-frameworks-base (1:6.0.1+r43-1) UNRELEASED; urgency=medium
     - Built-Using & Build-Depends-Indep: android-platform-libcore-source-6.0.1
     - Change Maintainer to "Android Tools Maintainers"
   * d/copyright:
-    - No longer exclude "*.zip": Not neccesary
+    - No longer exclude "*.zip": Not necessary
     - No longer exclude "packages": Contains codes required for building
       android.jar
     - Exclude "core/res/res/values-mcc310-mnc170": dpkg-source cannot handle
