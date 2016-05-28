@@ -30,6 +30,7 @@ override_dh_auto_build-arch: aidl aapt
 	pandoc -s -o debian/split-select.1 debian/split-select.1.md
 
 override_dh_auto_build-indep: aidl aapt $(LOGTAGS:.logtags=.java)
+	ln -s values-mcc310-mnc150 core/res/res/values-mcc310-mnc170
 	mkdir --parents debian/tmp/aapt
 	./aapt package --skip-symbols-without-default-localization -m \
 	       -J debian/tmp/aapt -M core/res/AndroidManifest.xml \
