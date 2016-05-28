@@ -55,9 +55,13 @@ sourceSets.main {
     srcDir "${rootDir}/tmp/aapt"
   }
   resources {
-    srcDir '../core/res/assets'
-    srcDir '../core/res/res'
+    srcDir '../core/res'
     exclude '**/values*/**'
+    exclude 'Android.mk'
+    exclude 'lint.xml'
+    exclude 'MakeJavaSymbols.sed'
+    exclude 'MODULE_LICENSE_APACHE2'
+    exclude 'NOTICE'
   }
 }
 
