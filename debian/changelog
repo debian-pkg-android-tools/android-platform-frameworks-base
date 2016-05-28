@@ -1,4 +1,4 @@
-android-platform-frameworks-base (1:6.0.1+r16-2) UNRELEASED; urgency=medium
+android-platform-frameworks-base (1:6.0.1+r43-1) UNRELEASED; urgency=medium
 
   * New package: libandroid-23-java for Android Frameworks android.jar
   * d/control:
