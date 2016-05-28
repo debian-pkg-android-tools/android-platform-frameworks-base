@@ -43,7 +43,7 @@ override_dh_auto_build-indep: aidl aapt $(LOGTAGS:.logtags=.java)
 	       -J debian/tmp/aapt -M core/res/AndroidManifest.xml \
 	       -S core/res/res -A core/res/assets
 	dh_auto_build --buildsystem=gradle -- $(GRADLE_FLAGS) \
-	                                      aidl assemble poms javadoc
+	                                      assemble poms javadoc
 
 override_dh_auto_clean:
 	dh_auto_clean --buildsystem=gradle

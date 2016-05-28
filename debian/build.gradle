@@ -82,12 +82,10 @@ javadoc {
 }
 
 task poms {
-  pom {
-    project {
-      artifactId project.name
-      version project.version
-    }
-  }.writeTo("${buildDir}/${project.name}.pom")
+  outputs.files "${buildDir}/${project.name}.pom"
+  doFirst {
+    pom { project {} }.writeTo("${buildDir}/${project.name}.pom")
+  }
 }
 
 task aidl {
@@ -103,22 +101,29 @@ task aidl {
   aidlFiles.add(file(
     '../packages/services/Proxy/com/android/net/IProxyPortListener.aidl'
   ))
+  def aidlPaths = aidlFiles.collect { it.getPath() }.join(' ')
+  def frameworkAidlPath = "${buildDir}/framework.aidl"
+  def importPaths = ''
+  srcLocations.each { importPaths += "-I${file(it).getPath()} " }
   
   inputs.files aidlFiles
   outputs.dir "${buildDir}/aidl"
+  outputs.files frameworkAidlPath
   
   doFirst {
     mkdir "${buildDir}/aidl"
-    def importPaths = ''
-    srcLocations.each { importPaths += "-I${file(it).getPath()} " }
     aidlFiles.each {
       def command = "./aidl $importPaths -o${buildDir}/aidl ${it.getPath()}"
       command.execute().waitFor()
     }
+    "./aidl --preprocess $frameworkAidlPath $aidlPaths".execute().waitFor()
   }
 }
 
 clean.doLast {
   delete "${buildDir}/*.pom"
   delete "${buildDir}/aidl"
+  delete $frameworkAidlPath
 }
+
+compileJava.dependsOn ':aidl'
