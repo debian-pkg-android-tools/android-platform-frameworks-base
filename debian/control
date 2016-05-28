@@ -32,7 +32,6 @@ Build-Depends-Indep: android-logtags-tools,
                      libphonenumber7-java,
                      libtagsoup-java,
                      libxpp3-java
-Built-Using: android-platform-libcore-source-6.0.1
 Standards-Version: 3.9.7
 Homepage: https://android.googlesource.com/platform/frameworks/base
 Vcs-Git: https://anonscm.debian.org/git/android-tools/android-platform-frameworks-base.git
@@ -113,6 +112,7 @@ Description: APK split and selection tool
 Package: libandroid-23-java
 Architecture: all
 Depends: ${java:Depends}, ${misc:Depends}
+Built-Using: android-platform-libcore-source-6.0.1
 Description: Android Frameworks library for API Level 23 (Marshmallow)
  This package provides android.jar that is used to build an Android application.
 
