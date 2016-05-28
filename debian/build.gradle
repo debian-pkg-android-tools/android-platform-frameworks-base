@@ -90,6 +90,15 @@ task aidl {
   def aidlFiles = files(srcLocations).getAsFileTree().filter {
     it.getPath().endsWith('.aidl')
   }.getFiles()
+  aidlFiles.add(file(
+    '../packages/services/PacProcessor/com/android/net/IProxyService.aidl'
+  ))
+  aidlFiles.add(file(
+    '../packages/services/Proxy/com/android/net/IProxyCallback.aidl'
+  ))
+  aidlFiles.add(file(
+    '../packages/services/Proxy/com/android/net/IProxyPortListener.aidl'
+  ))
   
   inputs.files aidlFiles
   outputs.dir "${buildDir}/aidl"
