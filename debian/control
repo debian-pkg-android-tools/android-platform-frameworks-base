@@ -112,6 +112,7 @@ Description: APK split and selection tool
 
 Package: libandroid-23-java
 Architecture: all
+Section: java
 Depends: ${java:Depends}, ${misc:Depends}
 Built-Using: android-platform-libcore-source-6.0.1
 Description: Android Frameworks library for API Level 23 (Marshmallow)
