@@ -24,6 +24,7 @@ Build-Depends: android-libbase-dev (>= 1:6.0.0+r26~) [amd64 i386],
 Build-Depends-Indep: android-logtags-tools,
                      android-platform-libcore-source-6.0.1,
                      default-jdk,
+                     default-jdk-doc,
                      junit4,
                      libandroid-okhttp-java,
                      libbcprov-java,
@@ -118,7 +119,7 @@ Description: Android Frameworks library for API Level 23 (Marshmallow)
 
 Package: libandroid-23-java-doc
 Architecture: all
-Section: docs
+Section: doc
 Depends: ${misc:Depends}
 Recommends: default-jdk-doc, ${java:Recommends}
 Description: Android Frameworks library for API Level 23 (Marshmallow) - Javadoc

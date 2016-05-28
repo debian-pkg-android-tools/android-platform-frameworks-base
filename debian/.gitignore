@@ -1,6 +1,8 @@
 .debhelper/
 .gradle/
 .gradlehome/
+.javahelper_clean
+.mh/
 *.log
 *.substvars
 aapt/
@@ -10,7 +12,7 @@ android-*/
 build/
 debhelper-build-stamp
 files
-libcore
+libandroid-23-java*/
 split-select.1
 split-select/
 tmp/
