@@ -123,7 +123,7 @@ task aidl {
 clean.doLast {
   delete "${buildDir}/*.pom"
   delete "${buildDir}/aidl"
-  delete $frameworkAidlPath
+  delete "${buildDir}/framework.aidl"
 }
 
 compileJava.dependsOn ':aidl'
