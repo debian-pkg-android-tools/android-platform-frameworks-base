@@ -39,9 +39,12 @@ override_dh_auto_build-arch: aidl aapt split-select
 override_dh_auto_build-indep: aidl aapt $(LOGTAGS:.logtags=.java)
 	ln -s values-mcc310-mnc150 core/res/res/values-mcc310-mnc170
 	mkdir --parents debian/tmp/aapt
-	./aapt package --skip-symbols-without-default-localization -m \
-	       -J debian/tmp/aapt -M core/res/AndroidManifest.xml \
-	       -S core/res/res -A core/res/assets
+	./aapt package -m -J debian/tmp/aapt -M core/res/AndroidManifest.xml \
+	               -S core/res/res -A core/res/assets
+	./aapt package -M core/res/AndroidManifest.xml \
+	               -S core/res/res -A core/res/assets \
+	               -F debian/tmp/res.jar
+	unzip debian/tmp/res.jar -d debian/tmp/res-jar-content
 	dh_auto_build --buildsystem=gradle -- $(GRADLE_FLAGS) \
 	                                      assemble poms javadoc
 
@@ -55,7 +58,6 @@ override_dh_auto_clean:
 	make clean -f debian/libandroidfw.mk
 	make clean -f debian/split-select.mk
 	$(RM) debian/aidl.1 debian/split-select.1
-	$(RM) -r debian/tmp
 	$(RM) $(LOGTAGS:.logtags=.java)
 	$(RM) core/res/res/values-mcc310-mnc170
 
