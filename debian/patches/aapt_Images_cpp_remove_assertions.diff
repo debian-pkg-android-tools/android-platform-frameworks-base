@@ -1,0 +1,34 @@
+Description:
+ For unidentified reasons, the assertions in
+ checkNinePatchSerialization(Res_png_9patch *,  void *) always fail, which
+ prevents aapt from outputting any APKs or JARS.
+ If they are not removed, the fact that they are using the wrong API of
+ Res_png_9patch would also prevent aapt from being successfully compiled.
+ AOSP has not changed the API but still builds aapt, which means the
+ assertions are disabled. Hence it is safe to remove them.
+Author: Kai-Chung Yan <seamlikok@gmail.com>
+Last-Update: 2016-05-30
+--- a/tools/aapt/Images.cpp
++++ b/tools/aapt/Images.cpp
+@@ -801,21 +801,6 @@
+     Res_png_9patch* outPatch = inPatch->deserialize(newData);
+     // deserialization is done in place, so outPatch == newData
+     assert(outPatch == newData);
+-    assert(outPatch->numXDivs == inPatch->numXDivs);
+-    assert(outPatch->numYDivs == inPatch->numYDivs);
+-    assert(outPatch->paddingLeft == inPatch->paddingLeft);
+-    assert(outPatch->paddingRight == inPatch->paddingRight);
+-    assert(outPatch->paddingTop == inPatch->paddingTop);
+-    assert(outPatch->paddingBottom == inPatch->paddingBottom);
+-    for (int i = 0; i < outPatch->numXDivs; i++) {
+-        assert(outPatch->xDivs[i] == inPatch->xDivs[i]);
+-    }
+-    for (int i = 0; i < outPatch->numYDivs; i++) {
+-        assert(outPatch->yDivs[i] == inPatch->yDivs[i]);
+-    }
+-    for (int i = 0; i < outPatch->numColors; i++) {
+-        assert(outPatch->colors[i] == inPatch->colors[i]);
+-    }
+     free(newData);
+ }
+ 
