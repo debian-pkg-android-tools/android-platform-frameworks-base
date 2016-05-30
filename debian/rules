@@ -63,6 +63,7 @@ override_dh_auto_clean:
 
 override_dh_install-indep:
 	dh_install --indep
+	$(RM) -r libandroid-23-java/usr/share/maven-repo/com/android/android/debian
 	mh_install
 
 override_dh_shlibdeps:

@@ -1,1 +1,1 @@
-debian/build/android.pom --artifact=debian/build/libs/android-*.jar --java-lib
+debian/build/android.pom --artifact=debian/build/libs/android-*.jar --java-lib --no-usj-versionless
