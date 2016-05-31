@@ -52,10 +52,10 @@ sourceSets.main {
     srcDir 'file:///usr/src/android-platform-libcore-6.0.1/luni/main/java'
     srcDir 'file:///usr/src/android-platform-libcore-6.0.1/xml/main/java'
     srcDir "${buildDir}/aidl"
-    srcDir "${rootDir}/tmp/aapt"
+    srcDir "out/aapt"
   }
   resources {
-    srcDir 'tmp/res-jar-content'
+    srcDir 'out/res-jar-content'
   }
 }
 
