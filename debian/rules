@@ -7,7 +7,6 @@ include /usr/share/dpkg/pkg-info.mk
 export BUILD_TOOLS_VERSION = 23.0.2
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 export DEB_HOST_MULTIARCH
-GRADLE_FLAGS = --settings-file debian/settings.gradle
 LOGTAGS = $(shell find core -name *.logtags)
 UPSTREAM_TAG = android-$(subst +,_,$(DEB_VERSION_UPSTREAM))
 
@@ -46,7 +45,7 @@ override_dh_auto_build-indep: aidl aapt $(LOGTAGS:.logtags=.java)
 	               -S core/res/res -A core/res/assets \
 	               -F debian/out/res.jar
 	unzip debian/out/res.jar -d debian/out/res-jar-content
-	dh_auto_build --buildsystem=gradle -- $(GRADLE_FLAGS) \
+	dh_auto_build --buildsystem=gradle -- --settings-file debian/settings.gradle \
 	                                      assemble poms javadoc
 
 override_dh_auto_clean:

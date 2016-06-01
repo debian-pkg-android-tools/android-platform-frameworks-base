@@ -1,6 +1,7 @@
 android-platform-frameworks-base (1:6.0.1+r43-1) UNRELEASED; urgency=medium
 
-  * New package: libandroid-23-java for Android Frameworks android.jar
+  * New package: libandroid-23-java for "android.jar"
+  * New package: libandroid-uiautomator-23-java for "uiautomator.jar"
   * d/control:
     - Move build helper pacakges to Build-Depends
     - Limit some arch BDs to [amd64 i386]

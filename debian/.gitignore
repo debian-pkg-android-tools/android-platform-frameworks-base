@@ -13,6 +13,7 @@ build/
 debhelper-build-stamp
 files
 libandroid-23-java*/
+libandroid-uiautomator-23-java*/
 split-select.1
 split-select/
 tmp/

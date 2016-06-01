@@ -1,1 +1,1 @@
-debian/build/docs/javadoc   usr/share/doc/libandroid-23-java/api
+debian/out/android/build/docs/javadoc   usr/share/doc/libandroid-23-java/api

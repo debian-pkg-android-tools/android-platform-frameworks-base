@@ -1,123 +1,144 @@
-apply plugin: 'java'
-apply plugin: 'maven'
+subprojects {
+  apply plugin: 'java'
+  apply plugin: 'maven'
 
-/* See the API Level defined in version_defaults.mk provided by
- * src:android-platform-build.
- */
-version = '23'
-group = 'com.android'
+  /* See the API Level defined in version_defaults.mk provided by
+   * src:android-platform-build.
+   */
+  group = 'com.android'
+  version = '23'
+  //buildDir = file("${rootDir}/out/${name}")
 
-ext {
-  srcLocations = [
-    '../core/java',
-    '../drm/java',
-    '../graphics/java',
-    '../keystore/java',
-    '../location/java',
-    '../media/java',
-    '../media/mca/effect/java',
-    '../media/mca/filterfw/java',
-    '../media/mca/filterpacks/java',
-    '../opengl/java',
-    '../rs/java',
-    '../sax/java',
-    '../telecomm/java',
-    '../telephony/java',
-    '../wifi/java'
-  ]
-}
-
-repositories {
-  maven { url 'file:///usr/share/maven-repo' }
-}
-
-dependencies {
-  compile 'com.android:conscrypt:debian'
-  compile 'com.android:okhttp:debian'
-  compile 'com.googlecode.libphonenumber:geocoder:2.x'
-  compile 'com.googlecode.libphonenumber:libphonenumber:debian'
-  compile 'com.ibm.icu:icu4j:debian'
-  compile 'junit:junit:4.x'
-  compile 'org.bouncycastle:bcprov:debian'
-  compile 'org.ccil.cowan.tagsoup:tagsoup:debian'
-}
-
-sourceSets.main {
-  java {
-    for (def dir in srcLocations) { srcDir(dir) }
-    srcDir 'file:///usr/src/android-platform-libcore-6.0.1/dalvik/main/java'
-    srcDir 'file:///usr/src/android-platform-libcore-6.0.1/dex/main/java'
-    srcDir 'file:///usr/src/android-platform-libcore-6.0.1/json/main/java'
-    srcDir 'file:///usr/src/android-platform-libcore-6.0.1/libart/main/java'
-    srcDir 'file:///usr/src/android-platform-libcore-6.0.1/luni/main/java'
-    srcDir 'file:///usr/src/android-platform-libcore-6.0.1/xml/main/java'
-    srcDir "${buildDir}/aidl"
-    srcDir "out/aapt"
+  repositories {
+    maven { url 'file:///usr/share/maven-repo' }
   }
-  resources {
-    srcDir 'out/res-jar-content'
-  }
-}
 
-jar.manifest {
-  attributes 'Class-Path': configurations.compile.getDependencies().collect {
-    if (it.getGroup() == 'com.android') {
-      "/usr/share/java/com.android.${it.getName()}.jar"
-    } else {
-      "/usr/share/java/${it.getName()}.jar"
+  javadoc {
+    options {
+      links 'file:///usr/share/doc/default-jdk-doc/api'
     }
-  }.join(' ')
-}
-
-javadoc {
-  options {
-    links 'file:///usr/share/doc/default-jdk-doc/api'
   }
-}
 
-task poms {
-  outputs.files "${buildDir}/${project.name}.pom"
-  doFirst {
-    pom { project {} }.writeTo("${buildDir}/${project.name}.pom")
-  }
-}
-
-task aidl {
-  def aidlFiles = files(srcLocations).getAsFileTree().filter {
-    it.getPath().endsWith('.aidl')
-  }.getFiles()
-  aidlFiles.add(file(
-    '../packages/services/PacProcessor/com/android/net/IProxyService.aidl'
-  ))
-  aidlFiles.add(file(
-    '../packages/services/Proxy/com/android/net/IProxyCallback.aidl'
-  ))
-  aidlFiles.add(file(
-    '../packages/services/Proxy/com/android/net/IProxyPortListener.aidl'
-  ))
-  def aidlPaths = aidlFiles.collect { it.getPath() }.join(' ')
-  def frameworkAidlPath = "${buildDir}/framework.aidl"
-  def importPaths = ''
-  srcLocations.each { importPaths += "-I${file(it).getPath()} " }
-  
-  inputs.files aidlFiles
-  outputs.dir "${buildDir}/aidl"
-  outputs.files frameworkAidlPath
-  
-  doFirst {
-    mkdir "${buildDir}/aidl"
-    aidlFiles.each {
-      def command = "./aidl $importPaths -o${buildDir}/aidl ${it.getPath()}"
-      command.execute().waitFor()
+  task poms {
+    outputs.files "${buildDir}/${project.name}.pom"
+    doFirst {
+      pom { project {} }.writeTo("${buildDir}/${project.name}.pom")
     }
-    "./aidl --preprocess $frameworkAidlPath $aidlPaths".execute().waitFor()
+  }
+
+  clean.doLast {
+    delete "${buildDir}/*.pom"
   }
 }
 
-clean.doLast {
-  delete "${buildDir}/*.pom"
-  delete "${buildDir}/aidl"
-  delete "${buildDir}/framework.aidl"
+project(':android') {
+  ext {
+    srcLocations = [
+      "${rootDir}/../core/java",
+      "${rootDir}/../drm/java",
+      "${rootDir}/../graphics/java",
+      "${rootDir}/../keystore/java",
+      "${rootDir}/../location/java",
+      "${rootDir}/../media/java",
+      "${rootDir}/../media/mca/effect/java",
+      "${rootDir}/../media/mca/filterfw/java",
+      "${rootDir}/../media/mca/filterpacks/java",
+      "${rootDir}/../opengl/java",
+      "${rootDir}/../rs/java",
+      "${rootDir}/../sax/java",
+      "${rootDir}/../telecomm/java",
+      "${rootDir}/../telephony/java",
+      "${rootDir}/../wifi/java"
+    ]
+  }
+
+  dependencies {
+    compile 'com.android:conscrypt:debian'
+    compile 'com.android:okhttp:debian'
+    compile 'com.googlecode.libphonenumber:geocoder:2.x'
+    compile 'com.googlecode.libphonenumber:libphonenumber:debian'
+    compile 'com.ibm.icu:icu4j:debian'
+    compile 'junit:junit:4.x'
+    compile 'org.bouncycastle:bcprov:debian'
+    compile 'org.ccil.cowan.tagsoup:tagsoup:debian'
+  }
+
+  sourceSets.main {
+    java {
+      for (def dir in srcLocations) { srcDir(dir) }
+      srcDir 'file:///usr/src/android-platform-libcore-6.0.1/dalvik/main/java'
+      srcDir 'file:///usr/src/android-platform-libcore-6.0.1/dex/main/java'
+      srcDir 'file:///usr/src/android-platform-libcore-6.0.1/json/main/java'
+      srcDir 'file:///usr/src/android-platform-libcore-6.0.1/libart/main/java'
+      srcDir 'file:///usr/src/android-platform-libcore-6.0.1/luni/main/java'
+      srcDir 'file:///usr/src/android-platform-libcore-6.0.1/xml/main/java'
+      srcDir "${buildDir}/aidl"
+      srcDir "${rootDir}/out/aapt"
+    }
+    resources {
+      srcDir '${rootDir}/out/res-jar-content'
+    }
+  }
+
+  task aidl {
+    def aidlFiles = files(srcLocations).getAsFileTree().filter {
+      it.getPath().endsWith('.aidl')
+    }.getFiles()
+    aidlFiles.add(file("${rootDir}/../packages/services/PacProcessor" +
+                       '/com/android/net/IProxyService.aidl'))
+    aidlFiles.add(file("${rootDir}/../packages/services/Proxy" +
+                       '/com/android/net/IProxyCallback.aidl'))
+    aidlFiles.add(file("${rootDir}/../packages/services/Proxy" +
+                       '/com/android/net/IProxyPortListener.aidl'))
+    def aidlPaths = aidlFiles.collect { it.getPath() }.join(' ')
+    def importPaths = ''
+    srcLocations.each { importPaths += "-I${file(it).getPath()} " }
+
+    inputs.files aidlFiles
+    outputs.dir "${buildDir}/aidl"
+    outputs.files "${buildDir}/framework.aidl"
+
+    doFirst {
+      mkdir "${buildDir}/aidl"
+      aidlFiles.each {
+        def command = "./aidl $importPaths -o${buildDir}/aidl ${it.getPath()}"
+        command.execute().waitFor()
+      }
+      "./aidl --preprocess ${buildDir}/framework.aidl $aidlPaths".execute().waitFor()
+    }
+  }
+
+  clean.doLast {
+    delete "${buildDir}/aidl"
+    delete "${buildDir}/framework.aidl"
+  }
+
+  compileJava.dependsOn ':android:aidl'
 }
 
-compileJava.dependsOn ':aidl'
+project(':uiautomator') {
+  dependencies {
+    compile project(':android')
+  }
+
+  sourceSets.main.java {
+    srcDir "${rootDir}/../cmds/uiautomator/library/core-src"
+    srcDir "${rootDir}/../cmds/uiautomator/library/testrunner-src"
+  }
+}
+
+subprojects {
+  jar.manifest {
+    attributes 'Class-Path': configurations.compile.getDependencies().collect {
+      if (it.getGroup() == 'com.android') {
+        if (it.getName() == 'android') {
+          "/usr/share/java/android-${it.getVersion()}.jar"
+        } else {
+          "/usr/share/java/com.android.${it.getName()}.jar"
+        }
+      } else {
+        "/usr/share/java/${it.getName()}.jar"
+      }
+    }.join(' ')
+  }
+}

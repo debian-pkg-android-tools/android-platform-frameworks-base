@@ -115,13 +115,28 @@ Architecture: all
 Section: java
 Depends: ${java:Depends}, ${misc:Depends}
 Built-Using: android-platform-libcore-source-6.0.1
-Description: Android Frameworks library for API Level 23 (Marshmallow)
- This package provides android.jar that is used to build an Android application.
+Description: Android platform framework for API Level 23 (Marshmallow)
+ This package provides "android.jar" in the "Android platforms" that is used to
+ build an Android application.
 
 Package: libandroid-23-java-doc
 Architecture: all
 Section: doc
-Depends: ${misc:Depends}
-Recommends: default-jdk-doc, ${java:Recommends}
-Description: Android Frameworks library for API Level 23 (Marshmallow) - Javadoc
- This package provides Javadoc for libandroid23-java.
+Depends: default-jdk-doc, ${misc:Depends}
+Description: Android platform framework for API Level 23 (Marshmallow) - Javadoc
+ This package provides the Javadoc for "android.jar".
+
+Package: libandroid-uiautomator-23-java
+Architecture: all
+Section: java
+Depends: ${java:Depends}, ${misc:Depends}
+Description: UI Automator framework for API Level 23 (Marshmallow)
+ This package provides "uiautomator.jar" in the "Android platforms" that is used
+ to build an Android application.
+
+Package: libandroid-uiautomator-23-java-doc
+Architecture: all
+Section: doc
+Depends: default-jdk-doc, ${misc:Depends}
+Description: UI Automator framework for API Level 23 (Marshmallow) - Javadoc
+ This package provides the Javadoc for "uiautomator.jar".

@@ -1,0 +1,1 @@
+debian/out/uiautomator/build/uiautomator.pom --artifact=debian/out/uiautomator/build/libs/uiautomator-*.jar --java-lib --no-usj-versionless --usj-name=com.android.uiautomator
