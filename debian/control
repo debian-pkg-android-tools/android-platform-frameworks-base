@@ -31,8 +31,7 @@ Build-Depends-Indep: android-logtags-tools,
                      libconscrypt-java,
                      libokhttp-java,
                      libphonenumber7-java,
-                     libtagsoup-java,
-                     libxpp3-java
+                     libtagsoup-java
 Standards-Version: 3.9.8
 Homepage: https://android.googlesource.com/platform/frameworks/base
 Vcs-Git: https://anonscm.debian.org/git/android-tools/android-platform-frameworks-base.git

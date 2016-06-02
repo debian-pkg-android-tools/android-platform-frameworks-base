@@ -7,7 +7,6 @@ subprojects {
    */
   group = 'com.android'
   version = '23'
-  //buildDir = file("${rootDir}/out/${name}")
 
   repositories {
     maven { url 'file:///usr/share/maven-repo' }
@@ -57,7 +56,6 @@ project(':android') {
     compile 'com.android:okhttp:debian'
     compile 'com.googlecode.libphonenumber:geocoder:2.x'
     compile 'com.googlecode.libphonenumber:libphonenumber:debian'
-    compile 'com.ibm.icu:icu4j:debian'
     compile 'junit:junit:4.x'
     compile 'org.bouncycastle:bcprov:debian'
     compile 'org.ccil.cowan.tagsoup:tagsoup:debian'
@@ -67,13 +65,15 @@ project(':android') {
     java {
       for (def dir in srcLocations) { srcDir(dir) }
       srcDir 'file:///usr/src/android-platform-libcore-6.0.1/dalvik/main/java'
-      srcDir 'file:///usr/src/android-platform-libcore-6.0.1/dex/main/java'
       srcDir 'file:///usr/src/android-platform-libcore-6.0.1/json/main/java'
       srcDir 'file:///usr/src/android-platform-libcore-6.0.1/libart/main/java'
       srcDir 'file:///usr/src/android-platform-libcore-6.0.1/luni/main/java'
       srcDir 'file:///usr/src/android-platform-libcore-6.0.1/xml/main/java'
       srcDir "${buildDir}/aidl"
       srcDir "${rootDir}/out/aapt"
+      exclude 'libcore/**'
+      exclude 'org/kxml2/**'
+      exclude 'sun/**'
     }
     resources {
       srcDir '${rootDir}/out/res-jar-content'
