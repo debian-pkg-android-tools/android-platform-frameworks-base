@@ -11,7 +11,6 @@ SOURCES = aidl_language_l.cpp \
           generate_java_binder.cpp \
           generate_java_rpc.cpp
 SOURCES := $(foreach source, $(SOURCES), tools/aidl/$(source))
-CXXFLAGS += -fPIC
 CPPFLAGS += -include android/arch/AndroidConfig.h
 
 build: $(SOURCES) tools/aidl/aidl_language_y.cpp tools/aidl/aidl_language_l.cpp

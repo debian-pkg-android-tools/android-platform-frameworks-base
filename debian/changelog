@@ -27,9 +27,8 @@ android-platform-frameworks-base (1:6.0.1+r43-1) UNRELEASED; urgency=medium
   * Build against libandroid-okhttp-java
     - New okhttp_namespace.diff: Android uses different package name of okhttp
   * d/rules: export DEB_BUILD_MAINT_OPTIONS = hardening=+all
-  * Replace aapt_Images_cpp_Res_png_9patch.diff with
-    aapt_Images_cpp_remove_assertions.diff: Remove some assertions in Image.cpp
-    instead of patching the API usage.
+  * Drop aapt_Images_cpp_Res_png_9patch.diff: Disable assertions in Images.cpp
+    using -DNDEBUG so that aapt can build APKs successfully
 
  -- Kai-Chung Yan <seamlikok@gmail.com>  Sat, 28 May 2016 14:11:46 +0800
 

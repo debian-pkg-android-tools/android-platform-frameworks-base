@@ -1,5 +1,4 @@
 fix_expat_header_path.patch
-aapt_Images_cpp_remove_assertions.diff
 fix_aidl_typo.diff
 aapt_typo.diff
 libphonenumber_namespace.diff

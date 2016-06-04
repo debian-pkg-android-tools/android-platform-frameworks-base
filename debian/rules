@@ -7,6 +7,8 @@ include /usr/share/dpkg/pkg-info.mk
 export BUILD_TOOLS_VERSION = 23.0.2
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 export DEB_HOST_MULTIARCH
+export DEB_CPPFLAGS_MAINT_APPEND = -DNDEBUG
+export DEB_LDFLAGS_MAINT_APPEND = -fPIC
 LOGTAGS = $(shell find core -name *.logtags)
 UPSTREAM_TAG = android-$(subst +,_,$(DEB_VERSION_UPSTREAM))
 
