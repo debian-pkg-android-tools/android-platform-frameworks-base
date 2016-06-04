@@ -126,19 +126,3 @@ project(':uiautomator') {
     srcDir "${rootDir}/../cmds/uiautomator/library/testrunner-src"
   }
 }
-
-subprojects {
-  jar.manifest {
-    attributes 'Class-Path': configurations.compile.getDependencies().collect {
-      if (it.getGroup() == 'com.android') {
-        if (it.getName() == 'android') {
-          "/usr/share/java/android-${it.getVersion()}.jar"
-        } else {
-          "/usr/share/java/com.android.${it.getName()}.jar"
-        }
-      } else {
-        "/usr/share/java/${it.getName()}.jar"
-      }
-    }.join(' ')
-  }
-}

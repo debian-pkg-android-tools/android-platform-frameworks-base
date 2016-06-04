@@ -112,7 +112,14 @@ Description: APK split and selection tool
 Package: libandroid-23-java
 Architecture: all
 Section: java
-Depends: ${java:Depends}, ${misc:Depends}
+Depends: junit4,
+         libandroid-okhttp-java,
+         libbcprov-java,
+         libconscrypt-java,
+         libokhttp-java,
+         libphonenumber7-java,
+         libtagsoup-java,
+         ${misc:Depends}
 Built-Using: android-platform-libcore-source-6.0.1
 Description: Android platform framework for API Level 23 (Marshmallow)
  This package provides "android.jar" in the "Android platforms" that is used to
@@ -128,7 +135,7 @@ Description: Android platform framework for API Level 23 (Marshmallow) - Javadoc
 Package: libandroid-uiautomator-23-java
 Architecture: all
 Section: java
-Depends: ${java:Depends}, ${misc:Depends}
+Depends: libandroid-23-java, ${misc:Depends}
 Description: UI Automator framework for API Level 23 (Marshmallow)
  This package provides "uiautomator.jar" in the "Android platforms" that is used
  to build an Android application.
