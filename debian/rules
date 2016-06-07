@@ -51,7 +51,6 @@ override_dh_auto_build-indep: aidl aapt $(LOGTAGS:.logtags=.java)
 	               --product default \
 	               --version-code 23 --version-name 6.0.1 \
 	               --skip-symbols-without-default-localization
-	               
 	unzip debian/out/framework-res.apk -d debian/out/framework-res
 	dh_auto_build --buildsystem=gradle -- --settings-file debian/settings.gradle \
 	                                      assemble 
