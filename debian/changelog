@@ -16,7 +16,6 @@ android-platform-frameworks-base (1:6.0.1+r43-1) UNRELEASED; urgency=medium
     - Exclude "core/res/res/values-mcc310-mnc170": dpkg-source cannot handle
       symlinks to a directory
   * Add both paths with/without DEB_HOST_MULTIARCH to RPATH
-  * d/rules: export DEB_BUILD_MAINT_OPTIONS = hardening=+all
   * Drop aapt_Images_cpp_Res_png_9patch.diff: Disable assertions in Images.cpp
     using -DNDEBUG so that aapt can build APKs successfully
 
