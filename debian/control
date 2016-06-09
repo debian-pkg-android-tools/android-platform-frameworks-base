@@ -15,7 +15,6 @@ Build-Depends: android-libbase-dev (>= 1:6.0.0+r26~) [amd64 i386],
                dh-exec,
                flex [amd64 i386],
                gradle-debian-helper,
-               javahelper,
                libexpat-dev [amd64 i386],
                libpng-dev [amd64 i386],
                maven-repo-helper,
@@ -23,15 +22,9 @@ Build-Depends: android-libbase-dev (>= 1:6.0.0+r26~) [amd64 i386],
                zlib1g-dev [amd64 i386]
 Build-Depends-Indep: android-logtags-tools,
                      android-platform-libcore-source-6.0.1,
-                     default-jdk,
-                     default-jdk-doc,
-                     junit4,
-                     libandroid-okhttp-java,
-                     libbcprov-java,
-                     libconscrypt-java,
-                     libokhttp-java,
-                     libphonenumber7-java,
-                     libtagsoup-java
+                     default-jdk (>= 2:1.7),
+                     libdoclava-aosp-java,
+                     unzip
 Standards-Version: 3.9.8
 Homepage: https://android.googlesource.com/platform/frameworks/base
 Vcs-Git: https://anonscm.debian.org/git/android-tools/android-platform-frameworks-base.git
@@ -112,25 +105,11 @@ Description: APK split and selection tool
 Package: libandroid-23-java
 Architecture: all
 Section: java
-Depends: junit4,
-         libandroid-okhttp-java,
-         libbcprov-java,
-         libconscrypt-java,
-         libokhttp-java,
-         libphonenumber7-java,
-         libtagsoup-java,
-         ${misc:Depends}
+Depends: ${misc:Depends}
 Built-Using: android-platform-libcore-source-6.0.1
 Description: Android platform framework for API Level 23 (Marshmallow)
  This package provides "android.jar" in the "Android platforms" that is used to
  build an Android application.
-
-Package: libandroid-23-java-doc
-Architecture: all
-Section: doc
-Depends: default-jdk-doc, ${misc:Depends}
-Description: Android platform framework for API Level 23 (Marshmallow) - Javadoc
- This package provides the Javadoc for "android.jar".
 
 Package: libandroid-uiautomator-23-java
 Architecture: all
@@ -139,10 +118,3 @@ Depends: libandroid-23-java, ${misc:Depends}
 Description: UI Automator framework for API Level 23 (Marshmallow)
  This package provides "uiautomator.jar" in the "Android platforms" that is used
  to build an Android application.
-
-Package: libandroid-uiautomator-23-java-doc
-Architecture: all
-Section: doc
-Depends: default-jdk-doc, ${misc:Depends}
-Description: UI Automator framework for API Level 23 (Marshmallow) - Javadoc
- This package provides the Javadoc for "uiautomator.jar".

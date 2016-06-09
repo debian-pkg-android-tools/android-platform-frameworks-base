@@ -1,7 +1,6 @@
 .debhelper/
 .gradle/
 .gradlehome/
-.javahelper_clean
 .mh/
 *.log
 *.substvars
@@ -14,6 +13,7 @@ debhelper-build-stamp
 files
 libandroid-23-java*/
 libandroid-uiautomator-23-java*/
+out/
 split-select.1
 split-select/
 tmp/

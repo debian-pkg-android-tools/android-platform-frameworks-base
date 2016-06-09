@@ -1,6 +1,3 @@
 fix_expat_header_path.patch
 fix_aidl_typo.diff
 aapt_typo.diff
-libphonenumber_namespace.diff
-bouncycastle_namespace.diff
-okhttp_namespace.diff

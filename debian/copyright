@@ -13,6 +13,7 @@ Files-Excluded: *.jar
                 tools/preload
 
 Files: *
+       debian/junit
 Copyright: 2005-2012, The Android Open Source Project
            2004-2010, NXP Software
            2003-2010, VisualOn

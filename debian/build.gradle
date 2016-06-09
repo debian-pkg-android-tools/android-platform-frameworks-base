@@ -6,16 +6,21 @@ subprojects {
    * src:android-platform-build.
    */
   group = 'com.android'
+  sourceCompatibility = 1.7
+  targetCompatibility = 1.7
   version = '23'
 
   repositories {
     maven { url 'file:///usr/share/maven-repo' }
   }
 
-  javadoc {
-    options {
-      links 'file:///usr/share/doc/default-jdk-doc/api'
-    }
+  configurations {
+    doclava /* Classpaths for executing Doclava */
+    forStubs /* For generating stubs */
+  }
+
+  dependencies {
+    doclava 'com.google.doclava:doclava:debian'
   }
 
   task poms {
@@ -25,13 +30,45 @@ subprojects {
     }
   }
 
+  task stubs {
+    outputs.dir "${buildDir}/stubs"
+    doFirst {
+      def sourceFiles = sourceSets.forStubs.allJava.join(' ')
+      def classpath = configurations.forStubs.collect().join(':')
+      def docletpath = "${configurations.doclava.collect().join(':')}:" +
+                       '/usr/lib/jvm/default-java/lib/tools.jar'
+      def stubsDir = "${buildDir}/stubs"
+      def javaFlags = "-classpath $docletpath com.google.doclava.Doclava "
+      /* From frameworks/base/Android.mk */
+      def doclavaFlags = "-classpath $classpath " +
+                         '-doclet com.google.doclava.Doclava ' +
+                         '-hdf sdk.version 6.0 -hdf sdk.rel.id 1 -hdf sdk.preview 0 ' +
+                         '-hide 111 -hide 113 ' +
+                         '-hidePackage com.android.org.conscrypt ' +
+                         '-nodocs ' +
+                         '-offlinemode ' +
+                         '-quiet ' +
+                         "-stubs $stubsDir " +
+                         '-XDignore.symbol.file '
+      def process = "java $javaFlags $sourceFiles $doclavaFlags".execute()
+      process.waitForProcessOutput(System.out, System.err)
+      if (process.exitValue() != 0) {
+        throw new TaskExecutionException('Failed to generate stubs source.', null)
+      }
+    }
+  }
+
+  assemble.dependsOn 'poms'
+  compileJava.dependsOn 'stubs'
   clean.doLast {
     delete "${buildDir}/*.pom"
+    delete "${buildDir}/stubs"
   }
 }
 
 project(':android') {
   ext {
+    /* From <build/core/pathmap.mk> */
     srcLocations = [
       "${rootDir}/../core/java",
       "${rootDir}/../drm/java",
@@ -47,36 +84,116 @@ project(':android') {
       "${rootDir}/../sax/java",
       "${rootDir}/../telecomm/java",
       "${rootDir}/../telephony/java",
+      "${rootDir}/../test-runner/src",
       "${rootDir}/../wifi/java"
     ]
   }
 
   dependencies {
-    compile 'com.android:conscrypt:debian'
-    compile 'com.android:okhttp:debian'
-    compile 'com.googlecode.libphonenumber:geocoder:2.x'
-    compile 'com.googlecode.libphonenumber:libphonenumber:debian'
-    compile 'junit:junit:4.x'
-    compile 'org.bouncycastle:bcprov:debian'
-    compile 'org.ccil.cowan.tagsoup:tagsoup:debian'
+  /*
+    forStubs 'com.android:conscrypt:debian'
+    forStubs 'com.googlecode.libphonenumber:geocoder:2.x'
+    forStubs 'com.googlecode.libphonenumber:libphonenumber:debian'
+    forStubs 'junit:junit:4.x'
+    forStubs 'org.bouncycastle:bcprov:debian'
+    forStubs 'org.ccil.cowan.tagsoup:tagsoup:debian'
+    */
   }
 
-  sourceSets.main {
-    java {
-      for (def dir in srcLocations) { srcDir(dir) }
-      srcDir 'file:///usr/src/android-platform-libcore-6.0.1/dalvik/main/java'
-      srcDir 'file:///usr/src/android-platform-libcore-6.0.1/json/main/java'
-      srcDir 'file:///usr/src/android-platform-libcore-6.0.1/libart/main/java'
-      srcDir 'file:///usr/src/android-platform-libcore-6.0.1/luni/main/java'
-      srcDir 'file:///usr/src/android-platform-libcore-6.0.1/xml/main/java'
-      srcDir "${buildDir}/aidl"
-      srcDir "${rootDir}/out/aapt"
-      exclude 'libcore/**'
-      exclude 'org/kxml2/**'
-      exclude 'sun/**'
+  sourceSets {
+    forStubs {
+      java {
+        for (def dir in srcLocations) { srcDir(dir) }
+        srcDir 'file:///usr/src/android-platform-libcore-6.0.1/dalvik/main/java'
+        srcDir 'file:///usr/src/android-platform-libcore-6.0.1/json/main/java'
+        srcDir 'file:///usr/src/android-platform-libcore-6.0.1/libart/main/java'
+        srcDir 'file:///usr/src/android-platform-libcore-6.0.1/luni/main/java'
+        srcDir 'file:///usr/src/android-platform-libcore-6.0.1/xml/main/java'
+        srcDir "${buildDir}/aidl"
+        srcDir "${rootDir}/junit"
+        srcDir "${rootDir}/out/aapt"
+        /* From <libcore/Docs.mk> and
+         * <development/build/tools/mk_sources_zip.py> */
+        exclude 'dalvik/system/profiler'
+        exclude 'libcore'
+        exclude 'luni/src/main/java/java/text/IcuIteratorWrapper.java'
+        exclude 'org/apache/harmony'
+        exclude 'org/kxml2'
+        exclude 'sun'
+      }
     }
-    resources {
-      srcDir '${rootDir}/out/res-jar-content'
+    main {
+      java {
+        srcDir "${buildDir}/stubs"
+      }
+      resources {
+        srcDir "${rootDir}/out/framework-res"
+      }
+    }
+  }
+
+  /* No idea why these are not stripped by Doclava, but they are necessary for
+     compiling some other classes in android.jar, so we will have to strip them
+     here.
+     
+     These classes have been marked with "@hide", so Doclava should strip them.
+     Probably bugs? */
+  jar {
+    exclude 'android/app/backup/RestoreDescription.class'
+    exclude 'android/app/backup/RestoreSet.class'
+    exclude 'android/bluetooth/BluetoothActivityEnergyInfo.class'
+    exclude 'android/content/pm/KeySet.class'
+    exclude 'android/content/pm/ManifestDigest.class'
+    exclude 'android/content/pm/PackageCleanItem.class'
+    exclude 'android/content/pm/PackageParser*.class'
+    exclude 'android/content/pm/PackageUserState.class'
+    exclude 'android/content/pm/ParceledListSlice.class'
+    exclude 'android/content/pm/VerificationParams.class'
+    exclude 'android/content/pm/VerifierDeviceIdentity.class'
+    exclude 'android/content/pm/VerifierInfo.class'
+    exclude 'android/net/NetworkStats*.class'
+    exclude 'android/net/wifi/WifiActivityEnergyInfo.class'
+    exclude 'android/os/BatteryStats*.class'
+    exclude 'android/os/storage/DiskInfo.class'
+    exclude 'android/os/storage/IMountService.class'
+    exclude 'android/os/storage/IMountServiceListener.class'
+    exclude 'android/os/storage/IMountShutdownObserver.class'
+    exclude 'android/os/storage/IObbActionListener.class'
+    exclude 'android/os/storage/StorageVolume.class'
+    exclude 'android/os/storage/VolumeInfo.class'
+    exclude 'android/os/storage/VolumeRecord.class'
+    exclude 'android/util/IntArray.class'
+    exclude 'android/widget/ActionMenuPresenter.class'
+    exclude 'java/util/jar/StrictJarFile.class'
+    exclude {
+      if (it.isDirectory && it.getPath().startsWith('com/')) {
+        if ('com/android/internal/util'.contains(it.getPath())) {
+          false
+        } else {
+          true
+        }
+      } else {
+        if (it.getPath().startsWith('com/')) {
+          if (it.getPath().contains(
+            'com/android/internal/util/Predicate.class'
+          )) {
+            false
+          } else {
+            true
+          }
+        }
+      }
+    }
+    exclude {
+      if (it.getPath().startsWith('android/content/pm/I')) {
+        if (it.getPath().endsWith('InstrumentationInfo.class')) {
+          false
+        } else {
+          true
+        }
+      } else {
+        false
+      }
     }
   }
 
@@ -90,7 +207,7 @@ project(':android') {
                        '/com/android/net/IProxyCallback.aidl'))
     aidlFiles.add(file("${rootDir}/../packages/services/Proxy" +
                        '/com/android/net/IProxyPortListener.aidl'))
-    def aidlPaths = aidlFiles.collect { it.getPath() }.join(' ')
+    def aidlPaths = aidlFiles.collect().join(' ')
     def importPaths = ''
     srcLocations.each { importPaths += "-I${file(it).getPath()} " }
 
@@ -101,28 +218,45 @@ project(':android') {
     doFirst {
       mkdir "${buildDir}/aidl"
       aidlFiles.each {
-        def command = "./aidl $importPaths -o${buildDir}/aidl ${it.getPath()}"
-        command.execute().waitFor()
+        def cmd1 = "./aidl $importPaths -o${buildDir}/aidl $it"
+        cmd1.execute().waitForProcessOutput(System.out, System.err)
       }
-      "./aidl --preprocess ${buildDir}/framework.aidl $aidlPaths".execute().waitFor()
+      def cmd2 = "./aidl --preprocess ${buildDir}/framework.aidl $aidlPaths"
+      cmd2.execute().waitForProcessOutput(System.out, System.err)
     }
   }
 
+  stubs.dependsOn 'aidl'
   clean.doLast {
     delete "${buildDir}/aidl"
     delete "${buildDir}/framework.aidl"
   }
-
-  compileJava.dependsOn ':android:aidl'
 }
 
 project(':uiautomator') {
   dependencies {
     compile project(':android')
+    forStubs project(':android')
   }
 
-  sourceSets.main.java {
-    srcDir "${rootDir}/../cmds/uiautomator/library/core-src"
-    srcDir "${rootDir}/../cmds/uiautomator/library/testrunner-src"
+  sourceSets {
+    main.java {
+      srcDir "${buildDir}/stubs"
+      /* By observing the upstream uiautomator.jar */
+      include '**/Configurator.java'
+      include '**/IAutomationSupport.java'
+      include '**/UiAutomatorTestCase.java'
+      include '**/UiCollection.java'
+      include '**/UiDevice.java'
+      include '**/UiObject.java'
+      include '**/UiObjectNotFoundException.java'
+      include '**/UiScrollable.java'
+      include '**/UiSelector.java'
+      include '**/UiWatcher.java'
+    }
+    forStubs.java {
+      srcDir "${rootDir}/../cmds/uiautomator/library/core-src"
+      srcDir "${rootDir}/../cmds/uiautomator/library/testrunner-src"
+    }
   }
 }

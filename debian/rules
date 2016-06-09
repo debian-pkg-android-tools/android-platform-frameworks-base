@@ -12,8 +12,11 @@ export DEB_LDFLAGS_MAINT_APPEND = -fPIC
 LOGTAGS = $(shell find core -name *.logtags)
 UPSTREAM_TAG = android-$(subst +,_,$(DEB_VERSION_UPSTREAM))
 
-%/EventLogTags.java: %/EventLogTags.logtags
-	java-event-log-tags -o $@ $< $<
+debian/out/all-event-log-tags.txt: $(LOGTAGS)
+	merge-event-log-tags -o $@ $^
+
+%/EventLogTags.java: %/EventLogTags.logtags debian/out/all-event-log-tags.txt
+	java-event-log-tags -o $@ $^
 
 aapt: libaapt.so
 	make -f debian/aapt.mk
@@ -31,24 +34,28 @@ split-select:
 	make -f debian/split-select.mk
 
 %:
-	dh $@ --with=javahelper
+	dh $@
 
 override_dh_auto_build-arch: aidl aapt split-select
-	mkdir --parent debian/out
+	mkdir --parents debian/out
 	pandoc -s -o debian/out/aidl.1 debian/aidl.1.md
 	pandoc -s -o debian/out/split-select.1 debian/split-select.1.md
 
 override_dh_auto_build-indep: aidl aapt $(LOGTAGS:.logtags=.java)
 	ln -s values-mcc310-mnc150 core/res/res/values-mcc310-mnc170
 	mkdir --parents debian/out/aapt
-	./aapt package -m -J debian/out/aapt -M core/res/AndroidManifest.xml \
-	               -S core/res/res -A core/res/assets
-	./aapt package -M core/res/AndroidManifest.xml \
+	./aapt package -m -u -x -z -J debian/out/aapt \
+	               -M core/res/AndroidManifest.xml \
 	               -S core/res/res -A core/res/assets \
-	               -F debian/out/res.jar
-	unzip debian/out/res.jar -d debian/out/res-jar-content
+	               -F debian/out/framework-res.apk \
+	               --min-sdk-version 23 --target-sdk-version 23 \
+	               --product default \
+	               --version-code 23 --version-name 6.0.1 \
+	               --skip-symbols-without-default-localization
+	               
+	unzip debian/out/framework-res.apk -d debian/out/framework-res
 	dh_auto_build --buildsystem=gradle -- --settings-file debian/settings.gradle \
-	                                      assemble poms javadoc
+	                                      assemble 
 
 override_dh_auto_clean:
 	dh_auto_clean --buildsystem=gradle
