@@ -14,17 +14,10 @@ Build-Depends: android-libbase-dev (>= 1:6.0.0+r26~) [amd64 i386],
                debhelper (>= 9),
                dh-exec,
                flex [amd64 i386],
-               gradle-debian-helper,
                libexpat-dev [amd64 i386],
                libpng-dev [amd64 i386],
-               maven-repo-helper,
                pandoc,
                zlib1g-dev [amd64 i386]
-Build-Depends-Indep: android-logtags-tools,
-                     android-platform-libcore-source-6.0.1,
-                     default-jdk (>= 2:1.7),
-                     libdoclava-aosp-java,
-                     unzip
 Standards-Version: 3.9.8
 Homepage: https://android.googlesource.com/platform/frameworks/base
 Vcs-Git: https://anonscm.debian.org/git/android-tools/android-platform-frameworks-base.git

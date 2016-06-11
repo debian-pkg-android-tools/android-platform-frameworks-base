@@ -1,6 +1,0 @@
-include 'android'
-include 'uiautomator'
-
-rootProject.children.each {
-  it.projectDir = file("${rootDir}/out/${it.name}")
-}

@@ -50,14 +50,6 @@ All of the files in the upstream make for an almost 1 GiB tarball.  So only the
 section that are currently used are included in the tarball.  Check the
 debian/copyright for details.
 
-debian/junit
-------------
-
-These files are checked out from
-<https://android.googlesource.com/platform/external/junit> using the same
-android-{version} tags. The "android.jar" contains API stubs of these classes
-which are not included by android-platform-frameworks-base, so we have to
-manually add them. Make sure update them every time we update the package.
 
  -- Hans-Christoph Steiner <hans@eds.org>  Tue, 30 Sep 2014 20:15:12 -0400
- -- Kai-Chung Yan <seamlikok@gmail.com>  Thu, 09 Jun 2016 11:59:00 +0800
+ -- Kai-Chung Yan <seamlikok@gmail.com>  Sat, 28 Nov 2015 16:39:54 +0800

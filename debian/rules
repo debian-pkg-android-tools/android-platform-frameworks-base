@@ -8,14 +8,7 @@ export BUILD_TOOLS_VERSION = 23.0.2
 export DEB_HOST_MULTIARCH
 export DEB_CPPFLAGS_MAINT_APPEND = -DNDEBUG
 export DEB_LDFLAGS_MAINT_APPEND = -fPIC
-LOGTAGS = $(shell find core -name *.logtags)
 UPSTREAM_TAG = android-$(subst +,_,$(DEB_VERSION_UPSTREAM))
-
-debian/out/all-event-log-tags.txt: $(LOGTAGS)
-	merge-event-log-tags -o $@ $^
-
-%/EventLogTags.java: %/EventLogTags.logtags debian/out/all-event-log-tags.txt
-	java-event-log-tags -o $@ $^
 
 aapt: libaapt.so
 	make -f debian/aapt.mk
@@ -36,14 +29,13 @@ split-select:
 	dh $@
 
 override_dh_auto_build-arch: aidl aapt split-select
-	mkdir --parents debian/out
+	mkdir --parent debian/out
 	pandoc -s -o debian/out/aidl.1 debian/aidl.1.md
 	pandoc -s -o debian/out/split-select.1 debian/split-select.1.md
 
-override_dh_auto_build-indep: aidl aapt $(LOGTAGS:.logtags=.java)
-	ln -s values-mcc310-mnc150 core/res/res/values-mcc310-mnc170
+override_dh_auto_build-indep: aapt
 	mkdir --parents debian/out/aapt
-	./aapt package -m -u -x -z -J debian/out/aapt \
+	./aapt package -u -x -z \
 	               -M core/res/AndroidManifest.xml \
 	               -S core/res/res -A core/res/assets \
 	               -F debian/out/framework-res.apk \
@@ -51,27 +43,15 @@ override_dh_auto_build-indep: aidl aapt $(LOGTAGS:.logtags=.java)
 	               --product default \
 	               --version-code 23 --version-name 6.0.1 \
 	               --skip-symbols-without-default-localization
-	unzip debian/out/framework-res.apk -d debian/out/framework-res
-	dh_auto_build --buildsystem=gradle -- --settings-file debian/settings.gradle \
-	                                      assemble 
 
 override_dh_auto_clean:
-	dh_auto_clean --buildsystem=gradle
-	mh_clean
-	$(RM) -r debian/.gradle debian/build .gradle
+	make clean -f debian/libandroidfw.mk
+	make clean -f debian/libaapt.mk
 	make clean -f debian/aapt.mk
 	make clean -f debian/aidl.mk
-	make clean -f debian/libaapt.mk
-	make clean -f debian/libandroidfw.mk
 	make clean -f debian/split-select.mk
 	$(RM) -r debian/out
-	$(RM) $(LOGTAGS:.logtags=.java)
-	$(RM) core/res/res/values-mcc310-mnc170
-
-override_dh_install-indep:
-	dh_install --indep
-	mh_install
-	$(RM) -r debian/libandroid-23-java/usr/share/maven-repo/com/android/android/debian
+	dh_auto_clean
 
 override_dh_shlibdeps:
 	dh_shlibdeps -l/usr/lib/android -l/usr/lib/$(DEB_HOST_MULTIARCH)/android

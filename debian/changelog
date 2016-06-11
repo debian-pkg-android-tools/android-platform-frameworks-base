@@ -1,26 +1,15 @@
 android-platform-frameworks-base (1:6.0.1+r43-1) UNRELEASED; urgency=medium
 
-  * New package: libandroid-23-java for "android.jar"
-  * New package: libandroid-uiautomator-23-java for "uiautomator.jar"
   * New package: android-framework-res for "framework-res.apk"
   * d/control:
-    - Move build helper pacakges to Build-Depends
-    - Limit some arch BDs to [amd64 i386]
-    - Built-Using & Build-Depends-Indep: android-platform-libcore-source-6.0.1
+    - Limit some BDs to [amd64 i386]
     - Change Maintainer to "Android Tools Maintainers"
     - Standards-Version => 3.9.8 (no changes)
-    - Build-Depends on libdoclava-aosp-java
-  * d/copyright:
-    - No longer exclude "*.zip": Not necessary
-    - No longer exclude "packages": Contains codes required for building
-      android.jar
-    - Exclude "core/res/res/values-mcc310-mnc170": dpkg-source cannot handle
-      symlinks to a directory
   * Add both paths with/without DEB_HOST_MULTIARCH to RPATH
   * Drop aapt_Images_cpp_Res_png_9patch.diff: Disable assertions in Images.cpp
     using -DNDEBUG so that aapt can build APKs successfully
 
- -- Kai-Chung Yan <seamlikok@gmail.com>  Thu, 09 Jun 2016 11:59:00 +0800
+ -- Kai-Chung Yan <seamlikok@gmail.com>  Sat, 28 May 2016 14:11:46 +0800
 
 android-platform-frameworks-base (1:6.0.1+r16-1) unstable; urgency=medium
 
