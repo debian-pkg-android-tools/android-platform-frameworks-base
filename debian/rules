@@ -56,6 +56,11 @@ override_dh_auto_clean:
 override_dh_shlibdeps:
 	dh_shlibdeps -l/usr/lib/android -l/usr/lib/$(DEB_HOST_MULTIARCH)/android
 
+override_dh_install:
+	patchelf --set-rpath /usr/lib/$(DEB_HOST_MULTIARCH)/android:/usr/lib/android aapt
+	patchelf --set-rpath /usr/lib/$(DEB_HOST_MULTIARCH)/android:/usr/lib/android libaapt.so
+	dh_install
+
 get-orig-source: $(UPSTREAM_TAG).tar.gz
 	mk-origtargz --repack --compression xz $<
 

@@ -17,7 +17,8 @@ Build-Depends: android-libbase-dev (>= 1:6.0.0+r26~) [amd64 i386],
                libexpat-dev [amd64 i386],
                libpng-dev [amd64 i386],
                pandoc,
-               zlib1g-dev [amd64 i386]
+               zlib1g-dev [amd64 i386].
+               patchelf
 Standards-Version: 3.9.8
 Homepage: https://android.googlesource.com/platform/frameworks/base
 Vcs-Git: https://anonscm.debian.org/git/android-tools/android-platform-frameworks-base.git
