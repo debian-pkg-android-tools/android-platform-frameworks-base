@@ -1,6 +1,6 @@
 android-platform-frameworks-base (1:6.0.1+r43-1) UNRELEASED; urgency=medium
 
-  * New package: android-framework-res for "framework-res.apk"
+  [ Kai-Chung Yan ]
   * d/control:
     - Limit some BDs to [amd64 i386]
     - Change Maintainer to "Android Tools Maintainers"
@@ -8,6 +8,9 @@ android-platform-frameworks-base (1:6.0.1+r43-1) UNRELEASED; urgency=medium
   * Add both paths with/without DEB_HOST_MULTIARCH to RPATH
   * Drop aapt_Images_cpp_Res_png_9patch.diff: Disable assertions in Images.cpp
     using -DNDEBUG so that aapt can build APKs successfully
+
+  [ Chirayu Desai ]
+  * New package: android-framework-res for "framework-res.apk"
 
  -- Kai-Chung Yan <seamlikok@gmail.com>  Sat, 28 May 2016 14:11:46 +0800
 
