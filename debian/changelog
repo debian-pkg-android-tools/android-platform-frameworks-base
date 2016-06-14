@@ -3,6 +3,7 @@ android-platform-frameworks-base (1:6.0.1+r43-1) UNRELEASED; urgency=medium
   * Team upload.
 
   [ Kai-Chung Yan ]
+  * New upstream release
   * d/control:
     - Limit some BDs to [amd64 i386]
     - Change Maintainer to "Android Tools Maintainers"
