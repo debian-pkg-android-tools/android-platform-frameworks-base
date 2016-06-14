@@ -1,5 +1,7 @@
 android-platform-frameworks-base (1:6.0.1+r43-1) UNRELEASED; urgency=medium
 
+  * Team upload.
+
   [ Kai-Chung Yan ]
   * d/control:
     - Limit some BDs to [amd64 i386]
@@ -12,7 +14,7 @@ android-platform-frameworks-base (1:6.0.1+r43-1) UNRELEASED; urgency=medium
   [ Chirayu Desai ]
   * New package: android-framework-res for "framework-res.apk"
 
- -- Kai-Chung Yan <seamlikok@gmail.com>  Sat, 28 May 2016 14:11:46 +0800
+ -- Chirayu Desai <chirayudesai1@gmail.com>  Tue, 14 Jun 2016 21:41:34 +0530
 
 android-platform-frameworks-base (1:6.0.1+r16-1) unstable; urgency=medium
 
