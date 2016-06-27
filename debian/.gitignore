@@ -10,3 +10,4 @@ files
 split-select.1
 split-select/
 tmp/
+out/
