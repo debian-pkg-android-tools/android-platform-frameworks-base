@@ -7,7 +7,6 @@ Files-Excluded: *.jar
                 data
                 docs
                 media/tests
-                packages
                 services
                 tests
                 tools/aapt2/data
