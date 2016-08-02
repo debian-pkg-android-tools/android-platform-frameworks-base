@@ -3,11 +3,14 @@ android-platform-frameworks-base (1:6.0.1+r55-1) UNRELEASED; urgency=medium
   [ Chirayu Desai ]
   * New upstream release.
   * debian: Add watch file for usage with uscan
-  * debian/watch: recompress using xz
+  * d/watch: recompress using xz
+  * d/copyright:
+    - Exclude "core/res/res/values-mcc310-mnc380": dpkg-source cannot handle
+      symlinks to a directory
 
   [ Kai-Chung Yan ]
   * d/copyright: No longer exclude
-    - No longer exclude "*.zip": Not neccesary
+    - No longer exclude "*.zip": Not necessary
     - No longer exclude "packages": Contains codes required for building
       android.jar
     - Exclude "core/res/res/values-mcc310-mnc170": dpkg-source cannot handle

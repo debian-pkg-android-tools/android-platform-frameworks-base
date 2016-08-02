@@ -1,10 +1,11 @@
-In d/copyright, we exclude core/res/res/values-mcc310-mnc170 which is a symlink
-to another directory. In d/rules, we create this symlink before the build
-process starts. We do this because neither dpkg-source nor git-buildpackage can
-handle a symlink to a directory in an upstream source tarball. Hopefully Google
-will remove this symlink in a future release.
+In d/copyright, we exclude core/res/res/values-mcc310-mnc170 and values-mcc310-mnc380,
+which are symlinks to another directory. In d/rules, we create these symlinks
+before the build process starts. We do this because neither dpkg-source
+nor git-buildpackage can handle a symlink to a directory in an upstream
+source tarball. Hopefully Google will remove these symlinks in a future release.
 
-Therefore, check this symlink before importing an future release of this
+Therefore, check these symlinks before importing an future release of this
 package.
 
  -- Kai-Chung Yan <seamlikok@gmail.com>  Sat, 28 May 2016 14:11:46 +0800
+ -- Chirayu Desai <chirayudesai1@gmail.com>  Tue, 02 Aug 2016 19:09:27 +0530

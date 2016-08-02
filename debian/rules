@@ -35,6 +35,7 @@ override_dh_auto_build-arch: aidl aapt split-select
 
 override_dh_auto_build-indep: aapt
 	ln -s values-mcc310-mnc150 core/res/res/values-mcc310-mnc170
+	ln -s values-mcc310-mnc150 core/res/res/values-mcc310-mnc380
 	mkdir --parents debian/out/aapt
 	./aapt package -u -x -z \
 	               -M core/res/AndroidManifest.xml \
@@ -52,6 +53,7 @@ override_dh_auto_clean:
 	make clean -f debian/aidl.mk
 	make clean -f debian/split-select.mk
 	$(RM) -r debian/out
+	$(RM) core/res/res/values-mcc310-mnc170 core/res/res/values-mcc310-mnc380
 	dh_auto_clean
 
 override_dh_shlibdeps:
