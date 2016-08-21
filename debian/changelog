@@ -7,6 +7,7 @@ android-platform-frameworks-base (1:6.0.1+r55-1) UNRELEASED; urgency=medium
   * d/copyright:
     - Exclude "core/res/res/values-mcc310-mnc380": dpkg-source cannot handle
       symlinks to a directory
+  * Update Android Build-Depends to the latest version available
 
   [ Kai-Chung Yan ]
   * d/copyright: No longer exclude
@@ -16,7 +17,7 @@ android-platform-frameworks-base (1:6.0.1+r55-1) UNRELEASED; urgency=medium
     - Exclude "core/res/res/values-mcc310-mnc170": dpkg-source cannot handle
       symlinks to a directory
 
- -- Chirayu Desai <chirayudesai1@gmail.com>  Fri, 22 Jul 2016 00:35:24 +0530
+ -- Chirayu Desai <chirayudesai1@gmail.com>  Sun, 21 Aug 2016 18:38:19 +0530
 
 android-platform-frameworks-base (1:6.0.1+r43-1) unstable; urgency=medium
 
