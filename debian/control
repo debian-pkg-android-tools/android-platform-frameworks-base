@@ -19,7 +19,6 @@ Build-Depends: android-libbase-dev (>= 1:6.0.1+r55) [amd64 i386],
                libpng-dev [amd64 i386],
                pandoc,
                patchelf,
-               strip-nondeterminism,
                zlib1g-dev [amd64 i386]
 Standards-Version: 3.9.8
 Homepage: https://android.googlesource.com/platform/frameworks/base

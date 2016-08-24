@@ -45,7 +45,6 @@ override_dh_auto_build-indep: aapt
 	               --product default \
 	               --version-code 23 --version-name 6.0.1 \
 	               --skip-symbols-without-default-localization
-	strip-nondeterminism -t zip -T $(SOURCE_DATE_EPOCH) debian/out/framework-res.apk
 
 override_dh_auto_clean:
 	make clean -f debian/libandroidfw.mk
