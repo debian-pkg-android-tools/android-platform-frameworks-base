@@ -22,10 +22,6 @@
     <dimen name="thumbnail_width">360dp</dimen>
     <!-- The height that is used when creating thumbnails of applications. -->
     <dimen name="thumbnail_height">360dp</dimen>
-    <!-- The maximum number of action buttons that should be permitted within
-         an action bar/action mode. This will be used to determine how many
-         showAsAction="ifRoom" items can fit. "always" items can override this. -->
-    <integer name="max_action_buttons">5</integer>
     <!-- Default height of an action bar. -->
     <dimen name="action_bar_default_height">56dip</dimen>
     <!-- Vertical padding around action bar icons. -->
@@ -70,11 +66,8 @@
          (the screen is in landscape). This may be either a fraction or a dimension.-->
     <item type="dimen" name="dialog_fixed_height_minor">90%</item>
 
-    <!-- Height of the bottom navigation / system bar. -->
-    <dimen name="navigation_bar_height">56dp</dimen>
-    <!-- Height of the bottom navigation bar in landscape; often the same as @dimen/navigation_bar_height -->
-    <dimen name="navigation_bar_height_landscape">56dp</dimen>
-    <!-- Height of the bottom navigation bar in portrait -->
+    <!-- Height of the bottom navigation bar in portrait; on sw600dp devices
+         this is a bit taller -->
     <dimen name="navigation_bar_height_portrait">56dp</dimen>
 
     <!-- Preference fragment padding, sides -->
@@ -91,7 +84,7 @@
     <!-- Size of the generic status lines keyguard's status view  -->
     <dimen name="kg_status_line_font_size">16sp</dimen>
 
-    <!-- Top margin for the clock view --> 
+    <!-- Top margin for the clock view -->
     <dimen name="kg_clock_top_margin">0dp</dimen>
 
     <!-- Size of margin on the right of keyguard's status view -->
