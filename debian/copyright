@@ -2,15 +2,16 @@ Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0
 Upstream-Name: Android framework classes and services
 Source: https://android.googlesource.com/platform/frameworks/base
 Files-Excluded: *.jar
+                api
                 core/res/res/values-mcc310-mnc170
                 core/res/res/values-mcc310-mnc380
                 core/tests
                 data
                 docs
                 media/tests
+                packages
                 services
                 tests
-                tools/aapt2/data
                 tools/preload
 
 Files: *
