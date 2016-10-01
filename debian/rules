@@ -1,14 +1,12 @@
 #!/usr/bin/make -f
 
 include /usr/share/dpkg/architecture.mk
-include /usr/share/dpkg/pkg-info.mk
 
 # See sdk/build_tools_source.prop_template in platform/development
 export BUILD_TOOLS_VERSION = 23.0.2
 export DEB_HOST_MULTIARCH
 export DEB_CPPFLAGS_MAINT_APPEND = -DNDEBUG
 export DEB_LDFLAGS_MAINT_APPEND = -fPIC
-UPSTREAM_TAG = android-$(subst +,_,$(DEB_VERSION_UPSTREAM))
 
 aapt: libaapt.so
 	make -f debian/aapt.mk
@@ -64,8 +62,5 @@ override_dh_install:
 	patchelf --set-rpath /usr/lib/$(DEB_HOST_MULTIARCH)/android:/usr/lib/android libaapt.so
 	dh_install
 
-get-orig-source: $(UPSTREAM_TAG).tar.gz
-	mk-origtargz --repack --compression xz $<
-
-$(UPSTREAM_TAG).tar.gz:
-	wget https://android.googlesource.com/platform/frameworks/base/+archive/$(UPSTREAM_TAG).tar.gz
+get-orig-source:
+	uscan --download-current-version --force-download
