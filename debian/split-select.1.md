@@ -1,6 +1,6 @@
-% SPLIT-SELECT(1) Build-tools 23.0.1  | split-select Manual
+% SPLIT-SELECT(1) | 7.0.0_r1 (24.0.0)
 % The Android Open Source Project
-% 8 October 2015
+% 22 August 2016
 
 # NAME
 
