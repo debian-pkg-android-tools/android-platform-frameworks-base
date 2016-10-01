@@ -30,7 +30,7 @@ Files: debian/*
 Copyright: 2014, Hans-Christoph Steiner <hans@eds.org>
            2005-2012, The Android Open Source Project
            1999-2006, The Apache Software Foundation
-           2015-2016, Kai-Chung Yan <seamlikok@gmail.com>
+           2015-2016, Kai-Chung Yan (殷啟聰)
 License: Apache-2.0
 
 Files: libs/hwui/utils/LinearAllocator.*
