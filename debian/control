@@ -11,10 +11,8 @@ Build-Depends: android-libbase-dev (>= 1:6.0.1+r55) [amd64 i386],
                android-libziparchive-dev (>= 1:6.0.1+r55) [amd64 i386],
                android-platform-build-headers (>= 1:6.0.1+r16-4) [amd64 i386],
                android-platform-frameworks-native-headers (>= 1:6.0.1+r16) [amd64 i386],
-               bison [amd64 i386],
                debhelper (>= 10),
                dh-exec,
-               flex [amd64 i386],
                libexpat-dev [amd64 i386],
                libpng-dev [amd64 i386],
                pandoc,
@@ -75,15 +73,6 @@ Description: Android Asset Packaging Tool - Shared library
  compile resources into binary assets.
  .
  This package contains the shared library.
-
-Package: aidl
-Architecture: amd64 i386
-Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: Android Interface Definition Language processor
- AIDL (Android Interface Definition Language) is similar to other IDLs you might
- have worked with. It allows you to define the programming interface that both
- the client and service agree upon in order to communicate with each other using
- interprocess communication (IPC).
 
 Package: split-select
 Architecture: amd64 i386
