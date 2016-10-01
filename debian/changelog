@@ -1,3 +1,9 @@
+android-platform-frameworks-base (1:7.0.0+r1-1) UNRELEASED; urgency=medium
+
+  * New upstream release
+
+ -- Kai-Chung Yan <seamlikok@gmail.com>  Sat, 01 Oct 2016 18:46:13 +0800
+
 android-platform-frameworks-base (1:6.0.1+r55-1) unstable; urgency=medium
 
   [ Chirayu Desai ]
