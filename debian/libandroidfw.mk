@@ -2,6 +2,7 @@ NAME = libandroidfw
 SOURCES = Asset.cpp \
           AssetDir.cpp \
           AssetManager.cpp \
+          LocaleData.cpp \
           misc.cpp \
           ObbFile.cpp \
           ResourceTypes.cpp \
@@ -10,17 +11,18 @@ SOURCES = Asset.cpp \
           ZipFileRO.cpp \
           ZipUtils.cpp
 SOURCES := $(foreach source, $(SOURCES), libs/androidfw/$(source))
-CXXFLAGS += -std=gnu++11 -DSTATIC_ANDROIDFW_FOR_TOOLS
-CPPFLAGS += -include android/arch/AndroidConfig.h -Iinclude -I/usr/include/android
+CXXFLAGS += -DSTATIC_ANDROIDFW_FOR_TOOLS
+CPPFLAGS += -Iinclude
 LDFLAGS += -shared -Wl,-soname,$(NAME).so.0 \
-           -Wl,-rpath=/usr/lib/$(DEB_HOST_MULTIARCH)/android:/usr/lib/android \
+           -Wl,-rpath=/usr/lib/$(DEB_HOST_MULTIARCH)/android \
            -lz \
-           -L/usr/lib/android -L/usr/lib/$(DEB_HOST_MULTIARCH)/android \
+           -L/usr/lib/$(DEB_HOST_MULTIARCH)/android \
            -lziparchive -lutils -lcutils -llog
 
 build: $(SOURCES)
-	$(CXX) $^ -o $(NAME).so.0 $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS)
-	ln -s $(NAME).so.0 $(NAME).so
+	mkdir --parents debian/out
+	$(CXX) $^ -o debian/out/$(NAME).so.0 $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS)
+	ln -s $(NAME).so.0 debian/out/$(NAME).so
 
 clean:
-	$(RM) $(NAME).so*
+	$(RM) debian/out/$(NAME).so*

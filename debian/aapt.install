@@ -1,3 +1,4 @@
 #!/usr/bin/dh-exec
 
-aapt   usr/lib/android-sdk/build-tools/${ANDROID_BUILD_TOOLS_VERSION}
+debian/out/aapt   usr/lib/android-sdk/build-tools/${ANDROID_BUILD_TOOLS_VERSION}
+debian/out/aapt2  usr/lib/android-sdk/build-tools/${ANDROID_BUILD_TOOLS_VERSION}

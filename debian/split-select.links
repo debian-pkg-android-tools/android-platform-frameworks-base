@@ -1,3 +1,3 @@
 #!/usr/bin/dh-exec
 
-usr/lib/android-sdk/build-tools/${BUILD_TOOLS_VERSION}/split-select   usr/bin/split-select
+usr/lib/android-sdk/build-tools/${ANDROID_BUILD_TOOLS_VERSION}/split-select   usr/bin/split-select

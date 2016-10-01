@@ -1,17 +1,16 @@
 NAME = aapt
 SOURCES = Main.cpp
 SOURCES := $(foreach source, $(SOURCES), tools/aapt/$(source))
-CXXFLAGS += -std=gnu++11
 CPPFLAGS += -DSTATIC_ANDROIDFW_FOR_TOOLS \
-            -DAAPT_VERSION=\"$(BUILD_TOOLS_VERSION)\" \
-            -include android/arch/AndroidConfig.h \
-            -I/usr/include/android -Iinclude
-LDFLAGS += -Wl,-rpath=.:/usr/lib/$(DEB_HOST_MULTIARCH)/android:/usr/lib/android \
-           -Wl,-rpath-link=. -L. -laapt \
-           -L/usr/lib/android -L/usr/lib/$(DEB_HOST_MULTIARCH)/android -lutils
+            -DAAPT_VERSION=\"$(ANDROID_BUILD_TOOLS_VERSION)\" \
+            -Iinclude
+LDFLAGS += -Wl,-rpath=debian/out:/usr/lib/$(DEB_HOST_MULTIARCH)/android \
+           -Wl,-rpath-link=debian/out -Ldebian/out -laapt \
+           -L/usr/lib/$(DEB_HOST_MULTIARCH)/android -lutils
 
 build: $(SOURCES)
-	$(CXX) $^ -o $(NAME) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS)
+	mkdir --parents debian/out
+	$(CXX) $^ -o debian/out/$(NAME) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS)
 
 clean:
-	$(RM) $(NAME)
+	$(RM) debian/out/$(NAME)

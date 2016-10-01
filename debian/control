@@ -5,18 +5,20 @@ Maintainer: Android Tools Maintainers <android-tools-devel@lists.alioth.debian.o
 Uploaders: Hans-Christoph Steiner <hans@eds.org>,
            Kai-Chung Yan <seamlikok@gmail.com>,
            Chirayu Desai <chirayudesai1@gmail.com>
-Build-Depends: android-libbase-dev (>= 1:6.0.1+r55) [amd64 i386],
-               android-liblog-dev (>= 1:6.0.1+r55) [amd64 i386],
-               android-libutils-dev (>= 1:6.0.1+r55) [amd64 i386],
-               android-libziparchive-dev (>= 1:6.0.1+r55) [amd64 i386],
-               android-platform-build-headers (>= 1:6.0.1+r16-4) [amd64 i386],
-               android-platform-frameworks-native-headers (>= 1:6.0.1+r16) [amd64 i386],
+Build-Depends: android-libcutils-dev (>= 1:7.0.0+r1) [amd64 i386],
+               android-libbase-dev (>= 1:7.0.0+r1) [amd64 i386],
+               android-liblog-dev (>= 1:7.0.0+r1) [amd64 i386],
+               android-libutils-dev (>= 1:7.0.0+r1) [amd64 i386],
+               android-libziparchive-dev (>= 1:7.0.0+r1) [amd64 i386],
+               android-platform-frameworks-native-headers (>= 1:7.0.0+r1) [amd64 i386],
                debhelper (>= 10),
                dh-exec,
                libexpat-dev [amd64 i386],
                libpng-dev [amd64 i386],
-               pandoc,
-               patchelf,
+               libprotobuf-dev [amd64 i386],
+               pandoc [amd64 i386],
+               patchelf [amd64 i386],
+               protobuf-compiler [amd64 i386],
                zlib1g-dev [amd64 i386]
 Standards-Version: 3.9.8
 Homepage: https://android.googlesource.com/platform/frameworks/base
@@ -37,8 +39,8 @@ Package: android-libandroidfw-dev
 Section: libdevel
 Architecture: amd64 i386
 Depends: android-libandroidfw (= ${binary:Version}),
-         android-libutils-dev (>= ${source:Upstream-Version}),
-         android-platform-frameworks-native-headers (>= 6.0.1+r55~),
+         android-libutils-dev (>= 1:7.0.0+r1),
+         android-platform-frameworks-native-headers (>= 7.0.0+r1),
          ${misc:Depends},
 Breaks: android-libandroidfw (<< 21-2~)
 Replaces: android-libandroidfw (<< 21-2~)

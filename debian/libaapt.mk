@@ -21,21 +21,20 @@ SOURCES = AaptAssets.cpp \
           ZipEntry.cpp \
           ZipFile.cpp
 SOURCES := $(foreach source, $(SOURCES), tools/aapt/$(source))
-CXXFLAGS += -std=gnu++11
 CPPFLAGS += -DSTATIC_ANDROIDFW_FOR_TOOLS \
-            -DAAPT_VERSION=\"$(BUILD_TOOLS_VERSION)\" \
-            -include android/arch/AndroidConfig.h \
-            -I/usr/include/android -Iinclude
+            -DAAPT_VERSION=\"$(ANDROID_BUILD_TOOLS_VERSION)\" \
+            -Iinclude
 LDFLAGS += -shared -Wl,-soname,$(NAME).so.0 \
-           -Wl,-rpath=.:/usr/lib/$(DEB_HOST_MULTIARCH)/android:/usr/lib/android \
+           -Wl,-rpath=.:/usr/lib/$(DEB_HOST_MULTIARCH)/android \
            -lpng -lexpat -lz \
-           -L. -landroidfw \
-           -L/usr/lib/android -L/usr/lib/$(DEB_HOST_MULTIARCH)/android \
+           -Ldebian/out -landroidfw \
+           -L/usr/lib/$(DEB_HOST_MULTIARCH)/android \
            -llog -lutils
 
 build: $(SOURCES)
-	$(CXX) $^ -o $(NAME).so.0 $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS)
-	ln -s $(NAME).so.0 $(NAME).so
+	mkdir --parents debian/out
+	$(CXX) $^ -o debian/out/$(NAME).so.0 $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS)
+	ln -s $(NAME).so.0 debian/out/$(NAME).so
 
 clean:
-	$(RM) $(NAME).so*
+	$(RM) debian/out/$(NAME).so*

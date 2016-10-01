@@ -5,61 +5,52 @@ include /usr/share/dpkg/architecture.mk
 # See sdk/build_tools_source.prop_template in platform/development
 export ANDROID_BUILD_TOOLS_VERSION = 24.0.0
 export DEB_HOST_MULTIARCH
-export DEB_CPPFLAGS_MAINT_APPEND = -DNDEBUG
+export DEB_CPPFLAGS_MAINT_APPEND = -DNDEBUG -I/usr/include/android
 export DEB_LDFLAGS_MAINT_APPEND = -fPIC
 
-aapt: libaapt.so
+debian/out/aapt: debian/out/libaapt.so
 	make -f debian/aapt.mk
 
-aidl:
-	make -f debian/aidl.mk
+debian/out/aapt2:
+	make -f debian/aapt2.mk
 
-libaapt.so: libandroidfw.so
+debian/out/libaapt.so: debian/out/libandroidfw.so
 	make -f debian/libaapt.mk
 
-libandroidfw.so:
+debian/out/libandroidfw.so:
 	make -f debian/libandroidfw.mk
 
-split-select:
+debian/out/split-select:
 	make -f debian/split-select.mk
 
 %:
 	dh $@
 
-override_dh_auto_build-arch: aidl aapt split-select
+override_dh_auto_build-arch: debian/out/aapt debian/out/aapt2 debian/out/split-select
 	mkdir --parent debian/out
-	pandoc -s -o debian/out/aidl.1 debian/aidl.1.md
 	pandoc -s -o debian/out/split-select.1 debian/split-select.1.md
 
-override_dh_auto_build-indep: aapt
+override_dh_auto_build-indep: debian/out/aapt
 	ln -s values-mcc310-mnc150 core/res/res/values-mcc310-mnc170
 	ln -s values-mcc310-mnc150 core/res/res/values-mcc310-mnc380
-	mkdir --parents debian/out/aapt
-	./aapt package -u -x -z \
+	mkdir --parents debian/out
+	debian/out/aapt package -u -x -z \
 	               -M core/res/AndroidManifest.xml \
 	               -S core/res/res -A core/res/assets \
 	               -F debian/out/framework-res.apk \
-	               --min-sdk-version 23 --target-sdk-version 23 \
+	               --min-sdk-version 24 --target-sdk-version 24 \
 	               --product default \
-	               --version-code 23 --version-name 6.0.1 \
+	               --version-code 24 --version-name 7.0.0 \
 	               --skip-symbols-without-default-localization
 
 override_dh_auto_clean:
-	make clean -f debian/libandroidfw.mk
-	make clean -f debian/libaapt.mk
-	make clean -f debian/aapt.mk
-	make clean -f debian/aidl.mk
-	make clean -f debian/split-select.mk
 	$(RM) -r debian/out
 	$(RM) core/res/res/values-mcc310-mnc170 core/res/res/values-mcc310-mnc380
 	dh_auto_clean
 
-override_dh_shlibdeps:
-	dh_shlibdeps -l/usr/lib/android -l/usr/lib/$(DEB_HOST_MULTIARCH)/android
-
 override_dh_install:
-	patchelf --set-rpath /usr/lib/$(DEB_HOST_MULTIARCH)/android:/usr/lib/android aapt
-	patchelf --set-rpath /usr/lib/$(DEB_HOST_MULTIARCH)/android:/usr/lib/android libaapt.so
+	patchelf --set-rpath /usr/lib/$(DEB_HOST_MULTIARCH)/android debian/out/aapt
+	patchelf --set-rpath /usr/lib/$(DEB_HOST_MULTIARCH)/android debian/out/libaapt.so
 	dh_install
 
 get-orig-source:
