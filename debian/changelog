@@ -1,8 +1,19 @@
 android-platform-frameworks-base (1:7.0.0+r1-1) UNRELEASED; urgency=medium
 
+  [ Kai-Chung Yan ]
   * New upstream release
+  * Build aapt2
+  * Enable builds for ARM & MIPS
+  * Remove package: aidl (moved to src:android-platform-system-tools-aidl)
+  * Set the dynamic BUILD_TOOLS_VERSION to "debian"
+  * Update to debhelper 10
+  * Drop fix_expat_header_path.patch: Fixed in upstream
 
- -- Kai-Chung Yan <seamlikok@gmail.com>  Sat, 01 Oct 2016 18:46:13 +0800
+  [ Chirayu Desai ]
+  * No longer manually invoke strip-nondeterminism
+    (See: <https://tracker.debian.org/news/792561>)
+
+ -- Kai-Chung Yan <seamlikok@gmail.com>  Wed, 05 Oct 2016 17:11:25 +0800
 
 android-platform-frameworks-base (1:6.0.1+r55-1) unstable; urgency=medium
 
