@@ -1,3 +1,1 @@
-#!/usr/bin/dh-exec
-
-debian/out/split-select   usr/lib/android-sdk/build-tools/${ANDROID_BUILD_TOOLS_VERSION}
+debian/out/split-select   usr/lib/android-sdk/build-tools/debian
