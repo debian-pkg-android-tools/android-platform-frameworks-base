@@ -5,21 +5,21 @@ Maintainer: Android Tools Maintainers <android-tools-devel@lists.alioth.debian.o
 Uploaders: Hans-Christoph Steiner <hans@eds.org>,
            Kai-Chung Yan <seamlikok@gmail.com>,
            Chirayu Desai <chirayudesai1@gmail.com>
-Build-Depends: android-libcutils-dev (>= 1:7.0.0+r1) [amd64 i386],
-               android-libbase-dev (>= 1:7.0.0+r1) [amd64 i386],
-               android-liblog-dev (>= 1:7.0.0+r1) [amd64 i386],
-               android-libutils-dev (>= 1:7.0.0+r1) [amd64 i386],
-               android-libziparchive-dev (>= 1:7.0.0+r1) [amd64 i386],
-               android-platform-frameworks-native-headers (>= 1:7.0.0+r1) [amd64 i386],
+Build-Depends: android-libcutils-dev (>= 1:7.0.0+r1),
+               android-libbase-dev (>= 1:7.0.0+r1),
+               android-liblog-dev (>= 1:7.0.0+r1),
+               android-libutils-dev (>= 1:7.0.0+r1),
+               android-libziparchive-dev (>= 1:7.0.0+r1),
+               android-platform-frameworks-native-headers (>= 1:7.0.0+r1),
                debhelper (>= 10),
                dh-exec,
-               libexpat-dev [amd64 i386],
-               libpng-dev [amd64 i386],
-               libprotobuf-dev [amd64 i386],
-               pandoc [amd64 i386],
-               patchelf [amd64 i386],
-               protobuf-compiler [amd64 i386],
-               zlib1g-dev [amd64 i386]
+               libexpat-dev,
+               libpng-dev,
+               libprotobuf-dev,
+               pandoc,
+               patchelf,
+               protobuf-compiler,
+               zlib1g-dev
 Standards-Version: 3.9.8
 Homepage: https://android.googlesource.com/platform/frameworks/base
 Vcs-Git: https://anonscm.debian.org/git/android-tools/android-platform-frameworks-base.git
@@ -27,7 +27,7 @@ Vcs-Browser: https://anonscm.debian.org/cgit/android-tools/android-platform-fram
 
 Package: android-libandroidfw
 Section: libs
-Architecture: amd64 i386
+Architecture: amd64 i386 armel armhf arm64 mips mipsel mips64el
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Android utility library
  Library providing utility functions to Android related tools. This is needed
@@ -37,7 +37,7 @@ Description: Android utility library
 
 Package: android-libandroidfw-dev
 Section: libdevel
-Architecture: amd64 i386
+Architecture: amd64 i386 armel armhf arm64 mips mipsel mips64el
 Depends: android-libandroidfw (= ${binary:Version}),
          android-libutils-dev (>= 1:7.0.0+r1),
          android-platform-frameworks-native-headers (>= 7.0.0+r1),
@@ -53,7 +53,7 @@ Description: Android utility library - Development files
  This package contains the development files.
 
 Package: aapt
-Architecture: amd64 i386
+Architecture: amd64 i386 armel armhf arm64 mips mipsel mips64el
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Android Asset Packaging Tool
  The Android Asset Packaging Tool (aapt) takes your application resource
@@ -64,7 +64,7 @@ Description: Android Asset Packaging Tool
  compile resources into binary assets.
 
 Package: android-libaapt
-Architecture: amd64 i386
+Architecture: amd64 i386 armel armhf arm64 mips mipsel mips64el
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Android Asset Packaging Tool - Shared library
  The Android Asset Packaging Tool (aapt) takes your application resource
@@ -77,7 +77,7 @@ Description: Android Asset Packaging Tool - Shared library
  This package contains the shared library.
 
 Package: split-select
-Architecture: amd64 i386
+Architecture: amd64 i386 armel armhf arm64 mips mipsel mips64el
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: APK split and selection tool
  Generates the logic for selecting a Split APK given some target Android device
