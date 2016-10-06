@@ -47,8 +47,8 @@ override_dh_auto_clean:
 	dh_auto_clean
 
 override_dh_install:
-	patchelf --set-rpath /usr/lib/$(DEB_HOST_MULTIARCH)/android debian/out/aapt
-	patchelf --set-rpath /usr/lib/$(DEB_HOST_MULTIARCH)/android debian/out/libaapt.so
+	chrpath --replace /usr/lib/$(DEB_HOST_MULTIARCH)/android debian/out/aapt
+	chrpath --replace /usr/lib/$(DEB_HOST_MULTIARCH)/android debian/out/libaapt.so
 	dh_install
 
 get-orig-source:
