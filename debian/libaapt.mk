@@ -25,7 +25,7 @@ CPPFLAGS += -DSTATIC_ANDROIDFW_FOR_TOOLS \
             -DAAPT_VERSION=\"$(ANDROID_BUILD_TOOLS_VERSION)\" \
             -Iinclude
 LDFLAGS += -shared -Wl,-soname,$(NAME).so.0 \
-           -Wl,-rpath=.:/usr/lib/$(DEB_HOST_MULTIARCH)/android \
+           -Wl,-rpath=debian/out:/usr/lib/$(DEB_HOST_MULTIARCH)/android \
            -lpng -lexpat -lz \
            -Ldebian/out -landroidfw \
            -L/usr/lib/$(DEB_HOST_MULTIARCH)/android \
