@@ -2,6 +2,8 @@
 
 include /usr/share/dpkg/architecture.mk
 
+# See https://android.googlesource.com/platform/development/+/master/sdk/build_tools_source.prop_template
+export ANDROID_BUILD_TOOLS_VERSION = 24.0.0
 export DEB_HOST_MULTIARCH
 export DEB_CPPFLAGS_MAINT_APPEND = -DNDEBUG -I/usr/include/android
 export DEB_LDFLAGS_MAINT_APPEND = -fPIC
