@@ -24,7 +24,7 @@ debian/out/split-select:
 	make -f debian/split-select.mk
 
 %:
-	dh $@
+	dh $@ --with bash-completion
 
 override_dh_auto_build-arch: debian/out/aapt debian/out/aapt2 debian/out/split-select
 	mkdir --parent debian/out
