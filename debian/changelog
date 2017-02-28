@@ -1,3 +1,9 @@
+android-platform-frameworks-base (1:7.0.0+r1-3) unstable; urgency=medium
+
+  * include bash-completion for aapt (Closes: #856420)
+
+ -- Hans-Christoph Steiner <hans@eds.org>  Tue, 28 Feb 2017 22:07:56 +0100
+
 android-platform-frameworks-base (1:7.0.0+r1-2) unstable; urgency=medium
 
   * Upload to unstable
