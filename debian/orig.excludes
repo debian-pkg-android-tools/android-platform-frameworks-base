@@ -1,0 +1,12 @@
+*.jar
+api
+core/res/res/values-mcc310-mnc170
+core/res/res/values-mcc310-mnc380
+core/tests
+data
+docs
+media/tests
+packages
+services
+tests
+tools/preload

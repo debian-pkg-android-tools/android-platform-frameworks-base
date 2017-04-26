@@ -1,6 +1,7 @@
 #!/usr/bin/make -f
 
 include /usr/share/dpkg/architecture.mk
+include /usr/share/dpkg/pkg-info.mk
 
 # See https://android.googlesource.com/platform/development/+/master/sdk/build_tools_source.prop_template
 export ANDROID_BUILD_TOOLS_VERSION = 24.0.0
@@ -53,5 +54,11 @@ override_dh_install:
 	chrpath --replace /usr/lib/$(DEB_HOST_MULTIARCH)/android debian/out/libaapt.so
 	dh_install
 
-get-orig-source:
-	uscan --download-current-version --force-download
+get-orig-source: $(subst android-platform-,,$(DEB_SOURCE)).tar.gz
+	mkdir -p $(DEB_SOURCE)_$(DEB_VERSION_UPSTREAM)
+	tar -f $< -x --gzip --directory $(DEB_SOURCE)_$(DEB_VERSION_UPSTREAM)
+	(cd $(DEB_SOURCE)_$(DEB_VERSION_UPSTREAM); tar --create --xz -f ../../$(DEB_SOURCE)_$(DEB_VERSION_UPSTREAM).orig.tar.xz --exclude-from ../debian/orig.excludes --mtime=20121221 *)
+	$(RM) -r $(DEB_SOURCE)_$(DEB_VERSION_UPSTREAM)
+
+$(subst android-platform-,,$(DEB_SOURCE)).tar.gz:
+	wget https://android.googlesource.com/platform/$(subst -,/,$(subst android-platform-,,$(DEB_SOURCE)))/+archive/android-$(subst +,_,$(DEB_VERSION_UPSTREAM)).tar.gz -O $@
